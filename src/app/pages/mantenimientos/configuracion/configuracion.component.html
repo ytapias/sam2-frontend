@@ -1,0 +1,321 @@
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+           <!-- Botón para minimizar/expander -->
+           <div class="ml-auto">
+            <div class="busqueda-titulo">
+                <strong>B U S Q U E D A &nbsp;&nbsp;&nbsp;</strong> 
+                <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
+                    {{ seccionMinimizada ? '+' : '-' }}
+                  </button>  
+            </div>
+            <!-- Botón para minimizar/expander -->
+            
+          </div>
+            <div [ngClass]="{'minimizado': seccionMinimizada}" >
+                <div class="card-body ">
+
+               
+
+          
+                    TIPO
+                    
+                <!--
+                    (change)="cambiarTipo()"
+                    [class.selected]="tptipo === selectedHero"
+                    (click)="onSelect(dato)"
+                    <option value="">Todos</option>
+                -->
+                    <div class="col-6">
+                    <select class="form-control w140" name="TipoSEL"
+                    [(ngModel)]="opcionSeleccionada"
+                    (ngModelChange)="cambiarTipo($event)">
+                    <option value="0">Todos</option>
+                        <option value="{{dato.id}}" *ngFor="let dato of Tipo">
+                            {{dato.nombre}}
+                        </option>
+                    </select>
+                    </div>
+                    
+                    BUSCAR
+                   
+                    <div class="row">
+                      
+                        <div class="col-6">
+                           &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
+                            class ="form-control"
+                            placeholder="Buscar Tipos Detalle"
+                            (keyup)="buscar(txttermino.value)"
+                            #txttermino
+                            />        
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <div  >
+                                <button class="btn btn-primary" (click)="descargarCSV()"> CSV</button>
+                                <button class="btn btn-success" (click)="exportarAExcel()"> Excel</button>
+                                <button class="btn btn-primary" (click)="exportarAExcelTodo()"> Excel All</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    </div>
+</div> 
+
+<div class="row animated fadein fast"  *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando ... </h4>
+            <i class="fa fa-spin fa-refresh fa-2x"> </i>
+
+            <p class="mb-0"> Por favor espere</p>
+        </div>
+
+
+        
+
+    </div>
+</div> 
+<div class="row  animated fadein fast"  *ngIf="!cargando">
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Total Tipos ({{ totalTipos }})</h4>
+            <div class="row">
+
+                <div class="col-6">
+                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina {{paginaActual}} de {{paginasTotales}} </h6>
+
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div  >
+                        <button class="btn btn-warning" (click)="abrirCrear()"> + </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table  full-color-table full-muted-table hover-table">
+                    <thead>
+                        <tr>
+                          <!--
+                            <th class="w100">idTipo</th>
+                          -->  
+                            <th>Tipo</th>
+                            <th class="w100">Codigo</th>
+                            <th>Nombre</th>
+                            <th>Otro</th>
+                            <th  class="w100">Estado</th>
+                            <th>id</th>
+                            <th  ></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let tiposdetalleF of TiposDetalle">
+                           <!-- <td>
+                                <span *ngFor="let skill of [tiposdetalleF.tipo]">
+                                    {{skill?._id}}  
+                                  </span>
+                            </td>-->
+                            <td>
+                                {{ tiposdetalleF.tipo }} 
+                            </td>
+                            <td>{{ tiposdetalleF.codigo }}</td>
+                            <td>{{ tiposdetalleF.nombre }}</td>
+                            <td>{{ tiposdetalleF.otro }}</td>
+                            <td>{{ tiposdetalleF.estado }}</td>
+                            <td>{{ tiposdetalleF.id }}</td>
+                            <td >
+                                <!--
+                                -->
+                             
+                                     <a (click)="abrirModificar(tiposdetalleF)"
+                                     class="cursor"
+                                      data-toggle="tooltip" data-original-title="Editar"> 
+                                     <i class="fas fa-edit text-inverse m-r-10">
+                                     </i> </a>
+
+                                <a (click)="eliminarTiposdetalle(tiposdetalleF)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="Borrar"> 
+                                <i class="fa fa-close text-danger">
+                                </i> 
+                            </a>
+                             </td>
+                        </tr>
+                     
+                    </tbody>
+                </table>
+
+                
+                    <div>
+                        <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
+                        &nbsp;
+                        VER :
+                       <!-- <input type="text" [(ngModel)]="limite" 
+                        placeholder="Limite"
+                        max="200"
+                        style="width: 40px;" 
+                            />
+                    -->        
+                            <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                              </select>
+
+                    </div>
+                
+    
+            </div>
+            <div>
+                LOG:{{ Logs }}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!---------------
+        MODAL
+-->
+
+
+
+<div class="fondo_modal animated fadeIn fast"
+        [class.oculto]="ocultarModal" >
+
+        <div class="modal-dialog  modal-lg  modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModal()">×</button>
+                </div>
+               
+                <div class="modal-body">
+                    <div class="card-body">
+                    
+                        <div class="form-body" > 
+                            <h3 class="card-title">{{SubTitulo}}</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Tipo</label>
+                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada2"
+                                        (ngModelChange)="cambiarTipo2($event)">
+                                            <option value="{{dato.id}}" *ngFor="let dato of Tipo">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                        <small class="form-control-feedback"> Seleccione Tipo </small> </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!--     
+                                            <label class="control-label">Date of Birth</label>
+                                            <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+
+                                        -->
+                                        
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Codigo</label>
+                                        <input type="text" id="firstName" class="form-control" placeholder="codigo"  [(ngModel)]="camposEditar.codigo">
+                                        <small class="form-control-feedback"> Digite codigo </small> </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Nombre</label>
+                                        <input type="text" id="lastName" class="form-control form-control-danger" placeholder="nombre" [(ngModel)]="camposEditar.nombre">
+                                        <small class="form-control-feedback"> Digite nombre </small> </div>
+                                </div>
+                                <!--/span    has-danger al lado de class="form-group "  -->
+                            </div>
+                            <!--/row-->
+                           
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Estado</label>
+                                        <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1"  [(ngModel)]="camposEditar.idestado">
+                                            <option value="1">Activo</option>
+                                            <option value="0">inactivo</option>
+                                            <option value="2">Anulado</option>
+                                         </select>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!--
+                                        <label class="control-label">Membership</label>
+                                        <div class="form-check">
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio1" name="radio" type="radio" checked="" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Free</span>
+                                            </label>
+                                            <label class="custom-control custom-radio">
+                                                <input id="radio2" name="radio" type="radio" class="custom-control-input">
+                                                <span class="custom-control-indicator"></span>
+                                                <span class="custom-control-description">Paid</span>
+                                            </label>
+                                        </div>
+
+                                        -->
+                                        
+                                        
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            
+                           <!--
+                            <h3 class="box-title m-t-40">Address</h3>
+                            <hr>
+                             <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <label>Street</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        -->
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn btn-default waves-effect" 
+                                data-dismiss="modal"
+                                (click)="cerrarModal()"
+                            >Cerrar</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
+                        </div>
+
+                    </div>
+                </div>
+                     
+            </div>
+        </div>
+     
+
+</div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

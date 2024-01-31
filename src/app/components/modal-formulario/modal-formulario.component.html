@@ -1,0 +1,187 @@
+
+<!--
+--------------------------------------------
+-------- MODAL
+--------------------------------------------
+-->
+
+<div class="fondo_modal animated fadeIn fast"
+        [class.oculto]="ocultarModal" >
+
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModal()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                       <!--
+                            <h4 class="card-title">Editar Paises</h4>
+                       --> 
+                        <h6 class="card-subtitle">{{SubTitulo}}</h6>
+                    <form class="form p-t-20" [formGroup]="Formulario">
+                        <div *ngFor="let campo of campos">
+                            <!--  
+                                Hidden 
+                            -->
+                            
+                            <div *ngIf="campo.tipo==='hidden'">
+                                <input  class="form-control"   [placeholder]="campo.placeholder"  
+                                [type]="campo.tipo" [id]="campo.nombreControl" [formControlName]="campo.nombreControl"
+                                hiddent
+                               >
+                            
+                            </div>
+                            <!--  
+                                INPUT - EMAIL
+                            -->
+                            
+                            <div *ngIf="campo.tipo==='text' || campo.tipo==='email'">
+                      
+                                <div class="form-group">
+                                    <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
+                                    <div class="input-group">
+                                        
+                                        <input  class="form-control"   [placeholder]="campo.placeholder"  
+                                         [type]="campo.tipo" [id]="campo.nombreControl" [formControlName]="campo.nombreControl"
+                                        >
+
+                                        <div class="input-group-addon"><i [class]="campo.icon"></i></div>
+                                    </div>
+                                </div>                                
+                            </div>
+                            <!--  
+                                TEXT - MULTILINEA
+                            -->
+                            <div *ngIf="campo.tipo==='multilinea'">
+                      
+                                <div class="form-group">
+                                    <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
+                                    <div class="input-group">
+                                        
+                                        <textarea   class="form-control"   [placeholder]="campo.placeholder"   
+                                        [id]="campo.nombreControl" [formControlName]="campo.nombreControl" rows="3" [value]="campo.dato"
+                                      ></textarea>
+                                        
+                                    </div>
+                                </div>                                
+                            </div>
+
+                            <!--  
+                                SELECT 
+                            -->
+
+                            <div *ngIf="campo.tipo==='select'">
+                              
+                                
+                                <div class="form-group">
+                                    <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
+                                    <div class="input-group">
+                                        
+                                        <select id="campo.nombreControl"  name="campo.nombreControl" class="form-control custom-select"  [formControlName]="campo.nombreControl"
+                                                >
+                                            <option [value]="dato.id" *ngFor="let dato of campo.dato" > <!-- [selected]="dato.id===paisyciudad.espais"-->
+                                               {{dato.nombre}}
+                                           </option>
+                                          </select>
+   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--  
+                                radio 
+                                 
+                            [(ngModel)]="selectedOption"      
+                            -->                      
+                            <div *ngIf="campo.tipo==='radio'">
+                                <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
+                                
+                                <div *ngFor="let option of campo.dato">
+                                    <input type="radio"  id="campo.nombreControl" name="campo.nombreControl" [value]="option.value">
+                                   
+                                    {{ option.label }}
+                                  </div>
+
+                              
+                            </div>
+                        
+                            <!--  
+                                fecha 
+                            -->
+                            <div *ngIf="campo.tipo==='date'">
+                                <label class="control-label text-right">{{ campo.etiqueta }}:</label>
+                                <div >
+                                    <input id="campo.nombreControl"  type="date" class="form-control" placeholder="dd/mm/yyyy" [value]="campo.dato">
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+                  
+                 <!--
+                    <form *ngIf="signupForm" [formGroup]="signupForm" class="form-example"  >
+                        <div *ngFor="let item of items " class="form-group"  >
+                            <div *ngIf="{{item.type}}">
+
+                            </div>
+                          <label for="{{item.name}}">{{item.data}}</label>
+                          better" use binding [ ] instead of interpolation {{ }} 
+                          <input
+                      
+                            [type]="item.type"
+                            [class]="'form-control '+item.name"
+                            [id]="item.name"
+                            [placeholder]="item.data+'...'"
+                            [formControlName]="item.name"
+                          />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-customized mt-4">
+                          Sign Up
+                        </button>
+                    </form>               
+                    
+                -->
+                    <!--
+
+
+                                     <div *ngFor="let campo of campos">
+                                <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
+                                <input [type]="campo.tipo" [id]="campo.nombreControl" [formControlName]="campo.nombreControl">
+                            </div>
+
+                            <button type="submit" [disabled]="formulario.invalid">Enviar</button>
+                            
+                    >
+                    -<form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="control-label">Recipient:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="control-label">Message:</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                    </form>
+                    -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" 
+                        class="btn btn-default waves-effect" 
+                        data-dismiss="modal"
+                        (click)="cerrarModal()"
+                    >Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
+                </div>
+            </div>
+        </div>
+     
+
+</div>

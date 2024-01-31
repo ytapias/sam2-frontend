@@ -1,0 +1,487 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Busquedas</h4>
+                
+                            
+                    <div class="row">
+                        <div class="col-md-6">   
+                            <div id="example23_filter"  >
+                                                            <label>Expediente:
+                                                            <input type="text" 
+                                                            class ="form-control"
+                                                            placeholder="Buscar x Expediente / Marca"
+                                                            
+                                                            #txttermino
+                                                            />         
+                                                            </label>
+                                        <!--
+                                            (keyup)="buscar(txttermino.value)"
+                                            (click)="abrirCrear()"
+                                                            <label>Search:<input type="search" class="" placeholder="" aria-controls="example23"></label>
+                                            -->
+                            </div>
+                            <button class="btn btn-primary "  (click)="buscar(txttermino.value)" >
+                                <i class="fa fa-city"></i>
+                                Buscar Expediente
+                            </button>
+                        </div>
+                       <!--
+                         <div class="col-md-6">   
+                            <div id="example23_filter"  class="col-6">
+                                <label>Marca:
+                                <input type="text" 
+                                class ="form-control"
+                                placeholder="Buscar Marca"
+                                
+                                #txttermino2
+                                />         
+                                </label>
+                                <button class="btn btn-success"  (click)="buscarMarca(txttermino.value,txttermino2.value)" >
+                                    <i class="fa fa-city"></i>
+                                    Buscar Marca
+                                </button>
+                            </div>
+                        </div>
+
+                    -->
+                       
+
+                    </div>
+        
+                    </div>
+                        
+                </div>      
+                        
+            </div>
+           
+           
+            <div class="row">
+              
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="m-t-30">
+                                    <h4 class="card-title m-t-16 center"> 
+                                    
+
+                                        <b> {{MArca.marca}}  </b> 
+                    
+                                    </h4>
+                                    <h4 >Expediente : <b> {{expediente2.expediente}}</b></h4>
+                                  
+                                    <h6 >Pais : <b> {{expediente2.pais}} </b></h6>
+
+                                    <small class="text-muted">Tipo Proceso</small> <h6> <b> {{expediente2.tipoproceso}}  </b></h6> 
+                                    <small class="text-muted">Marca</small> <h6> <b>{{expediente2.marca}}  </b></h6> 
+                                    <small class="text-muted">Estado</small> <h6> <b> {{expediente2.tipoestadotramite}}</b></h6> 
+                                    <small class="text-muted">Aporderado</small> <h6>  <b> {{expediente2.apoderado}}</b></h6>
+                                    <small class="text-muted">AGente</small> <h6> <b>{{expediente2.agente}} </b></h6>
+                                    <small class="text-muted">Compañia</small> <h6>
+                                     <b> {{expediente2.empresa}}</b></h6>
+                                <!--
+                                    <small class="text-muted p-t-30 db">Aporderado</small> <h6>{{APoderado.identificacion}} {{APoderado.nombre}}</h6>
+                                    
+                        
+                                    
+                                    
+
+                            <div class="row text-center justify-content-md-center">
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-people"></i> <font class="font-medium">254</font></a></div>
+                                        <div class="col-4"><a href="javascript:void(0)" class="link"><i class="icon-picture"></i> <font class="font-medium">54</font></a></div>
+                                    </div>
+
+
+                                            <small class="text-muted">Tipo Proceso</small> <h6>{{TIpoProceso}}</h6> 
+                                <small class="text-muted">Estado</small> <h6>{{EStado}}</h6> 
+                                <small class="text-muted p-t-30 db">Tipo Marca</small> <h6>{{TIpoMarca}}</h6> 
+                                <small class="text-muted p-t-30 db">Aporderado</small> <h6>{{APoderado}}</h6>
+                                <small class="text-muted p-t-30 db">AGente</small> <h6>{{AGente}}</h6>
+
+
+
+                                -->
+
+                                <hr>
+                                <h6 >Gaceta : <b> {{expediente2.gaceta}} </b></h6>
+                                <h6 >Certificado: <b> {{expediente2.certif}} </b></h6>
+                                <h6 >Vencimiento : <b> {{expediente2.vencimb | date:'yyyy-MM-dd'}} </b></h6>
+
+
+                                <h6 >Resolucion : <b> {{expediente2.resolucion}} </b></h6>
+
+                                <h6 >Tipo Resolucion: <b> {{expediente2.tiporesolucion}} </b></h6>
+
+                                <h6 >Tipo Prod : <b> {{expediente2.tipoprod}} </b></h6>
+
+
+                            
+                        
+
+                                <hr>
+                            
+                                <h6 >Fecha Conb : <b> {{expediente2.fechaconb | date:'yyyy-MM-dd'}} </b></h6>
+                                <h6 >Fecha Resb : <b> {{expediente2.fecharesb | date:'yyyy-MM-dd'}} </b></h6>
+                                <h6 >Fecha Pb : <b> {{expediente2.fechapb | date:'yyyy-MM-dd'}} </b></h6>
+                                <h6 >Fecha Pub : <b> {{expediente2.fechapub | date:'yyyy-MM-dd'}} </b></h6>
+
+                                <h6 >Fecha Pri : <b> {{expediente2.fechapri | date:'yyyy-MM-dd'}} </b></h6>
+                                <h6 >Fecha Inac : <b> {{expediente2.fechainac | date:'yyyy-MM-dd'}} </b></h6>
+
+                            
+
+
+                                    
+                                </div>
+                            </div>
+                            <div>
+                            
+                            </div>
+                            <div class="card-body"> 
+                        
+
+                                <small class="text-muted p-t-30 db">Otras Acciones</small>
+                                <br>
+                                <button class="btn btn-circle btn-secondary"><i class="fa fa-facebook"></i></button>
+                                <button class="btn btn-circle btn-secondary"><i class="fa fa-twitter"></i></button>
+                                <button class="btn btn-circle btn-secondary"><i class="fa fa-youtube"></i></button>
+                            </div>
+                        </div>
+
+        
+
+
+                    </div>
+
+
+                <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <!-- Nav tabs -->
+                            <ul class="nav nav-tabs profile-tab" role="tablist">
+                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab" aria-expanded="true">Actuaciones</a> </li>
+                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-expanded="false">Otros</a> </li>
+                              </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="home" role="tabpanel" aria-expanded="true">
+                                    <div class="card-body">
+
+                                         <!-- poner barra en una zona automaticamente -->
+                                       <div class="table-responsive">
+
+                                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable" cellspacing="0" 
+                                            width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" >
+                                            <thead>
+                                                <tr role="row">
+                                        
+                                                        <th></th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="expediente: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Expediente</th>
+                                                    <th rowspan="1" colspan="1"  class="sorting" tabindex="0" aria-label="Pais: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Pais</th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Clase: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Clase</th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Tipoproc: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Tipoproceso</th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Fechact: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Fechact</th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Termino: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Termino</th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Vence: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">Vence</th>
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Vence: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">codactua</th> 
+                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="tipogest: activate to sort column ascending" style="width: 151px;"
+                                                    aria-sort="ascending">tipogest</th>
+                                                
+                                                </tr>
+                                            </thead>
+                                            <tfoot>
+                                                <tr>
+                                                    <th rowspan="1" colspan="1"></th>
+                                                    <th rowspan="1" colspan="1">Expediente</th>
+                                                    <th rowspan="1" colspan="1">Pais</th>
+                                                    <th rowspan="1" colspan="1">Clase</th>
+                                                    <th rowspan="1" colspan="1">Tipoproc</th>
+                                                    <th rowspan="1" colspan="1">Fechact</th>
+                                                    <th rowspan="1" colspan="1">Termino</th>
+                                                    <th rowspan="1" colspan="1">Vence</th>
+                                                    <th rowspan="1" colspan="1">codactua</th>
+                                                    <th rowspan="1" colspan="1">tipogest</th>
+                                                
+                                                </tr>
+                                            </tfoot>
+                                            <tbody>
+                                                
+                                                <tr *ngFor="let item of gestionesI" role="row" class="odd">
+                                                    <td class="text-nowrap text-center">
+                                                    
+                            
+                            
+                            
+                                                </td>
+                                                    <td class="sorting_1">
+                                                        {{ item.expediente }}
+                                                        <!--
+                                                        <span *ngFor="let skill of [empresa.tipo]">
+                                                            {{skill?.nombre}}  
+                                                        </span>
+                                                        -->
+                                                    </td>
+                                                    <td>{{ item.expediente.pais  }}</td>
+                                                    <td>{{ item.expediente.clase }}</td>
+                                                    <td>{{ item.tipoproceso  }}</td>
+                                                
+                                                    <td>{{ item.fechact  | date:'yyyy-MM-dd' }}</td>
+                                                    <td>{{ item.sitermino  }}</td>
+                                                    <td>{{ item.vence  | date:'yyyy-MM-dd' }}</td>
+                                                     <td>{{ item.tipogestion  }}</td>
+                                                     <td>{{ item.observaciones  }}</td>
+                                            
+                                                </tr></tbody>
+
+                                                
+                                            </table>
+
+                                        <button class="btn btn-success"  (click)="AgregarGestion(expediente2)" >
+                                            <i class="fa fa-city"></i>
+                                                Agregar gestiones                                        
+                                            </button>
+                                        </div>
+
+
+
+                                    </div>
+                                </div>
+                                <!--second tab-->
+                                <div class="tab-pane" id="profile" role="tabpanel" aria-expanded="false">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Full Name</strong>
+                                                <br>
+                                                <p class="text-muted">Johnathan Deo</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Mobile</strong>
+                                                <br>
+                                                <p class="text-muted">(123) 456 7890</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6 b-r"> <strong>Email</strong>
+                                                <br>
+                                                <p class="text-muted">johnathan@admin.com</p>
+                                            </div>
+                                            <div class="col-md-3 col-xs-6"> <strong>Location</strong>
+                                                <br>
+                                                <p class="text-muted">London</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <p class="m-t-30">Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt.Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim.</p>
+                                        <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries </p>
+                                        <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                        <h4 class="font-medium m-t-30">Skill Set</h4>
+                                        <hr>
+                                        <h5 class="m-t-30">Wordpress <span class="pull-right">80%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-success" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width:80%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                        <h5 class="m-t-30">HTML 5 <span class="pull-right">90%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width:90%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                        <h5 class="m-t-30">jQuery <span class="pull-right">50%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width:50%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                        <h5 class="m-t-30">Photoshop <span class="pull-right">70%</span></h5>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100" style="width:70%; height:6px;"> <span class="sr-only">50% Complete</span> </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="settings" role="tabpanel" aria-expanded="false">
+                                    <div class="card-body">
+                                        <form class="form-horizontal form-material">
+                                            <div class="form-group">
+                                                <label class="col-md-12">Full Name</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="Johnathan Doe" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="example-email" class="col-md-12">Email</label>
+                                                <div class="col-md-12">
+                                                    <input type="email" placeholder="johnathan@admin.com" class="form-control form-control-line" name="example-email" id="example-email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Password</label>
+                                                <div class="col-md-12">
+                                                    <input type="password" value="password" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Phone No</label>
+                                                <div class="col-md-12">
+                                                    <input type="text" placeholder="123 456 7890" class="form-control form-control-line">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-12">Message</label>
+                                                <div class="col-md-12">
+                                                    <textarea rows="5" class="form-control form-control-line"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-12">Select Country</label>
+                                                <div class="col-sm-12">
+                                                    <select class="form-control form-control-line">
+                                                        <option>London</option>
+                                                        <option>India</option>
+                                                        <option>Usa</option>
+                                                        <option>Canada</option>
+                                                        <option>Thailand</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <button class="btn btn-success">Update Profile</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                
+                
+                
+                </div>
+        
+
+               
+
+ 
+    
+
+
+  
+            </div> 
+
+
+ 
+
+<!--
+--------------------------------------------
+-------- MODAL 1
+--------------------------------------------
+-->
+
+<div class="fondo_modal  animated fadeIn fast  centerModal"
+        [class.oculto]="ocultarModalBuscar" >
+
+        <div class="modal-dialog-scrollable anchoModal" >
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModalBuscar()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="card-body">
+                       <!--
+                            <h4 class="card-title">Editar Paises</h4>
+                       --> 
+                        <h6 class="card-subtitle">{{SubTitulo}}</h6>
+                
+                                    
+
+                        <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable" cellspacing="0" 
+                                                width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" >
+                                                <thead>
+                                                    <tr role="row"  class="sorting w100" >
+                                                    
+                                <th></th>
+                                <th rowspan="1" colspan="1" class="sorting w100" tabindex="0" aria-label="expediente: activate to sort column ascending" style="width: 30px;"
+                                aria-sort="ascending">Expediente</th>
+                                <th rowspan="1" colspan="1"  class="sorting w100" tabindex="0" aria-label="Pais: activate to sort column ascending" style="width: 70px;"
+                                aria-sort="ascending">Marca</th>
+                                <th rowspan="1" colspan="1"  class="sorting w100" tabindex="0" aria-label="Pais: activate to sort column ascending" style="width: 100px;"
+                                aria-sort="ascending">Pais</th>
+                                <th rowspan="1" colspan="1" class="sorting w100" tabindex="0" aria-label="Clase: activate to sort column ascending" style="width: 70px;"
+                                aria-sort="ascending">Año</th>
+                                <th rowspan="1" colspan="1" class="sorting w100" tabindex="0" aria-label="Tipoproc: activate to sort column ascending" style="width: 80px;"
+                                aria-sort="ascending">Tipoproceso</th>
+                            
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th rowspan="1" colspan="1"  class="sorting w100" ></th>
+                                <th rowspan="1" colspan="1">Expediente</th>
+                                <th rowspan="1" colspan="1">Marca</th>
+                                <th rowspan="1" colspan="1">Pais</th>
+                                <th rowspan="1" colspan="1">Año</th>
+                                <th rowspan="1" colspan="1">Tipoproceso</th>
+                            
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            
+                            <tr *ngFor="let item of expedientesI" role="row" class="odd">
+                                <td class="text-nowrap text-center">
+                                
+                                    <a  (click)="abrir(item)"
+                                    class="cursor"
+                                    data-toggle="tooltip" data-original-title="Editar"> 
+                                    <i class="fa fa-eye text-inverse m-r-10">
+                                    </i> </a>
+                               </td>
+                                <td class="sorting_1">
+                                    {{ item.expediente}}
+
+                                </td>
+                                <td style="width: 100px;">
+                                    {{ item.marca}}
+
+                                </td>
+                                <td>   
+                                    {{ item.pais}}
+                                 </td>
+                                <td>{{ item.anno }}</td>
+                                <td>
+                                    {{ item.tipoproceso}}
+
+                                </td>
+                            
+                        
+                            </tr></tbody>
+                        </table>
+
+                  
+
+                </div>
+                  
+               
+                </div>
+                <div class="modal-footer">
+                    <button type="button" 
+                        class="btn btn-default waves-effect" 
+                        data-dismiss="modal"
+                        (click)="cerrarModalBuscar()"
+                    >Cerrar</button>
+                   
+                </div>
+            </div>
+        </div>
+     
+
+</div>
+
+ 
