@@ -11,7 +11,7 @@ export class comparacion {
       public levenshtein: number,
       public hamming: number,
       public jaccard: number,
-      public sorensendice:  number,
+      public sorensen:  number,
       public resultadocontenido:  string,
       public resultadosimilares:  string,
     ) 
