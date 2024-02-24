@@ -18,9 +18,9 @@ export class LoginComponent {
   public formSubmitted = false;
 
     public loginForm : FormGroup = this.fb.group({
-      email : [ localStorage.getItem('email') || '',[ Validators.required, Validators.email ]],
+      email : [ localStorage.getItem('email') || '',[ Validators.required ]],
       password : ['',[ Validators.required, Validators.minLength(3) ]],
-      remember : false
+      remember : true
     });
 
 
@@ -31,8 +31,9 @@ export class LoginComponent {
   }
 
   login(){ 
-  
-     // console.log(this.loginForm.value);
+  //  console.log("login");
+
+       console.log(this.loginForm.value);
 
       if ( this.loginForm.invalid)
       {
@@ -46,15 +47,18 @@ export class LoginComponent {
                              next: resp =>{
                              
                              if ( this.loginForm.get('remember')?.value ){ 
-                                localStorage.setItem('email', this.loginForm.get('email')?.value );
+                                localStorage.setItem('login1', this.loginForm.get('login')?.value );
 
                               } else {
-                                localStorage.removeItem('email');
+                                localStorage.removeItem('login1');
                               }
                               
                               // Navegar al Dashboard
                               this.router.navigateByUrl('/');
                           }, error:(err) =>  {
+                            console.log("error 99");
+
+                            console.log(err);
                             Swal.fire('Error',err.error.msg,'error');
                           } 
                         } );

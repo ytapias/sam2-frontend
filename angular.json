@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/adminpro",
+            "outputPath": "dist/sam2_frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -27,6 +27,13 @@
             "styles": [
               "src/styles.css"
             ],
+			"budgets":[
+			{
+				"type":"initial",
+				"maximumWarning":"2mb",
+				"maximumError":"5mb",
+			}
+			],
             "scripts": []
           },
           "configurations": {
@@ -34,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",

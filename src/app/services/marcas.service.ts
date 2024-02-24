@@ -3,6 +3,7 @@ import { Marcas } from '../models/denomi.model';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { RespuestaBackend } from '../interfaces/RespuestaBackend.interface';
 
 const base_url =environment.base_url;
 
@@ -43,7 +44,7 @@ export class MarcasService {
       console.log('creando');
       console.log(item);
       
-      return this.http.post(`${ base_url }/MarcasSQL/`,item,this.headers);
+      return this.http.post<RespuestaBackend>(`${ base_url }/MarcasSQL/`,item,this.headers);
   }
 
   modificar(item : Marcas)
@@ -53,7 +54,7 @@ export class MarcasService {
       
       const {id } =item;
 
-    var respuesta =this.http.put(`${ base_url }/MarcasSQL/${id}`,item,this.headers) 
+    var respuesta =this.http.put<RespuestaBackend>(`${ base_url }/MarcasSQL/${id}`,item,this.headers) 
     console.log(respuesta);
     return respuesta;
   }

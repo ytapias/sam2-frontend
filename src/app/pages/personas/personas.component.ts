@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Personas } from 'src/app/models/personas';
+import { Personas } from 'src/app/models/personas.model';
 import { PersonasService } from 'src/app/services/personas.service';
 
 
@@ -11,6 +11,9 @@ import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
 import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 import { paisesyciudades } from 'src/app/models/paisesyciudades.model';
 import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.service';
+
+ import { RespuestaBackend } from 'src/app/interfaces/RespuestaBackend.interface'; // Ajusta la ruta según sea necesario
+
 
 
 @Component({
@@ -336,7 +339,7 @@ export class PersonasComponent {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Personas=new Personas(0,0,"",0,"",0,0,"","","","",0,"","",0,"");
+   public camposEditar : Personas=new Personas(0,0,"",0,0,"",0,0,"","","","",0,"","",0,"");
       
     Titulo: string="Configuracion";
     SubTitulo: string="ingrese los datos de Configuracion";
@@ -346,7 +349,7 @@ export class PersonasComponent {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new Personas(0,0,"",0,"",0,0,"","","","",0,"","",0,"");
+        this.camposEditar =new Personas(0,0,"",0,0,"",0,0,"","","","",0,"","",0,"");
         
         this.abrirModal();
     }
@@ -380,38 +383,84 @@ export class PersonasComponent {
         if(this._Crear === true)
         {
           this.personasService.crear(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              
-              console.log(resp);
-              Swal.fire(
-                'Crear!',
-                `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
-                'success'
-              );
+            .subscribe({
+              next: (resp: RespuestaBackend) => {
+                  this.Logs = JSON.stringify(resp);
+                  console.log(resp);
 
-            });
-          
+                  // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+                  if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                      // Si nuevoID es mayor que 0, manejar como éxito
+                      Swal.fire(
+                        'Crear!',
+                        `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
+                        'success'
+                      );
+                  } else {
+                      // Manejar los casos en los que nuevoID no es mayor que 0
+                      let mensajeError = 'Ocurrió un error desconocido.';
+                      if (resp && resp.resultado) {
+                          mensajeError = resp.resultado.mensaje || mensajeError;
+                      }
+                      Swal.fire(
+                          'Crear',
+                          mensajeError,
+                          'error'
+                      );
+                  }
+              },
+              error: (errorResp) => {
+                  // Manejo de errores de la petición
+                  console.error('Error en la petición:', errorResp);
+                  Swal.fire(
+                      'Error en la Petición',
+                      'Ocurrió un error al realizar la petición al servidor.',
+                      'error'
+                  );
+              }
+          });
  
         }
         else
         {
+                
           this.personasService.modificar(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              //var variable: RespuestaBackend = resp;
-              
-              console.log(resp);
-              Swal.fire(
-                'Modificar!',
-                `El item  ${ this.camposEditar.nombre }   fue modificado  con exito.`,
-                'success'
-              );
+          .subscribe({
+              next: (resp: RespuestaBackend) => {
+                  this.Logs = JSON.stringify(resp);
+                  console.log(resp);
 
-            });
-
+                  // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+                  if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                      // Si nuevoID es mayor que 0, manejar como éxito
+                      Swal.fire(
+                          'Modificar',
+                          `El item fue modificado con éxito. ID Nuevo: ${resp.resultado.nuevoID}`,
+                          'success'
+                      );
+                  } else {
+                      // Manejar los casos en los que nuevoID no es mayor que 0
+                      let mensajeError = 'Ocurrió un error desconocido.';
+                      if (resp && resp.resultado) {
+                          mensajeError = resp.resultado.mensaje || mensajeError;
+                      }
+                      Swal.fire(
+                          'Modificar',
+                          mensajeError,
+                          'error'
+                      );
+                  }
+              },
+              error: (errorResp) => {
+                  // Manejo de errores de la petición
+                  console.error('Error en la petición:', errorResp);
+                  Swal.fire(
+                      'Error en la Petición',
+                      'Ocurrió un error al realizar la petición al servidor.',
+                      'error'
+                  );
+              }
+          });
  
       
 

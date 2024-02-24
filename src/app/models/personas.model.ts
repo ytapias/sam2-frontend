@@ -4,6 +4,7 @@ export class Personas {
       public id: number,
       public idempresa:number,
       public empresa:string,
+      public codigo:number,
       public idtipopersona:number,
       public tipopersona:string,
       public idtipoidentificacion: number,

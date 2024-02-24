@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { ClipboardService  } from 'ngx-clipboard';
-import { BusquedasService } from 'src/app/services/busquedas.service';
-import { Expedientes } from 'src/app/models/expedientes';
+ import { Expedientes } from 'src/app/models/expedientes';
 import { ExpedientesService } from 'src/app/services/expedientes.service';
 import { Gestiones } from 'src/app/models/gestiones';
 import { Marcas } from 'src/app/models/denomi.model';
+import { GestionesService } from 'src/app/services/gestiones.service';
 
 //import { Empresas } from 'src/app/interfaces/iempresas';
  //import { Empresas } from 'src/app/models/empresas.model';
@@ -47,7 +47,7 @@ public EStado =  { _id: "", nombre:"", codigo:""};
 
   public fecha: Date = new Date();
 
-  public expediente2: Expedientes =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"","","","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
+  public expediente2: Expedientes =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
   "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
 
 
@@ -63,8 +63,7 @@ public EStado =  { _id: "", nombre:"", codigo:""};
 
   constructor(    private clipboardApi: ClipboardService,
     private expedientesService: ExpedientesService, 
-    private busquedasService : BusquedasService,
-    ){
+    private gestionesService :GestionesService){
       this.cargando =false;
 
   }
@@ -211,7 +210,9 @@ abrir(expediente:Expedientes)
 
       console.log("entre a abrir item");
 
-    //  this.buscarGestion("65830e241c9cc10cc55b7a37");
+     this.cargarGestion(this.expediente2.expediente);
+
+
       this.cerrarModalBuscar();
 
       this.cargando =false;
@@ -261,18 +262,16 @@ abrir(expediente:Expedientes)
     
   this.abrirModalBuscar();
 }
-
+/*
 buscarExpedientexMarca(termino : string )
 {
   if( this.cargando ==false)
   {
       this.cargando =true;
     console.log(termino);
-      this.busquedasService.buscar('expedientes_marcas', termino)
-      .subscribe(resp=>{
-          console.log(resp);
-          this.expedientesI=resp;
-      });
+      
+    this.cargarGestion(termino);
+    
       this.cargando =false;
     
 
@@ -281,31 +280,53 @@ buscarExpedientexMarca(termino : string )
     
   this.abrirModalBuscar();
 }
+*/
+cargarGestion(termino : number)
+{
+  this.gestionesService.cargar(0,5,termino,"" )
+  .subscribe ( (res1:any) => 
+  {
+      console.log(res1);
+      this.gestionesI= res1['resultado'];
+      this.total=res1.total;
+      this.paginasTotales= Math.round(this.total/this.limite);
+      this.paginaActual=  this.desde+1;
 
+      this.cargando = false;
+  });
+
+
+}
  
 
-  
+cambiarPagina(valor: number)
+{
+  let antiguo_valor = this.desde;
+  this.desde +=valor;
+ 
+  this.cargando = true;
 
-  buscarGestion(termino : string )
+ //console.log(this.desde +">=" + this.paginasTotales)
+  if(this.desde<0)
   {
-/*
-    if(termino.length===0){
-    //  console.log(this.TiposDetalleTEMP);
-    // this.TiposDetalle= this.TiposDetalleTEMP;
-    this.cargar();
-    return;
-    }
-*//*
-
-    console.log(termino);
-    this.busquedasService.buscar('gestiones', termino)
-    .subscribe(resp=>{
-        console.log(resp);
-        this.gestionesI=resp;
-    });
-
-    */
+    this.desde=0;
   }
+  else if (this.desde >= (this.paginasTotales))
+  {
+      this.desde =antiguo_valor;
+  }
+  else{
+    this.cargarGestion(this.expediente2.expediente);
+  }
+
+  this.cargando = false;
+
+  //this.Logs="Cambiando pagina "+ this.desde;
+}
+
+
+  
+ 
 
   cerrarModalBuscar(){
     this._ocultarModalBuscar=true;

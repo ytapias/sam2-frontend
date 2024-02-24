@@ -1,19 +1,21 @@
-interface _Empresa{
-    _id: string,
-    nombre:string,
-    identificacion:string
-  }
 
 export class Usuario {
     constructor( 
-        public nombre: string,
+        public id: number,
+        public idempresa:number,
+        public empresa:string,
+        public login: string,
+        public password: string,
         public email: string,
-        public empresa?:_Empresa,
-        public password?: string,
-        public img?: string,
-        public google?: boolean,
-        public role?: string,
-        public uid?: string,
+        public idrole:number,
+        public role: string,
+        public idpersona:number,
+        public idtipoidentificacion: number,
+        public identificacion: string,
+        public nombre: string,
+        public idestado: number,
+        public estado: string,
+   
         ) 
     {
         

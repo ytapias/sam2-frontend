@@ -32,7 +32,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) { 
 /*
     let empresa = new Usuario.empresa("","","");*/
-    this.usuario=  new Usuario( "", "" );;
+    this.usuario=  new Usuario(0,0,"","","","",0,"",0,0,"","",0,"");
  
   }
 
@@ -63,13 +63,17 @@ export class UsuarioService {
       };
   }
 
-  get uid():string {
-    return this.usuario.uid || '';
+  get id():number {
+    return this.usuario.id || 0;
   }
   
 
   validarToken() : Observable<boolean>
   {
+ //   console.log("valida token");
+    
+
+   // console.log(this.token);
     return this.http.get(`${ base_url }/login/renew`, 
                 {
                     headers:
@@ -79,11 +83,18 @@ export class UsuarioService {
 
                 } ).pipe(
                   tap((resp: any)=>{
-                   // console.log('ffsss22');
-                    localStorage.setItem('token',resp.token) ;
-                    const {nom, emp} =resp.decode;
-                    localStorage.setItem('nom',nom); 
-                    localStorage.setItem('emp',emp); 
+                //    console.log('------------>>> ffsss22');
+                    const {nom, emp,token} =resp.decode;
+               //           console.log("re new  99 ");
+                 //         console.log(token);
+                          const token1=resp.token;
+                          const login1=resp.nom;
+                          localStorage.setItem('token',token1); 
+                          localStorage.setItem('nom',nom); 
+                          localStorage.setItem('login1',login1); 
+
+                          localStorage.setItem('emp',emp); 
+
                   
                   }),
                   map( resp =>   true
@@ -97,17 +108,7 @@ export class UsuarioService {
     localStorage.removeItem('token');
   }
   
-  crearUsuario(formData : RegisterForm)
-  {
-      //console.log('creando usuario');
-      return this.http.post(`${ base_url }/usuarios`,formData)
-                      .pipe(
-                        tap( (resp:any) =>{
-                              localStorage.setItem('token',resp.token) 
 
-                        })
-                      );
-  }
   
   login(formData : LoginForm)
   {
@@ -115,9 +116,16 @@ export class UsuarioService {
       return this.http.post(`${ base_url }/login`,formData)
                   .pipe(
                     tap( (resp:any) =>{
-                          localStorage.setItem('token',resp.token); 
-                          const {nom, emp} =resp.decode;
+                          const {nom, emp,token} =resp.decode;
+                   //       console.log("resp.token 99 ");
+                     //     console.log(resp);
+                          const token1=resp.token;
+                          const login1=resp.nom;        
+                       //   console.log(token1);
+                          localStorage.setItem('token',token1); 
                           localStorage.setItem('nom',nom); 
+                          localStorage.setItem('login1',login1); 
+
                           localStorage.setItem('emp',emp); 
                     })
                   );
@@ -127,37 +135,64 @@ export class UsuarioService {
   
 
 
-
-  cargarUsuarios(desde: number =0,cuantos: number =5)
+/*
+  cargar(desde: number =0,cuantos: number =5)
   {
-    /*
-      console.log('login usuario');
-      console.log(desde);
-      console.log(cuantos);
-*/
-
+  
       const url = `${ base_url }/usuarios?desde=${desde}&elementos=${cuantos}`;
       return this.http.get<{usuarios:Usuario[],total: number}>(url,this.headers  );
                       //.pipe(                        delay(5000));
+  }*/
+
+  cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="")
+  {
+    const url = `${ base_url }/usuariosSQL?desde=${desde}&elementos=${cuantos}&espais=${espais}&nombre=${nombre}`;
+    return this.http.get<{usuarios:Usuario[],total: number}>(url,this.headers  );
   }
-
-    eliminarUsuario(usuario : Usuario)
-    {
-      const url = `${ base_url }/usuarios/${usuario.uid}`;
-      return this.http.delete(url,this.headers);
-    }
-
-
-  actualizarPerfil( data: Usuario  ) {
 /*
-    data = {
-      ...data,
-      role: this.usuario.role
-    }
+  crearUsuario(formData : RegisterForm)
+  {
+      //console.log('creando usuario');
+      return this.http.post(`${ base_url }/usuariosSQL`,formData)
+                      .pipe(
+                        tap( (resp:any) =>{
+                              localStorage.setItem('token',resp.token) 
+
+                        })
+                      );
+  }
 */
-    return this.http.put(`${ base_url }/usuarios/${ data.uid }`, data, this.headers );
+  
+  crear(item : Usuario)
+  {
+      //console.log('creando');
+      //console.log(item);
+      
+    return   this.http.post(`${ base_url }/usuariosSQL/`,item,this.headers);
+//      this.cargar();
 
   }
+
+    eliminar(usuario : Usuario)
+    {
+      const url = `${ base_url }/usuariosSQL/${usuario.id}`;
+     
+      //console.log(url);
+      return this.http.delete(url,this.headers);
+   //   this.cargar();
+    }
+
+    modificar(item : Usuario)
+    {
+        //console.log('modificar');
+       // console.log(item);
+        
+        const {id } =item;
+  
+      var respuesta =this.http.put(`${ base_url }/usuariosSQL/${id}`,item,this.headers) 
+      //console.log(respuesta);
+      return respuesta;
+    }
 
 /*
    parseJwt (token : any) {

@@ -6,6 +6,9 @@ import { Marcas } from 'src/app/models/denomi.model';
  import * as XLSX from 'xlsx';
 
  import Swal from 'sweetalert2';
+import { RespuestaBackend } from 'src/app/interfaces/RespuestaBackend.interface';
+import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
+import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 
 @Component({
   selector: 'app-marcas',
@@ -21,6 +24,7 @@ export class MarcasComponent {
 
   public Items: Marcas[]=[];
   public ItemsALL: Marcas[]=[];
+  public TipoEstado: tiposdetalle[]=[];
 
   public Tipo: number=0;
 
@@ -39,17 +43,20 @@ export class MarcasComponent {
   Logs : string="";
 
 
-
+  TipoEstadoSeleccionado: number=1; 
   seccionMinimizada: boolean = false;
 
 
-  constructor(private servicio: MarcasService)
+  constructor(private servicio: MarcasService , private servicioTiposDetalle: TptiposdetalleService)
   {
     
   }
 
   ngOnInit(): void {
     this.cargar();
+    this.cargarTipoEstado(); 
+
+
   }
  
 
@@ -117,6 +124,22 @@ export class MarcasComponent {
 
   }
   
+
+  cargarTipoEstado() {
+
+    this.cargando = true;
+
+    this.servicioTiposDetalle.cargar(0,-2,1,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TipoEstado= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
 
   
   cambiarPagina(valor: number)
@@ -322,8 +345,8 @@ export class MarcasComponent {
 
    public camposEditar : Marcas=new Marcas(0,0,'','','','','','','','','','','','','','',0,'');
       
-    Titulo: string="Configuracion";
-    SubTitulo: string="ingrese los datos de Configuracion";
+    Titulo: string="Marcas";
+    SubTitulo: string="ingrese los datos de Marcas";
 
     abrirCrear(){
         //console.log(this.modalFormularioServices.ocultarModal);
@@ -341,6 +364,7 @@ export class MarcasComponent {
       this.SubTitulo="Modificar";
 
       this.camposEditar = dtiposdetalle;
+      
    //   this.opcionSeleccionada2 = this.camposEditar.espais;
       
       console.log(this.camposEditar);
@@ -366,38 +390,85 @@ export class MarcasComponent {
         if(this._Crear === true)
         {
           this.servicio.crear(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              
-              console.log(resp);
-              Swal.fire(
-                'Crear!',
-                `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
-                'success'
-              );
+          .subscribe({
+            next: (resp: RespuestaBackend) => {
+                this.Logs = JSON.stringify(resp);
+                console.log(resp);
 
-            });
+                // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+                if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                    // Si nuevoID es mayor que 0, manejar como éxito
+                    Swal.fire(
+                      'Crear!',
+                      `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
+                      'success'
+                    );
+                } else {
+                    // Manejar los casos en los que nuevoID no es mayor que 0
+                    let mensajeError = 'Ocurrió un error desconocido.';
+                    if (resp && resp.resultado) {
+                        mensajeError = resp.resultado.mensaje || mensajeError;
+                    }
+                    Swal.fire(
+                        'Crear',
+                        mensajeError,
+                        'error'
+                    );
+                }
+            },
+            error: (errorResp) => {
+                // Manejo de errores de la petición
+                console.error('Error en la petición:', errorResp);
+                Swal.fire(
+                    'Error en la Petición',
+                    'Ocurrió un error al realizar la petición al servidor.',
+                    'error'
+                );
+            }
+        });
+
           
  
         }
         else
         {
           this.servicio.modificar(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              //var variable: RespuestaBackend = resp;
-              
-              console.log(resp);
-              Swal.fire(
-                'Modificar!',
-                `El item  ${ this.camposEditar.nombre }   fue modificado  con exito.`,
-                'success'
-              );
+          .subscribe({
+            next: (resp: RespuestaBackend) => {
+                this.Logs = JSON.stringify(resp);
+                console.log(resp);
 
-            });
-
+                // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+                if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                    // Si nuevoID es mayor que 0, manejar como éxito
+                    Swal.fire(
+                        'Modificar',
+                        `El item fue modificado con éxito. ID Nuevo: ${resp.resultado.nuevoID}`,
+                        'success'
+                    );
+                } else {
+                    // Manejar los casos en los que nuevoID no es mayor que 0
+                    let mensajeError = 'Ocurrió un error desconocido.';
+                    if (resp && resp.resultado) {
+                        mensajeError = resp.resultado.mensaje || mensajeError;
+                    }
+                    Swal.fire(
+                        'Modificar',
+                        mensajeError,
+                        'error'
+                    );
+                }
+            },
+            error: (errorResp) => {
+                // Manejo de errores de la petición
+                console.error('Error en la petición:', errorResp);
+                Swal.fire(
+                    'Error en la Petición',
+                    'Ocurrió un error al realizar la petición al servidor.',
+                    'error'
+                );
+            }
+        });
  
       
 

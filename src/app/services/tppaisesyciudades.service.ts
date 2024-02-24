@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment.development';
 
 import {  paisesyciudades } from '../models/paisesyciudades.model';
+import { RespuestaBackend } from '../interfaces/RespuestaBackend.interface';
 
 
 const base_url =environment.base_url;
@@ -34,9 +35,10 @@ export class TppaisesyciudadesService {
  //public tiposdetalle:paisesyciudades[]=[];
 
 
-  cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="")
+  cargar(desde: number =0,cuantos: number =10, idtipopais :Number = 0, nombre :string="")
   {
-    const url = `${ base_url }/paisesyciudadesSQL?desde=${desde}&elementos=${cuantos}&espais=${espais}&nombre=${nombre}`;
+    const url = `${ base_url }/paisesyciudadesSQL?desde=${desde}&elementos=${cuantos}&idtipopais=${idtipopais}&nombre=${nombre}`;
+    //console.log(url);
     return this.http.get(url,this.headers);
   }
 
@@ -44,19 +46,19 @@ export class TppaisesyciudadesService {
   crear(item : paisesyciudades)
   {
       console.log('creando');
-      console.log(item);
+   //   console.log(item);
       
-      return this.http.post(`${ base_url }/paisesyciudadesSQL/`,item,this.headers);
+      return this.http.post<RespuestaBackend>(`${ base_url }/paisesyciudadesSQL/`,item,this.headers);
   }
 
   modificar(item : paisesyciudades)
   {
       console.log('modificar');
-      console.log(item);
+     // console.log(item);
       
       const {id } =item;
 
-    var respuesta =this.http.put(`${ base_url }/paisesyciudadesSQL/${id}`,item,this.headers) 
+    var respuesta =this.http.put<RespuestaBackend>(`${ base_url }/paisesyciudadesSQL/${id}`,item,this.headers) 
     console.log(respuesta);
     return respuesta;
   }

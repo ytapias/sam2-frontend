@@ -1,33 +1,28 @@
-import { Expedientes } from "./expedientes";
-
- 
-interface Empresas{
-  _id: string,
-  nombre:string
-}
-
-interface Tipo{
-  _id: string,
-  nombre:string,
-  codigo:string
-}
-
 export class Gestiones {
   constructor( 
-    public empresa:Empresas,
-      public expediente: Expedientes,
-      public tipoproceso: Tipo,
-      public fechact: Date,
-      public sitermino: Boolean,
+      public id:number,
+      public idempresa:number,
+      public idexpediente:number,
+      public expediente: number,
+      public idmarca:number,
+      public marca: string,
+      
+      public idpais:number,
+      public pais: string,
+      
+      public clase: string,
+      public idtipoproceso: number,
+      public tipoproceso: string,
+
+      public fechactuacion: Date,
+      public idtipoactuacion: number,
+      public tipoactuacion: string,
       public vence: Date,
-      public tipoactuacion: Tipo,
-      public tipogestion: string,
+      public tipogest: string,
       public observaciones: string,
-    
-      public otro: string,
-      public idestado: string,
-      public _id?: string,
-      public uid?: string,
+      public idestado: number,
+      public estado: string
+      
       ) 
   { }
 }

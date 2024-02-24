@@ -114,7 +114,7 @@ console.log(variable);
         return;
       }
       
-      this.usuarioService.crearUsuario(this.registerForm.value)
+      this.usuarioService.crear(this.registerForm.value)
                           .subscribe
                           ({
                              next: resp =>{

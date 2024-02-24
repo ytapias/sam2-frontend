@@ -5,6 +5,9 @@ import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 
  import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.service';
+import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
+import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
+import { RespuestaBackend } from 'src/app/interfaces/RespuestaBackend.interface';
  
 
 @Component({
@@ -18,7 +21,7 @@ export class PaisesyciudadesComponent {
 
   public Items: paisesyciudades[]=[];
   public ItemsALL: paisesyciudades[]=[];
-
+  public TipoPais: tiposdetalle[]=[];
   public Tipo: number=0;
 
   
@@ -40,13 +43,14 @@ export class PaisesyciudadesComponent {
   seccionMinimizada: boolean = false;
 
 
-  constructor(private servicio: TppaisesyciudadesService)
+  constructor(private servicio: TppaisesyciudadesService, private servicioTiposDetalle: TptiposdetalleService)
   {
     
   }
 
   ngOnInit(): void {
     this.cargar();
+    this.cargarTipoPais();
   }
  
 
@@ -80,7 +84,7 @@ export class PaisesyciudadesComponent {
 
   cambiarTipo(tipow :any){
  
-   // console.log(tipow);
+    console.log(tipow);
       this.desde =0;
       this.filtro =this.opcionSeleccionada;
       this.textoBuscar ='';
@@ -99,7 +103,7 @@ export class PaisesyciudadesComponent {
   cargar() {
 
     this.cargando = true;
-
+//console.log(this.filtro);
     this.servicio.cargar(this.desde,this.limite,this.filtro,this.busquedaNombre )
     .subscribe ( (res1:any) => 
     {
@@ -114,6 +118,23 @@ export class PaisesyciudadesComponent {
 
   }
   
+  
+  cargarTipoPais() {
+
+    this.cargando = true;
+
+    this.servicioTiposDetalle.cargar(0,-2,20,"" )
+    .subscribe ( (res1:any) => 
+    {
+   //  console.log(res1);
+        this.TipoPais= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
 
   
   cambiarPagina(valor: number)
@@ -251,7 +272,7 @@ export class PaisesyciudadesComponent {
    convertirAFormatoExcel(datos: any[]): any[] {
     // Asegúrate de que tus datos estén en un formato aceptable por la librería XLSX
     return datos.map(dato => ({
-      EsPais: dato.espais,
+      tipopais: dato.tipopais,
       CodPais: dato.codpais,
       CodCiudad: dato.codciudad,
       Nombre: dato.nombre,
@@ -289,7 +310,7 @@ export class PaisesyciudadesComponent {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : paisesyciudades=new paisesyciudades(0,'',0,'',new Date(),'',1,'',1);
+   public camposEditar : paisesyciudades=new paisesyciudades(0,'','',0,'',new Date(),'',1,'',1);
       
     Titulo: string="Configuracion";
     SubTitulo: string="ingrese los datos de Configuracion";
@@ -299,7 +320,7 @@ export class PaisesyciudadesComponent {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new paisesyciudades(0,'',0,'',new Date(),'',1,'',1);
+        this.camposEditar =new paisesyciudades(0,'','',0,'',new Date(),'',1,'',1);
         
         this.abrirModal();
     }
@@ -310,23 +331,31 @@ export class PaisesyciudadesComponent {
       this.SubTitulo="Modificar";
 
       this.camposEditar = dtiposdetalle;
-      this.opcionSeleccionada2 = this.camposEditar.espais;
+
       
-      console.log(this.camposEditar);
+      this.opcionSeleccionada2= dtiposdetalle.idtipopais;
+     
 
-      console.log(this.opcionSeleccionada2 );
+   //   console.log(this.opcionSeleccionada2 );
 
+
+     
+     // console.log(this.camposEditar);
+
+    //  console.log(this.opcionSeleccionada2 );
       this.abrirModal();
     }
+
+
     salvarModal()
     {
       
       if(this.opcionSeleccionada2>0)
       {
-        this.camposEditar.espais = this.opcionSeleccionada2 ; 
+        this.camposEditar.idtipopais = this.opcionSeleccionada2 ; 
       }
       else{
-        this.camposEditar.espais = 0;
+        this.camposEditar.idtipopais = 0;
       }
       
       console.log( this.camposEditar);
@@ -335,37 +364,84 @@ export class PaisesyciudadesComponent {
         if(this._Crear === true)
         {
           this.servicio.crear(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              
-              console.log(resp);
-              Swal.fire(
-                'Crear!',
-                `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
-                'success'
-              );
+          .subscribe({
+            next: (resp: RespuestaBackend) => {
+                this.Logs = JSON.stringify(resp);
+                console.log(resp);
 
-            });
+                // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+                if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                    // Si nuevoID es mayor que 0, manejar como éxito
+                    Swal.fire(
+                      'Crear!',
+                      `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
+                      'success'
+                    );
+                } else {
+                    // Manejar los casos en los que nuevoID no es mayor que 0
+                    let mensajeError = 'Ocurrió un error desconocido.';
+                    if (resp && resp.resultado) {
+                        mensajeError = resp.resultado.mensaje || mensajeError;
+                    }
+                    Swal.fire(
+                        'Error',
+                        mensajeError,
+                        'error'
+                    );
+                }
+            },
+            error: (errorResp) => {
+                // Manejo de errores de la petición
+                console.error('Error en la petición:', errorResp);
+                Swal.fire(
+                    'Error en la Petición',
+                    'Ocurrió un error al realizar la petición al servidor.',
+                    'error'
+                );
+            }
+        });
           
  
         }
         else
         {
           this.servicio.modificar(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              //var variable: RespuestaBackend = resp;
-              
-              console.log(resp);
-              Swal.fire(
-                'Modificar!',
-                `El item  ${ this.camposEditar.nombre }   fue modificado  con exito.`,
-                'success'
-              );
+          .subscribe({
+            next: (resp: RespuestaBackend) => {
+                this.Logs = JSON.stringify(resp);
+                console.log(resp);
 
-            });
+                // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+                if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                    // Si nuevoID es mayor que 0, manejar como éxito
+                    Swal.fire(
+                        'Éxito',
+                        `El item fue modificado con éxito. ID Nuevo: ${resp.resultado.nuevoID}`,
+                        'success'
+                    );
+                } else {
+                    // Manejar los casos en los que nuevoID no es mayor que 0
+                    let mensajeError = 'Ocurrió un error desconocido.';
+                    if (resp && resp.resultado) {
+                        mensajeError = resp.resultado.mensaje || mensajeError;
+                    }
+                    Swal.fire(
+                        'Error',
+                        mensajeError,
+                        'error'
+                    );
+                }
+            },
+            error: (errorResp) => {
+                // Manejo de errores de la petición
+                console.error('Error en la petición:', errorResp);
+                Swal.fire(
+                    'Error en la Petición',
+                    'Ocurrió un error al realizar la petición al servidor.',
+                    'error'
+                );
+            }
+        });
 
  
       
@@ -402,62 +478,3 @@ export class PaisesyciudadesComponent {
 
 
 }
-
-/*
-  
-  buscar(termino : string )
-  {
-      if(termino.length===0){
-      //  console.log(this.TiposDetalleTEMP);
-       // this.Items= this.TiposDetalleTEMP;
-       this.paginaActual();
-        return;
-      }
-
-
-     this.busquedasService.buscar('tp_tiposdetalle', termino)
-        .subscribe(resp=>{
-           //console.log(resp);
-            this.Items=resp;
-        });
-  }
-
-  eliminarTiposdetalle (tptiposdetalle2: tp_tiposdetalle)
-  {
-    console.log(tptiposdetalle2);
-    Swal.fire({
-      title: '¿Borrar Tipos Detalles?',
-      text: ` esta a punto de borrar a ${ tptiposdetalle2.codigo} ${ tptiposdetalle2.nombre } `,
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Si, Borrarlo!'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.tiposdetService.eliminartiposdet(tptiposdetalle2)
-                            .subscribe(resp =>
-                              {
-                                this.cargar();
-                                Swal.fire(
-                                  'Borrado!',
-                                  `El tipo ${ tptiposdetalle2.codigo} ${ tptiposdetalle2.nombre } fue eliminado con exito.`,
-                                  'success'
-                                );
-
-                              }
-                                
-                                
-                              );
-        
-
-      }
-    })
-
-  }
-
-   
-*/
-
-
-

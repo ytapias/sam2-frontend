@@ -1,32 +1,4 @@
  
-interface Empresas{
-  _id: string,
-  nombre:string
-}
-
-interface Marca{
-  _id: string,
-  marca:string
-}
-
-interface Pais{
-  _id: string,
-  nombre:string,
-  codpais:string
-}
-interface Tipo{
-  _id: string,
-  nombre:string,
-  codigo:string
-}
- 
-interface Persona{
-  _id: string,
-  nombre:string,
-  identificacion:string
-}
- 
-
 export class Expedientes {
   constructor( 
     public idempresa: number,  
@@ -50,7 +22,7 @@ export class Expedientes {
 
       public idtiposolicitud :  number,
       public tiposolicitud :  string,
-      public expediente: string,
+      public expediente: number,
       public resolucion: string,
       public dominio: string,
       public anno: number,

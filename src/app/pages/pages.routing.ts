@@ -19,6 +19,8 @@ import { GacetasComponent } from './gacetas/gacetas.component';
 import { MarcasComponent } from './marcas/marcas.component';
 import { PersonasComponent } from './personas/personas.component';
 import { GestionesComponent } from './gestiones/gestiones.component';
+import { CargarComponent } from './mantenimientos/cargar/cargar.component';
+import { CompararComponent } from './mantenimientos/comparar/comparar.component';
  
 const routes: Routes =[
     {
@@ -49,6 +51,8 @@ const routes: Routes =[
           {path: 'configuracion',component:ConfiguracionComponent,data :{titulo :'Configurar'}},
           {path: 'paisesyciudades',component:PaisesyciudadesComponent,data :{titulo :'Paises Y Ciudades'}},
           {path: 'empresas',component:EmpresasComponent,data :{titulo :'Empresas'}},
+          {path: 'cargar',component:CargarComponent,data :{titulo :'Cargador'}},
+          {path: 'comparar',component:CompararComponent,data :{titulo :'Comparar'}},
 
         ]
       },

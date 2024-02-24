@@ -1,269 +1,181 @@
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">{{Titulo}}</h4>
-        <h6 class="card-subtitle">{{SubTitulo}}</h6>
-        <div class="table-responsive m-t-40">
-            <div id="example23_wrapper" class="dataTables_wrapper">
-                <div class="dt-buttons">
-                    <a class="dt-button buttons-copy buttons-html5" tabindex="0" aria-controls="example23" href="#">
-                        <span>Copy</span></a><a class="dt-button buttons-csv buttons-html5" tabindex="0" aria-controls="example23" href="#">
-                            <span>CSV</span></a><a class="dt-button buttons-excel buttons-html5" tabindex="0" aria-controls="example23" href="#">
-                                <span>Excel</span></a><a class="dt-button buttons-pdf buttons-html5" tabindex="0" aria-controls="example23" href="#">
-                                    <span>PDF</span></a><a class="dt-button buttons-print" tabindex="0" aria-controls="example23" >
-                                        <span>Print</span></a></div><div id="example23_filter" class="dataTables_filter">
-                                            <label>Search:
-                                            <input type="text" 
-                                            class ="form-control"
-                                            placeholder="Buscar Expediente"
-                                            (keyup)="buscar(txttermino.value)"
-                                            #txttermino
-                                            />         
-                                        </label>
-                                        <div class="text-right">
-                                            <button class="btn btn-primary" (click)="abrirCrear()">
-                                                <i class="fa fa-city"></i>
-                                                Crear Gestion
-                                            </button>
-                            
-                            
-                                        </div>
-                           <!--
-                             
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+           <!-- Botón para minimizar/expander -->
+           <div class="ml-auto">
+            <div class="busqueda-titulo2">
+                <strong>B U S Q U E D A &nbsp;&nbsp;&nbsp;</strong> 
+                <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
+                    {{ seccionMinimizada ? '+' : '-' }}
+                  </button>  
+            </div>
+           
+            
+          </div>
+           <!-- FIN Botón para minimizar/expander -->
 
-                             
-
-                                            <label>Search:<input type="search" class="" placeholder="" aria-controls="example23"></label>
-                               -->
-                                        </div>
-                <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable" cellspacing="0" 
-                width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" >
-                <thead>
-                    <tr role="row"  class="sorting w100" >
-                        <!--
-                        <th class="sorting_asc" tabindex="0" aria-controls="example23" 
-                        rowspan="1" colspan="1" aria-label="Name: activate to sort column descending" style="width: 151px;"
-                         aria-sort="ascending">Name</th><th class="sorting" tabindex="0" aria-controls="example23"
-                          rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 224px;">Position</th>
-                          <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1"
-                           aria-label="Office: activate to sort column ascending" style="width: 110px;">Office</th><th class="sorting"
-                            tabindex="0" aria-controls="example23" rowspan="1" colspan="1" 
-                            aria-label="Age: activate to sort column ascending" style="width: 52px;">Age</th>
-                            <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1" 
-                            aria-label="Start date: activate to sort column ascending" style="width: 100px;">Start date</th>
-                            <th class="sorting" tabindex="0" aria-controls="example23" rowspan="1" colspan="1" 
-                            aria-label="Salary: activate to sort column ascending" style="width: 84px;">Salary</th>
-
--->
-                            <th></th>
-                        <th rowspan="1" colspan="1" class="sorting w100" tabindex="0" aria-label="expediente: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Expediente</th>
-                        <th rowspan="1" colspan="1"  class="sorting w100" tabindex="0" aria-label="Pais: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Pais</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Clase: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Marca</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Clase: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Clase</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Tipoproc: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Tipoproc</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Fechact: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Fechact</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Termino: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Termino</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Vence: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">Vence</th>
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Vence: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">codactua</th> 
-                        <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="tipogest: activate to sort column ascending" style="width: 151px;"
-                        aria-sort="ascending">tipogest</th>
+            <div [ngClass]="{'minimizado': seccionMinimizada}" >
+                <div class="card-body ">
                     
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                        <th rowspan="1" colspan="1"></th>
-                        <th rowspan="1" colspan="1">Expediente</th>
-                        <th rowspan="1" colspan="1">Pais</th>
-                        <th rowspan="1" colspan="1">Marca</th>
-
-                        <th rowspan="1" colspan="1">Clase</th>
-                        <th rowspan="1" colspan="1">Tipoproc</th>
-                        <th rowspan="1" colspan="1">Fechact</th>
-                        <th rowspan="1" colspan="1">Termino</th>
-                        <th rowspan="1" colspan="1">Vence</th>
-                        <th rowspan="1" colspan="1">codactua</th>
-                        <th rowspan="1" colspan="1">tipogest</th>
+                    BUSCAR
+                   
+                    <div class="row">
                       
-                    </tr>
-                </tfoot>
-                <tbody>
-                    
-                    <tr *ngFor="let item of gestionesI" role="row" class="odd">
-                        <td class="text-nowrap text-center">
-                         
-                            <a  (click)="abrirModificar(item)"
-                            class="cursor"
-                             data-toggle="tooltip" data-original-title="Editar"> 
-                            <i class="fa fa-pencil text-inverse m-r-10">
-                            </i> </a>
-                         <a  (click)="eliminarItem(item)"
-                             class="cursor"
-                              data-toggle="tooltip" data-original-title="Borrar"> 
-                             <i class="fa fa-close text-danger">
-                             </i> 
-                         </a>
+                        <div class="col-6">
+                           &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
+                            class ="form-control"
+                            placeholder="Buscar Expediente / Marca"
+                            (keyup)="buscar(txttermino.value)"
+                            #txttermino
+                            />        
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <div  >
+                                <button class="btn btn-primary" (click)="descargarCSV()"> CSV</button>
+                                <button class="btn btn-success" (click)="exportarAExcel()"> Excel</button>
+                                <button class="btn btn-primary" (click)="exportarAExcelTodo()"> Excel All</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-<!--
-    (click)="eliminarEmpresa(item)"
+            </div>
+    </div>
+    </div>
+</div> 
 
-    // {{skill?.marca?.marca}}  
-         {{skill?.clase}}                     
- {{skill?.tipoproceso?.nombre}}  
+<div class="row animated fadein fast"  *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando ... </h4>
+            <i class="fa fa-spin fa-refresh fa-2x"> </i>
 
-    {{item.pais}}
-     {{skill?.marca}}  
-     
--->
-                         
+            <p class="mb-0"> Por favor espere</p>
+        </div>
 
 
-                     </td>
-                     
-                        <td class="sorting_1">
-                            <span *ngFor="let skill of [item.expediente]">
+        
 
-                                {{skill?.expediente}}  
-                            </span>
-                        </td><td>
-                          
-                        </td>
-                        <td>
-                            <span *ngFor="let skill of [item.expediente.marca]">
+    </div>
+</div> 
+<div class="row  animated fadein fast"  *ngIf="!cargando">
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Total registros ({{ totalTipos }})</h4>
+            <div class="row">
 
-                               
-                                </span>
-                        </td>
-                        <td>
-                            <span *ngFor="let skill of [item.expediente]">
+                <div class="col-6">
+                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina {{paginaActual}} de {{paginasTotales}} </h6>
 
-                            {{skill?.clase}}  
-                            </span>
-                             </td>
-                          <td> <span *ngFor="let skill of [item.tipoproceso]">
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div  >
+                        <button class="btn btn-warning" (click)="abrirCrear()"> + </button>
+                    </div>
+                </div>
+            </div>
 
-                            {{skill?.codigo}}  {{skill?.nombre}} 
-                            </span>
-                             </td>
-                             <td>{{ item.fechact | date:'yyyy-MM-dd' }}</td>
+            <div class="table-responsive">
+                <table class="table color-bordered-table inverse-bordered-table table-hover ">
 
-                     
-                     
-                        <td>{{ item.sitermino  }}</td>
-                        <td>{{ item.vence | date:'yyyy-MM-dd' }}</td>
-                        <td>   
+
+                    <thead>
+                        <tr>
+                          <th></th>
+                            <th class="w100">Expediente</th>
+                            <th class="w300">Marca</th>
+                            <th class="w100">Pais</th>
+                            <th class="w100">Clase</th>
+                            <th class="w100">Tipo Proces</th>
+                            <th class="w100">Fecha ACT</th>
+                            <th class="w100">Tipo ACT</th>
+                            <th class="w100">Vence</th>
+                            <th class="w100">Tipo Gest</th>
+                            <th class="w300">Observaciones</th>
+                            <th  class="w100">Estado</th>
+                            <th  class="w60">id</th>
                            
-                        </td>
-                    <td> 
-                       
-                      </td>
-                         <td>{{ item.observaciones  }}</td>
-                
-                    </tr></tbody>
-            </table><div class="dataTables_info" id="example23_info" role="status" aria-live="polite">
-                Showing {{paginaActual}} to {{paginasTotales}} pages of {{ total }} entries</div>
-            <div class="dataTables_paginate paging_simple_numbers" id="example23_paginate">
-                <button (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
-               <!--    
-                <a class="paginate_button previous disabled" 
-                aria-controls="example23" data-dt-idx="0" tabindex="0" id="example23_previous">Previous</a>
-            -->
-                <span><a class="paginate_button current" aria-controls="example23" data-dt-idx="1" tabindex="0">1</a>
-                    <a class="paginate_button " aria-controls="example23" data-dt-idx="2" tabindex="0">2</a><a class="paginate_button "
-                     aria-controls="example23" data-dt-idx="3" tabindex="0">3</a><a class="paginate_button " aria-controls="example23"
-                      data-dt-idx="4" tabindex="0">4</a><a class="paginate_button " aria-controls="example23" data-dt-idx="5" tabindex="0">5</a>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let nitem of Items">
+                            <td >
+                                <!--
+                                -->
+                             
+                                     <a (click)="abrirModificar(nitem)"
+                                     class="cursor"
+                                      data-toggle="tooltip" data-original-title="Editar"> 
+                                     <i class="fas fa-edit text-inverse m-r-10">
+                                     </i> </a>
+
+                                <a (click)="eliminarTiposdetalle(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="Borrar"> 
+                                <i class="fa fa-close text-danger">
+                                </i> 
+                            </a>
+                             </td> 
+                            <td>
+                                {{ nitem.expediente }} 
+                            </td>
+                            <td>{{ nitem.marca }}</td>
+                            <td>{{ nitem.pais }}</td>
+                            <td>{{ nitem.clase }}</td>
+                            <td>{{ nitem.tipoproceso }}</td>
+
+                            <td>{{ nitem.fechactuacion | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ nitem.tipoactuacion }}</td>
+                            <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
+                            <td>{{ nitem.tipogest }}</td>
+                            <td>{{ nitem.observaciones }}</td>
+                            <td>{{ nitem.estado }}</td>
+                            <td>{{ nitem.id }}</td>
+                        </tr>
                      
-                      <a class="paginate_button " aria-controls="example23" data-dt-idx="6" tabindex="0">6</a></span>
-                        <!-- 
-                      <a class="paginate_button next"
-                       aria-controls="example23" data-dt-idx="7" tabindex="0" id="example23_next">Next</a>
-                        -->
-                       <button (click)="cambiarPagina(1)"class="btn btn-secondary">Siguiente</button>
-                    
-                    </div></div>
-        </div>  
+                    </tbody>
+                </table>
+
+                
+                    <div>
+                        <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
+                        &nbsp;
+                        VER :
+                       <!-- <input type="text" [(ngModel)]="limite" 
+                        placeholder="Limite"
+                        max="200"
+                        style="width: 40px;" 
+                            />
+                    -->        
+                            <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                              </select>
+
+                    </div>
+                
+    
+            </div>
+            <div>
+                LOG:{{ Logs }}
+            </div>
+        </div>
     </div>
 </div>
+</div>
 
-<!--   expor PDF-->
-  <!-- This is data table -->
-  <script src="../assets/plugins/datatables/jquery.dataTables.min.js"></script>
-     <!-- start - This is for export functionality only -->
-     <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
-     <!-- end - This is for export functionality only -->
-
-  <!-- end - This is for export functionality only -->
-  <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
-        $(document).ready(function() {
-            var table = $('#example').DataTable({
-                "columnDefs": [{
-                    "visible": false,
-                    "targets": 2
-                }],
-                "order": [
-                    [2, 'asc']
-                ],
-                "displayLength": 25,
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var rows = api.rows({
-                        page: 'current'
-                    }).nodes();
-                    var last = null;
-                    api.column(2, {
-                        page: 'current'
-                    }).data().each(function(group, i) {
-                        if (last !== group) {
-                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-                            last = group;
-                        }
-                    });
-                }
-            });
-            // Order by the grouping
-            $('#example tbody').on('click', 'tr.group', function() {
-                var currentOrder = table.order()[0];
-                if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-                    table.order([2, 'desc']).draw();
-                } else {
-                    table.order([2, 'asc']).draw();
-                }
-            });
-        });
-    });
-    $('#example23').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
-            'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-    </script>
-<!--
---------------------------------------------
--------- MODAL
---------------------------------------------
+<!---------------
+        MODAL
 -->
+
+
 
 <div class="fondo_modal animated fadeIn fast"
         [class.oculto]="ocultarModal" >
 
-        <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-dialog  modal-lg  modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">{{Titulo}}</h4>
@@ -273,172 +185,168 @@
                     aria-hidden="true"
                     (click)="cerrarModal()">×</button>
                 </div>
+               
                 <div class="modal-body">
                     <div class="card-body">
-                       <!--
-                            <h4 class="card-title">Editar Paises</h4>
-                       --> 
-                        <h6 class="card-subtitle">{{SubTitulo}}</h6>
-                    <form class="form p-t-20" [formGroup]="Formulario">
-                        <div *ngFor="let campo of campos">
-                            <!--  
-                                Hidden 
-                            -->
-                            
-                            <div *ngIf="campo.tipo==='hidden'">
-                                <input  class="form-control"   [placeholder]="campo.placeholder"  
-                                [type]="campo.tipo" [id]="campo.nombreControl" [formControlName]="campo.nombreControl"
-                                hiddent
-                               >
-                            
-                            </div>
-                            <!--  
-                                INPUT - EMAIL
-                            -->
-                            
-                            <div *ngIf="campo.tipo==='text' || campo.tipo==='email'">
-                      
-                                <div class="form-group">
-                                    <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
-                                    <div class="input-group">
-                                        
-                                        <input  class="form-control"   [placeholder]="campo.placeholder"  
-                                         [type]="campo.tipo" [id]="campo.nombreControl" [formControlName]="campo.nombreControl"
-                                        >
-
-                                        <div class="input-group-addon"><i [class]="campo.icon"></i></div>
-                                    </div>
-                                </div>                                
-                            </div>
-                            <!--  
-                                TEXT - MULTILINEA
-                            -->
-                            <div *ngIf="campo.tipo==='multilinea'">
-                      
-                                <div class="form-group">
-                                    <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
-                                    <div class="input-group">
-                                        
-                                        <textarea   class="form-control"   [placeholder]="campo.placeholder"   
-                                        [id]="campo.nombreControl" [formControlName]="campo.nombreControl" rows="3" [value]="campo.dato"
-                                      ></textarea>
-                                        
-                                    </div>
-                                </div>                                
-                            </div>
-
-                            <!--  
-                                SELECT 
-
-
-                            <div *ngIf="campo.tipo==='select'">
-                              
-                                
-                                <div class="form-group">
-                                    <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
-                                    <div class="input-group">
-                                        
-                                        <select id="campo.nombreControl"  name="campo.nombreControl" class="form-control custom-select"  [formControlName]="campo.nombreControl"
-                                                >
-                                            <option [value]="dato.id" *ngFor="let dato of campo.dato"  [selected]="dato.id===paisyciudad.espais">
-                                               {{dato.nombre}}
-                                           </option>
-                                          </select>
-   
-                                    </div>
-                                </div>
-                            </div>
-                            -->
-
-
-                            <!--  
-                                radio 
-                                 
-                            [(ngModel)]="selectedOption"      
-                            -->                      
-                            <div *ngIf="campo.tipo==='radio'">
-                                <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
-                                
-                                <div *ngFor="let option of campo.dato">
-                                    <input type="radio"  id="campo.nombreControl" name="campo.nombreControl" [value]="option.value">
-                                   
-                                    {{ option.label }}
-                                  </div>
-
-                              
-                            </div>
-                        
-                            <!--  
-                                fecha 
-                            -->
-                            <div *ngIf="campo.tipo==='date'">
-                                <label class="control-label text-right">{{ campo.etiqueta }}:</label>
-                                <div >
-                                    <input id="campo.nombreControl"  type="date" class="form-control" placeholder="dd/mm/yyyy" [value]="campo.dato">
-                                </div>
-
-                            </div>
-                        </div>
-                    </form>
-
-                </div>
-                  
-                 <!--
-                    <form *ngIf="signupForm" [formGroup]="signupForm" class="form-example"  >
-                        <div *ngFor="let item of items " class="form-group"  >
-                            <div *ngIf="{{item.type}}">
-
-                            </div>
-                          <label for="{{item.name}}">{{item.data}}</label>
-                          better" use binding [ ] instead of interpolation {{ }} 
-                          <input
-                      
-                            [type]="item.type"
-                            [class]="'form-control '+item.name"
-                            [id]="item.name"
-                            [placeholder]="item.data+'...'"
-                            [formControlName]="item.name"
-                          />
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-customized mt-4">
-                          Sign Up
-                        </button>
-                    </form>               
                     
-                -->
-                    <!--
+                        <div class="form-body" > 
+                            <h3 class="card-title">{{SubTitulo}}</h3>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Tipo Actuacion</label>
+                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada2"
+                                        (ngModelChange)="cambiarTipo2($event)">
+                                            <option value="{{dato.id}}" *ngFor="let dato of TiposActuacion">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                        <small class="form-control-feedback"> Seleccione Tipo  ACT</small> 
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <!--     
+                                            <label class="control-label">Date of Birth</label>
+                                            <input type="date" class="form-control" placeholder="dd/mm/yyyy">
 
-
-                                     <div *ngFor="let campo of campos">
-                                <label [for]="campo.nombreControl">{{ campo.etiqueta }}:</label>
-                                <input [type]="campo.tipo" [id]="campo.nombreControl" [formControlName]="campo.nombreControl">
+                                        -->
+                                        
+                                    </div>
+                                </div>
+                                <!--/span-->
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Tipo Proceso</label>
+                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada3"
+                                        (ngModelChange)="cambiarTipo2($event)">
+                                            <option value="{{dato.id}}" *ngFor="let dato of TiposProceso">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                        <small class="form-control-feedback"> Seleccione Tipo PROC </small> 
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            
+                                            <label class="control-label">Expediente</label>
+                                            <input type="text" id="expediente" class="form-control" placeholder="codigo"  [(ngModel)]="camposEditar.expediente">
+                                            <small class="form-control-feedback"> Digite Expediente </small> 
+                                        
+                                    </div>
+    
+                                            <!--
+                                                <input type="date" class="form-control" placeholder="dd/mm/yyyy">
+                                            -->
+                                       
+                                        
+                                    
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group has-success">
+                                        <label class="control-label">Fecha Actuacion</label>
+                                        <div>Fecha Actuación: {{ Fechaactuacion | json }}</div>
 
-                            <button type="submit" [disabled]="formulario.invalid">Enviar</button>
+                                        <input type="date" [(ngModel)]="Fechaactuacion" value="camposEditar.fechactuacion" class="form-control" placeholder="yyyy/mm/dd">
+                                        <small class="form-control-feedback"> Seleccione Fecha Actuacion </small> 
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                            
+                                        <label class="control-label">Fecha Vencimiento</label>
+                                        <div>Fecha Actuación: {{ Fechavencimiento | json }}</div>
+
+                                        <input type="date" [(ngModel)]="Fechavencimiento" class="form-control" placeholder="yyyy/mm/dd">
+                                        <small class="form-control-feedback"> Seleccione Fecha Vence </small> 
+                                        
+                                    </div>
+    
+                                            <!--
+                                               
+                                            -->
+                                       
+                                        
+                                    
+                                </div>
+                                <!--/span-->
+                            </div>
+                             <!--/row-->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Pais</label>
+                                        <br>
+                                        <select class="form-control w140" name="idpais"
+                                        [(ngModel)]="idpaisseleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of paises">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Estado</label>
+                                        <br>
+                                        <select class="form-control w140" name="TipoEST"
+                                        [(ngModel)]="TipoEstadoSeleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                        
+                                        
+                                    </div>
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
                             
-                    >
-                    -<form>
-                        <div class="form-group">
-                            <label for="recipient-name" class="control-label">Recipient:</label>
-                            <input type="text" class="form-control" id="recipient-name">
+                           <!--
+                            <h3 class="box-title m-t-40">Address</h3>
+                            <hr>
+                             <div class="row">
+                                <div class="col-md-12 ">
+                                    <div class="form-group">
+                                        <label>Street</label>
+                                        <input type="text" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                        -->
+
                         </div>
-                        <div class="form-group">
-                            <label for="message-text" class="control-label">Message:</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn btn-default waves-effect" 
+                                data-dismiss="modal"
+                                (click)="cerrarModal()"
+                            >Cerrar</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
                         </div>
-                    </form>
-                    -->
+
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" 
-                        class="btn btn-default waves-effect" 
-                        data-dismiss="modal"
-                        (click)="cerrarModal()"
-                    >Cerrar</button>
-                    <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
-                </div>
+                     
             </div>
         </div>
      
 
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

@@ -271,11 +271,14 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Estado</label>
-                                        <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1"  [(ngModel)]="camposEditar.idestado">
-                                            <option value="1">Activo</option>
-                                            <option value="0">inactivo</option>
-                                            <option value="2">Anulado</option>
-                                         </select>
+                                        <br>
+                                        <select class="form-control w140" name="TipoEST"
+                                        [(ngModel)]="TipoEstadoSeleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <!--/span-->
@@ -304,19 +307,35 @@
                                 <!--/span-->
                             </div>
                             <!--/row-->
-                            
-                           <!--
-                            <h3 class="box-title m-t-40">Address</h3>
-                            <hr>
-                             <div class="row">
-                                <div class="col-md-12 ">
-                                    <div class="form-group">
-                                        <label>Street</label>
-                                        <input type="text" class="form-control">
+
+
+
+
+
+
+
+                                <!--/row-->
+                                <div class="row p-t-20">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="control-label">Nombre</label>
+                                            <input type="text" id="nombre" class="form-control" placeholder="nombre"  [(ngModel)]="camposEditar.nombre">
+                                            <small class="form-control-feedback"> Digite nombre  </small>
+                                         </div>
                                     </div>
+                                    <!--/span-->
+                                    <div class="col-md-6">
+                                        <div class="form-group ">
+                                            <label class="control-label">Codigo</label>
+                                            <input type="text" id="codigo" class="form-control form-control-danger" placeholder="codigo" [(ngModel)]="camposEditar.codigo">
+                                            <small class="form-control-feedback"> Digite codigo </small> 
+                                        </div>
+                                    </div>
+                                    <!--/span    has-danger al lado de class="form-group "  -->
                                 </div>
-                            </div>
-                        -->
+                       
+                          
+                           
 
                         </div>
 

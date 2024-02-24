@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 
 import { Gestiones } from '../models/gestiones';
-import { Empresas } from '../models/empresas.model';
 import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 
-const base_url =environment.base_url + "/gestiones";
+
+
+const base_url =environment.base_url ;
 
 
 @Injectable({
@@ -16,11 +16,7 @@ export class GestionesService {
 
   public gestiones: Gestiones []=[];
 
-
-  constructor(private http: HttpClient) { 
-
-
-    }
+  constructor(private http: HttpClient) { }
 
 
   get token():string{
@@ -37,82 +33,45 @@ export class GestionesService {
       };
   }
 
-  get uid():string {
-    return "0";//this.marcas.uid || '';
-  }
+ // public totalUsuarios :number =0;
+ //public tiposdetalle:Empresas[]=[];
 
-   
-  crear(formData : Gestiones)
+
+  cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="")
   {
-      //console.log('creando empresas');
-      return this.http.post(`${ base_url }`,formData)
-                      .pipe(
-                        tap( (resp:any) =>{
-                              localStorage.setItem('token',resp.token) 
-                        })
-                      );
+    const url = `${ base_url }/GestionesSQL?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente}&expediente=${nombre}`;
+ console.log(url);
+
+    return this.http.get(url,this.headers);
   }
-  
-  
-  
-  cargar(desde: number =0,cuantos: number =5)
+
+
+  crear(item : Gestiones)
   {
-    /*
-      console.log('login empresas');
-      console.log(desde);
-      console.log(cuantos);
-*/
-
-      const url = `${ base_url }?desde=${desde}&elementos=${cuantos}`;
-      return   this.http.get(url,this.headers  )
-      .pipe(
-        map ((resp : any) =>
-          {
-            console.log("resp.resultados");
-            console.log(resp);
-            total:resp.total;
-            return resp; 
-
-          }
-        ));
-      /*
-            return this.http.get<{gestiones:Gestiones[],total: number}>(url,this.headers  );
-
-
-      console.log(url);
-      return this.http.get(url,this.headers  )
-      .pipe(
-        map ((resp : any) =>
-          {
-            console.log("resp.resultados");
-            console.log(resp);
-            console.log(resp.denomi);
-            marcasT:resp.denomi;
-            total:resp.total;
-            return resp; 
-
-          }
-        ));
-               */
-  }
-
-    eliminar(gestiones : Gestiones)
-    {
-      const url = `${ base_url }/${gestiones.uid}`;
-      return this.http.delete(url,this.headers);
-    }
-
-
-    actualizar( data: Gestiones  ) {
-      /*
-          data = {
-            ...data,
-            role: this.empresas.role
-          }
-      */
-          return this.http.put(`${ base_url }/${ data.uid }`, data, this.headers );
+      console.log('creando');
+      console.log(item);
       
-        }
+      return this.http.post(`${ base_url }/GestionesSQL/`,item,this.headers);
+  }
 
+  modificar(item : Gestiones)
+  {
+      console.log('modificar');
+      console.log(item);
+      
+      const {id } =item;
+
+    var respuesta =this.http.put(`${ base_url }/GestionesSQL/${id}`,item,this.headers) 
+    console.log(respuesta);
+    return respuesta;
+  }
+
+  eliminar(item : Gestiones)
+  {
+    const url = `${ base_url }/GestionesSQL/${item.id}`;
+    console.log(url);
+    return this.http.delete(url,this.headers);
+  }
 
 }
+

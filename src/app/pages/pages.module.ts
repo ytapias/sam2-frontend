@@ -32,6 +32,8 @@ import { Component, HostListener } from '@angular/core';
 import { MarcasComponent } from './marcas/marcas.component';
 import { PersonasComponent } from './personas/personas.component';
 import { GestionesComponent } from './gestiones/gestiones.component';
+import { CargarComponent } from './mantenimientos/cargar/cargar.component';
+import { CompararComponent } from './mantenimientos/comparar/comparar.component';
 
 
  
@@ -54,6 +56,8 @@ import { GestionesComponent } from './gestiones/gestiones.component';
     MarcasComponent,
     PersonasComponent,
     GestionesComponent,
+    CargarComponent,
+    CompararComponent,
   ],
   exports :[
     DashboardComponent,

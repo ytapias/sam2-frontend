@@ -38,6 +38,8 @@ export class SidebarService {
         { titulo:'Paises y Ciudades',url:'paisesyciudades'},
         { titulo:'Usuarios',url:'usuarios'},
         { titulo:'Empresas',url:'empresas'},
+        { titulo:'Cargador',url:'cargar'},
+        { titulo:'Comparar',url:'comparar'},
       ]
     }
   ];

@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+           <!-- Botón para minimizar/expander -->
+           <div class="ml-auto">
+            <div class="busqueda-titulo2">
+                <strong>C A R G A R &nbsp;&nbsp;&nbsp;</strong> 
+                <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
+                    {{ seccionMinimizada ? '+' : '-' }}
+                  </button>  
+            </div>
+           
+            
+          </div>
+           <!-- FIN Botón para minimizar/expander -->
+
+            <div [ngClass]="{'minimizado': seccionMinimizada}" >
+                <div class="card-body ">
+                    
+                    COMPARAR 
+                   
+                    <div class="row">
+                      <!--
+                        <div class="col-6">
+                           &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="cadena1" 
+                            class ="form-control"
+                            placeholder="Cadena a comparar 1"
+                            
+                            #txttermino
+                            />        
+                        </div>
+
+                        (click)="Comparar()"
+                        
+                    -->
+                    <input type="file" (change)="onFileChange($event)">
+
+                         &nbsp;&nbsp;
+                         <button class="btn btn-primary "   >
+                            <i class="fa fa-city"></i>
+                            Cargar Fila
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    </div>
+</div>
+<p>cargar works!</p>

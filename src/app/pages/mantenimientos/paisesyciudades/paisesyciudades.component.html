@@ -31,7 +31,9 @@
                     [(ngModel)]="opcionSeleccionada"
                     (ngModelChange)="cambiarTipo($event)">
                     <option value="0" selected>Todos</option>
-                    <option value="1" >Solo Paises</option>   
+                    <option value="{{dato.id}}" *ngFor="let dato of TipoPais">
+                        {{dato.nombre}}
+                    </option>
                     </select>
                     </div>
                     
@@ -99,7 +101,7 @@
                     <thead >
                         <tr>
                           <th></th>
-                            <th class="w100">Es Pais</th>
+                            <th class="w100">Tipo</th>
                             <th class="w100">CodPais</th>
                             <th class="w100">CodCiudad</th>
                             <th class="w200">Nombre</th>
@@ -129,7 +131,7 @@
                             </a>
                              </td> 
                             <td>
-                                {{ tiposdetalleF.espais }} 
+                                {{ tiposdetalleF.tipopais }} 
                             </td>
                             <td>{{ tiposdetalleF.codpais }}</td>
                             <td>{{ tiposdetalleF.codciudad }}</td>
@@ -202,10 +204,10 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tipo</label>
-                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada2"
-                                        (ngModelChange)="cambiarTipo2($event)">
-                                        <option value="0" selected>Ciudad</option>
-                                        <option value="1" [selected]="camposEditar.espais===1">Pais</option>   
+                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada2">
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoPais">
+                                                {{dato.nombre}}
+                                            </option>
                                         </select>
                                         <small class="form-control-feedback"> Seleccione Tipo </small> </div>
                                 </div>

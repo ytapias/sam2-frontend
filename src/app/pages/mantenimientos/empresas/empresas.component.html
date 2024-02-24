@@ -27,7 +27,8 @@
                             placeholder="Buscar Razon Social"
                             (keyup)="buscar(txttermino.value)"
                             #txttermino
-                            />        
+                            />  
+     
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">
                             <div  >
@@ -71,6 +72,8 @@
                 </div>
                 <div class="col-md-6 d-flex justify-content-end">
                     <div  >
+                        <button class="btn btn-success" (click)="descargarCSV()"> <i class="fa fa-refresh" aria-hidden="true"></i></button>  
+                        &nbsp;&nbsp;
                         <button class="btn btn-warning" (click)="abrirCrear()"> + </button>
                     </div>
                 </div>
@@ -267,54 +270,119 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Estado</label>
-                                        <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1"  [(ngModel)]="camposEditar.idestado">
-                                            <option value="1">Activo</option>
-                                            <option value="0">inactivo</option>
-                                            <option value="2">Anulado</option>
-                                         </select>
+                                        <br>
+                                        <select class="form-control w140" name="TipoEST"
+                                        [(ngModel)]="TipoEstadoSeleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <!--
-                                        <label class="control-label">Membership</label>
-                                        <div class="form-check">
-                                            <label class="custom-control custom-radio">
-                                                <input id="radio1" name="radio" type="radio" checked="" class="custom-control-input">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description">Free</span>
-                                            </label>
-                                            <label class="custom-control custom-radio">
-                                                <input id="radio2" name="radio" type="radio" class="custom-control-input">
-                                                <span class="custom-control-indicator"></span>
-                                                <span class="custom-control-description">Paid</span>
-                                            </label>
-                                        </div>
-
-                                        -->
-                                        
+                                        <label class="control-label">Rol</label><br>
+                                        <select class="form-control w140" name="TipoSEL"
+                                                [(ngModel)]="TipoEmpresaSeleccionado">
+                                                 
+                                                    <option value="{{dato.id}}" *ngFor="let dato of TipoEmpresa">
+                                                        {{dato.nombre}}
+                                                    </option>
+                                                </select>
+                                                                    
                                         
                                     </div>
                                 </div>
                                 <!--/span-->
                             </div>
                             <!--/row-->
-                            
-                           <!--
-                            <h3 class="box-title m-t-40">Address</h3>
-                            <hr>
-                             <div class="row">
-                                <div class="col-md-12 ">
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Street</label>
-                                        <input type="text" class="form-control">
+                                        <label class="control-label">Razon Social</label>
+                                        <input type="text" id="login" class="form-control" placeholder="Razon Social"  
+                                                    [(ngModel)]="camposEditar.nombre">
+                                        <small class="form-control-feedback"> Digite Razon Social </small> </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Direccion</label>
+                                        <input type="text" id="text" class="form-control form-control-danger" 
+                                                    placeholder="Direccion" [(ngModel)]="camposEditar.direccion">
+                                        <small class="form-control-feedback"> Digite direccion </small> </div>
+                                </div>
+                                <!--/span    has-danger al lado de class="form-group "  -->
+                            </div>
+
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Correo Electronico</label>
+                                        <input type="text" id="Correo" class="form-control" placeholder="Email"  
+                                                    [(ngModel)]="camposEditar.correo">
+                                        <small class="form-control-feedback"> Digite Correo </small> </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Celular</label>
+                                        <input type="text" id="celular" class="form-control form-control-danger" 
+                                                    placeholder="celular" [(ngModel)]="camposEditar.celular">
+                                        <small class="form-control-feedback"> Digite Celular </small> </div>
+                                </div>
+                                <!--/span    has-danger al lado de class="form-group "  -->
+                            </div>
+
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Telefono1</label>
+                                        <input type="text" id="Telefono" class="form-control" placeholder="Telefono"  
+                                                    [(ngModel)]="camposEditar.telefono1">
+                                        <small class="form-control-feedback"> Digite Telefono </small> </div>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Telefono2</label>
+                                        <input type="text" id="telefono2" class="form-control form-control-danger" 
+                                                    placeholder="Telefono2" [(ngModel)]="camposEditar.telefono2">
+                                        <small class="form-control-feedback"> Digite Telefono </small> </div>
+                                </div>
+                                <!--/span    has-danger al lado de class="form-group "  -->
+                            </div>
+                            <div class="row p-t-20">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label">Tipo Identificacion</label><br>
+                                        <select class="form-control w140" name="TipoIDE"
+                                        [(ngModel)]="TipoIdentificacionSeleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoIdentificacion">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                        
+
                                     </div>
                                 </div>
+                                <!--/span-->
+                                <div class="col-md-6">
+                                    <div class="form-group ">
+                                        <label class="control-label">Identificacion</label>
+                                        <input type="text" id="nombre" class="form-control form-control-danger" 
+                                                    placeholder="identificacion" [(ngModel)]="camposEditar.identificacion">
+                                        <small class="form-control-feedback"> Digite identificacion </small> 
+                                    </div>
+                                </div>
+                                <!--/span    has-danger al lado de class="form-group "  -->
                             </div>
-                        -->
-
+                            
                         </div>
+    
 
                         <div class="modal-footer">
                             <button type="button" 

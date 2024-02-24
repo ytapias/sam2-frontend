@@ -170,89 +170,97 @@
                                     <div class="card-body">
 
                                          <!-- poner barra en una zona automaticamente -->
-                                       <div class="table-responsive">
+                                     
+                                            <div class="table-responsive">
+                                                <table class="table color-bordered-table inverse-bordered-table table-hover ">
 
-                                            <table id="example23" class="display nowrap table table-hover table-striped table-bordered dataTable" cellspacing="0" 
-                                            width="100%" role="grid" aria-describedby="example23_info" style="width: 100%;" >
-                                            <thead>
-                                                <tr role="row">
-                                        
+
+                                                    <thead>
+                                                        <tr>
                                                         <th></th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="expediente: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Expediente</th>
-                                                    <th rowspan="1" colspan="1"  class="sorting" tabindex="0" aria-label="Pais: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Pais</th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Clase: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Clase</th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Tipoproc: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Tipoproceso</th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Fechact: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Fechact</th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Termino: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Termino</th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Vence: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">Vence</th>
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="Vence: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">codactua</th> 
-                                                    <th rowspan="1" colspan="1" class="sorting" tabindex="0" aria-label="tipogest: activate to sort column ascending" style="width: 151px;"
-                                                    aria-sort="ascending">tipogest</th>
-                                                
-                                                </tr>
-                                            </thead>
-                                            <tfoot>
-                                                <tr>
-                                                    <th rowspan="1" colspan="1"></th>
-                                                    <th rowspan="1" colspan="1">Expediente</th>
-                                                    <th rowspan="1" colspan="1">Pais</th>
-                                                    <th rowspan="1" colspan="1">Clase</th>
-                                                    <th rowspan="1" colspan="1">Tipoproc</th>
-                                                    <th rowspan="1" colspan="1">Fechact</th>
-                                                    <th rowspan="1" colspan="1">Termino</th>
-                                                    <th rowspan="1" colspan="1">Vence</th>
-                                                    <th rowspan="1" colspan="1">codactua</th>
-                                                    <th rowspan="1" colspan="1">tipogest</th>
-                                                
-                                                </tr>
-                                            </tfoot>
-                                            <tbody>
-                                                
-                                                <tr *ngFor="let item of gestionesI" role="row" class="odd">
-                                                    <td class="text-nowrap text-center">
-                                                    
-                            
-                            
-                            
-                                                </td>
-                                                    <td class="sorting_1">
-                                                        {{ item.expediente }}
-                                                        <!--
-                                                        <span *ngFor="let skill of [empresa.tipo]">
-                                                            {{skill?.nombre}}  
-                                                        </span>
+                                                            <th class="w100">Expediente</th>
+                                                            <th class="w300">Marca</th>
+                                                            <th class="w100">Pais</th>
+                                                            <th class="w100">Clase</th>
+                                                            <th class="w100">Tipo Proces</th>
+                                                            <th class="w100">Fecha ACT</th>
+                                                            <th class="w100">Tipo ACT</th>
+                                                            <th class="w100">Vence</th>
+                                                            <th class="w100">Tipo Gest</th>
+                                                            <th class="w300">Observaciones</th>
+                                                            <th  class="w100">Estado</th>
+                                                            <th  class="w60">id</th>
+                                                        
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let nitem of gestionesI">
+                                                            <td >
+                                                                <!--
+                                                                
+                                                            
+                                                                    <a (click)="abrirModificar(nitem)"
+                                                                    class="cursor"
+                                                                    data-toggle="tooltip" data-original-title="Editar"> 
+                                                                    <i class="fas fa-edit text-inverse m-r-10">
+                                                                    </i> </a>
+
+                                                                <a (click)="eliminarTiposdetalle(nitem)"
+                                                                class="cursor"
+                                                                data-toggle="tooltip" data-original-title="Borrar"> 
+                                                                <i class="fa fa-close text-danger">
+                                                                </i> 
+                                                            </a>
                                                         -->
-                                                    </td>
-                                                    <td>{{ item.expediente.pais  }}</td>
-                                                    <td>{{ item.expediente.clase }}</td>
-                                                    <td>{{ item.tipoproceso  }}</td>
-                                                
-                                                    <td>{{ item.fechact  | date:'yyyy-MM-dd' }}</td>
-                                                    <td>{{ item.sitermino  }}</td>
-                                                    <td>{{ item.vence  | date:'yyyy-MM-dd' }}</td>
-                                                     <td>{{ item.tipogestion  }}</td>
-                                                     <td>{{ item.observaciones  }}</td>
-                                            
-                                                </tr></tbody>
+                                                            </td> 
+                                                            <td>
+                                                                {{ nitem.expediente }} 
+                                                            </td>
+                                                            <td>{{ nitem.marca }}</td>
+                                                            <td>{{ nitem.pais }}</td>
+                                                            <td>{{ nitem.clase }}</td>
+                                                            <td>{{ nitem.tipoproceso }}</td>
+
+                                                            <td>{{ nitem.fechactuacion | date:'yyyy-MM-dd' }}</td>
+                                                            <td>{{ nitem.tipoactuacion }}</td>
+                                                            <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
+                                                            <td>{{ nitem.tipogest }}</td>
+                                                            <td>{{ nitem.observaciones }}</td>
+                                                            <td>{{ nitem.estado }}</td>
+                                                            <td>{{ nitem.id }}</td>
+                                                        </tr>
+                                                    
+                                                    </tbody>
+                                                </table>
 
                                                 
-                                            </table>
+                                                    <div>
+                                                        <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                                                        &nbsp;
+                                                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
+                                                        &nbsp;
+                                                        VER :
+                                                    <!-- <input type="text" [(ngModel)]="limite" 
+                                                        placeholder="Limite"
+                                                        max="200"
+                                                        style="width: 40px;" 
+                                                            />
+                                                           
+                                                            <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                                                            </select>
+--> 
+                                                    </div>
+                                                
+     
 
-                                        <button class="btn btn-success"  (click)="AgregarGestion(expediente2)" >
-                                            <i class="fa fa-city"></i>
-                                                Agregar gestiones                                        
+                                                <button class="btn btn-success"  (click)="AgregarGestion(expediente2)" >
+                                                    <i class="fa fa-city"></i>
+                                                        Agregar gestiones                                        
                                             </button>
                                         </div>
-
-
+                                    
+                                        <!-- FIN poner barra en una zona automaticamente -->
 
                                     </div>
                                 </div>

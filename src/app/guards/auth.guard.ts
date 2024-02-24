@@ -10,7 +10,7 @@ export const authGuard: CanActivateFn = (route, state) => {
 
     const userService = inject(UsuarioService);
     
-    console.log('paso por el guard');
+    //console.log('paso por el guard');
     return userService.validarToken().pipe(
     
         tap( (estaAutenticado) =>  {

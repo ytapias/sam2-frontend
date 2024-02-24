@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Personas } from '../models/personas';
+import { Personas } from '../models/personas.model';
+import { RespuestaBackend } from '../interfaces/RespuestaBackend.interface';
 
 const base_url =environment.base_url ;
 
@@ -46,7 +47,7 @@ export class PersonasService {
       console.log('creando');
       console.log(item);
       
-      return this.http.post(`${ base_url }/PersonasSQL/`,item,this.headers);
+      return this.http.post<RespuestaBackend>(`${ base_url }/PersonasSQL/`,item,this.headers);
   }
 
   modificar(item : Personas)
@@ -54,9 +55,9 @@ export class PersonasService {
       console.log('modificar');
       console.log(item);
       
-      const {id } =item;
+      const {id} =item;
 
-    var respuesta =this.http.put(`${ base_url }/PersonasSQL/${id}`,item,this.headers) 
+    var respuesta =this.http.put<RespuestaBackend>(`${ base_url }/PersonasSQL/${id}`,item,this.headers) 
     console.log(respuesta);
     return respuesta;
   }

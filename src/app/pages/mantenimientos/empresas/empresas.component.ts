@@ -2,7 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 import { Empresas } from 'src/app/models/empresas.model';
+import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
 import { EmpresasService } from 'src/app/services/empresas.service';
+import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
@@ -20,6 +22,18 @@ export class EmpresasComponent {
   public Items: Empresas[]=[];
   public ItemsALL: Empresas[]=[];
 
+
+  public TipoEmpresa: tiposdetalle[]=[];//=new tiposdetalle("","","",0,"",0,0,"");
+  public TipoEstado: tiposdetalle[]=[];
+  public TipoIdentificacion: tiposdetalle[]=[];
+ 
+
+  TipoEmpresaSeleccionado: number=192; 
+ 
+  TipoEstadoSeleccionado: number=1; 
+ 
+  TipoIdentificacionSeleccionado: number=198;
+  
   public Tipo: number=0;
 
   
@@ -41,13 +55,18 @@ export class EmpresasComponent {
   seccionMinimizada: boolean = false;
 
 
-  constructor(private servicio: EmpresasService)
+  constructor(private servicio: EmpresasService, private servicioTiposDetalle: TptiposdetalleService)
   {
     
   }
 
   ngOnInit(): void {
     this.cargar();
+
+    this.cargarTipoEmpresa(); 
+    this.cargarTipoEstado(); 
+    this.cargarTipoIdentificacion(); 
+
   }
  
 
@@ -115,6 +134,52 @@ export class EmpresasComponent {
 
   }
   
+  cargarTipoEmpresa() {
+
+    this.cargando = true;
+
+    this.servicioTiposDetalle.cargar(0,-2,12,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TipoEmpresa= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
+  cargarTipoEstado() {
+
+    this.cargando = true;
+
+    this.servicioTiposDetalle.cargar(0,-2,1,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TipoEstado= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+  cargarTipoIdentificacion() {
+
+    this.cargando = true;
+
+    this.servicioTiposDetalle.cargar(0,-2,2,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TipoIdentificacion= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
 
   
   cambiarPagina(valor: number)
@@ -324,9 +389,9 @@ export class EmpresasComponent {
       this.camposEditar = dtiposdetalle;
    //   this.opcionSeleccionada2 = this.camposEditar.espais;
       
-      console.log(this.camposEditar);
+    //  console.log(this.camposEditar);
 
-      console.log(this.opcionSeleccionada2 );
+      //console.log(this.opcionSeleccionada2 );
 
       this.abrirModal();
     }
