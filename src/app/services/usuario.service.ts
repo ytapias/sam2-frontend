@@ -32,7 +32,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) { 
 /*
     let empresa = new Usuario.empresa("","","");*/
-    this.usuario=  new Usuario(0,0,"","","","",0,"",0,0,"","",0,"");
+    this.usuario=  new Usuario(0,0,"","","","",0,"",0,0,"","",0,"","");
  
   }
 
@@ -118,21 +118,13 @@ export class UsuarioService {
       return this.http.post(`${ base_url }/login`,formData)
                   .pipe(
                     tap( (resp:any) =>{
-                     // console.log("resp.decode 99 ");
-                    //  console.log(resp.decode);
-                   // const {nom, emp,token,decode} =resp.decode;
-                        // console.log("resp.token 99 ");
-                        //console.log(resp);
-                         // const token1=resp.token;
-                         // const login1=resp.nom;        
-                   //       console.log(resp.decode.emp);
-                  //        console.log(resp.decode.nom);
-                          const login = resp.decode.nom;
+     
+                          const {login,nombre, email} = resp.decode;
                           localStorage.setItem('token',resp.token); 
-                          localStorage.setItem('nom',login); 
+                          localStorage.setItem('nom',resp.decode.nom); 
                           localStorage.setItem('login',login); 
 
-                          localStorage.setItem('email',login); 
+                          localStorage.setItem('email',resp.decode.email); 
                           localStorage.setItem('emp',resp.decode.emp); 
                     })
                   );
@@ -201,6 +193,17 @@ export class UsuarioService {
       return respuesta;
     }
 
+    modificarpassword(item : Usuario)
+    {
+        //console.log('modificar');
+       console.log(item);
+        
+        const {id } =item;
+  
+      var respuesta =this.http.put(`${ base_url }/usuariosSQL/${id}`,item,this.headers) 
+      //console.log(respuesta);
+      return respuesta;
+    }
 /*
    parseJwt (token : any) {
     var base64Url = token.split('.')[1];

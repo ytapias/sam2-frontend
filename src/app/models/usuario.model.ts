@@ -15,6 +15,7 @@ export class Usuario {
         public nombre: string,
         public idestado: number,
         public estado: string,
+        public nuevopassword: string,
    
         ) 
     {

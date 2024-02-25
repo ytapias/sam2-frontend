@@ -18,7 +18,7 @@ export class LoginComponent {
   public formSubmitted = false;
 
     public loginForm : FormGroup = this.fb.group({
-      email : [ localStorage.getItem('email') || '',[ Validators.required ]],
+      login : [ localStorage.getItem('login') || '',[ Validators.required ]],
       password : ['',[ Validators.required, Validators.minLength(3) ]],
       remember : true
     });
@@ -47,10 +47,10 @@ export class LoginComponent {
                              next: resp =>{
                              
                              if ( this.loginForm.get('remember')?.value ){ 
-                                localStorage.setItem('login1', this.loginForm.get('login')?.value );
+                                localStorage.setItem('login', this.loginForm.get('login')?.value );
 
                               } else {
-                                localStorage.removeItem('login1');
+                                localStorage.removeItem('login');
                               }
                               
                               // Navegar al Dashboard

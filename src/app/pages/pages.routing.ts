@@ -21,6 +21,7 @@ import { PersonasComponent } from './personas/personas.component';
 import { GestionesComponent } from './gestiones/gestiones.component';
 import { CargarComponent } from './mantenimientos/cargar/cargar.component';
 import { CompararComponent } from './mantenimientos/comparar/comparar.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
  
 const routes: Routes =[
     {
@@ -32,11 +33,12 @@ const routes: Routes =[
           {path: 'grafica1',component:Grafica1Component,data :{titulo :'Grafica 1'}},
           {path: 'progress',component:ProgressComponent,data :{titulo :'Progress'}},
           {path: 'account-settings',component:AccountSettingsComponent,data :{titulo :'Ajustes'}},
+          {path: 'myprofile',component:MyprofileComponent,data :{titulo :'Ajustes'}},
           {path: 'promesas',component:PromesasComponent,data :{titulo :'Promesas'}},
           {path: 'rxjs',component:RxjsComponent,data :{titulo :'Rxjs'}},
        //   {path: '',redirectTo:'/dashboard',pathMatch:'full'},
           
-       //mantenimientos
+       //mantenimiento
           {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
           {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
           {path: 'gacetas',component:GacetasComponent,data :{titulo :'Gacetas Realizadas'}},

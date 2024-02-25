@@ -1,0 +1,113 @@
+<div class="row">
+    <div class="col-4">
+    <div class="card">
+            <div class="card-body">
+
+
+                <div class="col-lg-4 col-md-9">
+                    <div class="card">
+                        <div class="el-card-item">
+                            <div class="el-card-avatar el-overlay-1"> <img src="../assets/images/users/1.jpg" style="width: 220px; height: 220px;" alt="user">
+                                 {{nombre}} <br> <small>{{email}}</small>
+                                <br> <small>{{login}}</small></div>
+                            </div>
+                            <div class="el-card-content">
+                                
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <button class="btn btn-primary "  (click)="CambioClave()" >
+                <i class="fa fa-city"></i>
+                Cambiar la clave
+            </button>
+    </div>
+    </div>
+</div>
+
+ 
+<!--
+------------------------------------------------------
+MODAL 2 cambio de password 
+------------------------------------------------------4
+-->
+
+
+<div class="fondo_modal animated fadeIn fast"
+[class.oculto]="ocultarModal2" >
+
+<div class="modal-dialog  modal-lg  modal-dialog-scrollable">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">{{Titulo}}</h4>
+            <button type="button" 
+            class="close" 
+            data-dismiss="modal" 
+            aria-hidden="true"
+            (click)="cerrarModal2()">×</button>
+        </div>
+       
+        <div class="modal-body">
+            <div class="card-body">
+            
+                <div class="form-body" > 
+                    <h3 class="card-title">{{SubTitulo}}</h3>
+                    <hr>
+                    <div class="row">
+                     
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                               
+                                    <label class="control-label">Va a cambiar la contraseña parar el usuario {{camposEditar.nombre}} </label>
+                                 
+                            </div>
+                        </div>
+                        <!--/span-->
+                    </div>
+          
+                   
+                   
+                    <div class="row p-t-20">
+                   
+                        <!--/span-->
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label">Nuevo Password</label>
+                                <input type="password" id="password" class="form-control form-control-danger" 
+                                            placeholder="password" [(ngModel)]="psw1">
+                                <small class="form-control-feedback"> Digite password </small> </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                <label class="control-label">Repita Nuevo Password</label>
+                                <input type="password" id="password" class="form-control form-control-danger" 
+                                            placeholder="password" [(ngModel)]="psw2">
+                                <small class="form-control-feedback"> Digite password </small> </div>
+                        </div>
+                        <!--/span    has-danger al lado de class="form-group "  -->
+                    </div>
+
+                   
+
+                <div class="modal-footer">
+                    <button type="button" 
+                        class="btn btn-default waves-effect" 
+                        data-dismiss="modal"
+                        (click)="cerrarModal2()"
+                    >Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light"  
+                                (click)="salvarModal2()">Salvar cambios</button>
+                </div>
+
+            </div>
+        </div>
+             
+    </div>
+</div>
+
+
+</div>
+<script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>

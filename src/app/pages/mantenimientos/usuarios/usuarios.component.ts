@@ -352,10 +352,11 @@ export class UsuariosComponent implements OnInit {
   */
  
   private _ocultarModal: boolean = true;
+
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Usuario=new Usuario(0,0,"","","","",0,"",0,0,"","",0,"");
+   public camposEditar : Usuario=new Usuario(0,0,"","","","",0,"",0,0,"","",0,"","");
       
     Titulo: string="Usuarios";
     SubTitulo: string="ingrese los datos de Usuarios";
@@ -365,12 +366,13 @@ export class UsuariosComponent implements OnInit {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new Usuario(0,0,"","","","",0,"",0,0,"","",0,"");
+        this.camposEditar =new Usuario(0,0,"","","","",0,"",0,0,"","",0,"","");
         this.TipoEstadoSeleccionado=1;
         this.TipoUsuarioSeleccionado=223;
         this.TipoIdentificacionSeleccionado=203;
         this.abrirModal();
     }
+
 
     abrirModificar(dtiposdetalle:Usuario){
       this._Crear=false;
@@ -401,6 +403,7 @@ export class UsuariosComponent implements OnInit {
         if(this._Crear === true)
         {
            // console.log( this.camposEditar);
+          this.camposEditar.password=this.camposEditar.identificacion;
 
           this.servicio.crear(this.camposEditar)
           .subscribe(resp =>
@@ -410,7 +413,7 @@ export class UsuariosComponent implements OnInit {
               console.log(resp);
               Swal.fire(
                 'Crear!',
-                `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
+                `El item  ${ this.camposEditar.nombre } fue creado con exito. recuerde el password inicial es el numero de documento`,
                 'success'
               );
               this.cargar();   
@@ -456,10 +459,83 @@ export class UsuariosComponent implements OnInit {
     
 
     }
+ 
+
   ///////////////////////////////////////
   //    FIN MODAL
   ////////////////////////////////////// 
 
+  public _ocultarModal2: boolean = true;
+
+  public psw1: string = "";
+  public psw2: string = "";
+  
+  CambioClave(dtiposdetalle:Usuario){
+    
+    this.SubTitulo="Cambio Password ";
+    
+    console.log("enter");
+
+    this.camposEditar = dtiposdetalle;
+
+    this.abrirModal2();
+    
+  }
+
+  get ocultarModal2(){
+    return this._ocultarModal2;
+  }
+
+  cerrarModal2(){
+    this._ocultarModal2=true;
+   
+  
+
+  }
+  abrirModal2(){
+    this._ocultarModal2=false;
+
+  }
+
+  salvarModal2()
+  {
+    if(this.psw1 ===this.psw2)
+   {
+        this.camposEditar.nuevopassword = this.psw1;
+        
+        this.servicio.modificarpassword(this.camposEditar)
+        .subscribe(resp =>
+          {
+            this.Logs = JSON.stringify(resp);
+            //var variable: RespuestaBackend = resp;
+            
+            console.log(resp);
+            Swal.fire(
+                'Modificar!',
+              `El Password fue modificado  con exito.`,
+              'success'
+            );
+          });
+
+      }
+      else
+      {
+
+        Swal.fire({
+          title: 'Error',
+          text: ` Las contraseñas no son iguales? `,
+          icon: 'warning',
+        }
+          
+        );
+
+        
+
+      }
+
+        
+      this.cerrarModal2();
+  }
 
 
 }

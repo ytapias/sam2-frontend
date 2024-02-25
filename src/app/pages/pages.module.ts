@@ -34,6 +34,7 @@ import { PersonasComponent } from './personas/personas.component';
 import { GestionesComponent } from './gestiones/gestiones.component';
 import { CargarComponent } from './mantenimientos/cargar/cargar.component';
 import { CompararComponent } from './mantenimientos/comparar/comparar.component';
+import { MyprofileComponent } from './myprofile/myprofile.component';
 
 
  
@@ -58,6 +59,7 @@ import { CompararComponent } from './mantenimientos/comparar/comparar.component'
     GestionesComponent,
     CargarComponent,
     CompararComponent,
+    MyprofileComponent,
   ],
   exports :[
     DashboardComponent,
