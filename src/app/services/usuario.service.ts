@@ -83,18 +83,20 @@ export class UsuarioService {
 
                 } ).pipe(
                   tap((resp: any)=>{
-                //    console.log('------------>>> ffsss22');
-                    const {nom, emp,token} =resp.decode;
-               //           console.log("re new  99 ");
-                 //         console.log(token);
-                          const token1=resp.token;
-                          const login1=resp.nom;
-                          localStorage.setItem('token',token1); 
-                          localStorage.setItem('nom',nom); 
-                          localStorage.setItem('login1',login1); 
+                 
+                          localStorage.setItem('token',resp.token); 
 
-                          localStorage.setItem('emp',emp); 
-
+//                           const token1=resp.token;
+//                           const login1=resp.nom;
+//                           const login = resp.decode.nom;
+// 
+/*
+                          
+                          localStorage.setItem('nom',login); 
+                          localStorage.setItem('login',login); 
+                          localStorage.setItem('email',login); 
+                          localStorage.setItem('emp',resp.decode.emp); 
+*/
                   
                   }),
                   map( resp =>   true
@@ -116,17 +118,22 @@ export class UsuarioService {
       return this.http.post(`${ base_url }/login`,formData)
                   .pipe(
                     tap( (resp:any) =>{
-                          const {nom, emp,token} =resp.decode;
-                   //       console.log("resp.token 99 ");
-                     //     console.log(resp);
-                          const token1=resp.token;
-                          const login1=resp.nom;        
-                       //   console.log(token1);
-                          localStorage.setItem('token',token1); 
-                          localStorage.setItem('nom',nom); 
-                          localStorage.setItem('login1',login1); 
+                     // console.log("resp.decode 99 ");
+                    //  console.log(resp.decode);
+                   // const {nom, emp,token,decode} =resp.decode;
+                        // console.log("resp.token 99 ");
+                        //console.log(resp);
+                         // const token1=resp.token;
+                         // const login1=resp.nom;        
+                   //       console.log(resp.decode.emp);
+                  //        console.log(resp.decode.nom);
+                          const login = resp.decode.nom;
+                          localStorage.setItem('token',resp.token); 
+                          localStorage.setItem('nom',login); 
+                          localStorage.setItem('login',login); 
 
-                          localStorage.setItem('emp',emp); 
+                          localStorage.setItem('email',login); 
+                          localStorage.setItem('emp',resp.decode.emp); 
                     })
                   );
 

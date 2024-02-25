@@ -141,7 +141,7 @@ export class EmpresasComponent {
     this.servicioTiposDetalle.cargar(0,-2,12,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+  //   console.log(res1);
         this.TipoEmpresa= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -157,7 +157,7 @@ export class EmpresasComponent {
     this.servicioTiposDetalle.cargar(0,-2,1,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+   //  console.log(res1);
         this.TipoEstado= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -172,7 +172,7 @@ export class EmpresasComponent {
     this.servicioTiposDetalle.cargar(0,-2,2,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+    // console.log(res1);
         this.TipoIdentificacion= res1['tiposdetalle'];
       
         this.cargando = false;
