@@ -122,7 +122,8 @@ export class UsuarioService {
                           const {login,nombre, email} = resp.decode;
                           localStorage.setItem('token',resp.token); 
                           localStorage.setItem('nom',resp.decode.nom); 
-                          localStorage.setItem('login',login); 
+                          localStorage.setItem('login',login);
+                          localStorage.setItem('intentos',resp.decode.uid); 
 
                           localStorage.setItem('email',resp.decode.email); 
                           localStorage.setItem('emp',resp.decode.emp); 
@@ -143,7 +144,7 @@ export class UsuarioService {
                       //.pipe(                        delay(5000));
   }*/
 
-  cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="")
+  cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="",uid: number=0)
   {
     const url = `${ base_url }/usuariosSQL?desde=${desde}&elementos=${cuantos}&espais=${espais}&nombre=${nombre}`;
     return this.http.get<{usuarios:Usuario[],total: number}>(url,this.headers  );

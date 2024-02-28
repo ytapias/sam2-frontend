@@ -11,9 +11,10 @@ import Swal from 'sweetalert2';
 export class MyprofileComponent {
 
 
-
+LEER :string = localStorage.getItem('intentos')||'';
+EMPRESA :string ='';
     // Leer el nombre
-    uid = localStorage.getItem('uid')|| 0;
+    uid : number = parseInt(this.LEER,0)|| 0;
    nombre = localStorage.getItem('nom')|| "";
   // Leer el login
    login = localStorage.getItem('login')||"";
@@ -35,6 +36,43 @@ export class MyprofileComponent {
       
     }
 
+    
+  ngOnInit(): void {
+
+
+    this.cargar();
+  
+  }
+
+//   cargar(){
+//     // cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="",uid: number=0)
+//     // {
+//     //   const url = `${ base_url }/usuariosSQL?desde=${desde}&elementos=${cuantos}&espais=${espais}&nombre=${nombre}`;
+//     //   return this.http.get<{usuarios:Usuario[],total: number}>(url,this.headers  );
+//     // }
+
+
+    
+// }
+
+cargar() {
+
+  
+
+  this.servicio.cargar(0,1,0,"",this.uid )
+  .subscribe ( (res1:any) => 
+  {
+    this.EMPRESA =res1['resultado'].empresa;
+  //  console.log(res1['resultado']);
+      // this.Items= res1['resultado'];
+      // this.totalTipos=res1.total;
+      // this.paginasTotales= Math.round(this.totalTipos/this.limite);
+      // this.paginaActual=  this.desde+1;
+
+   });
+
+
+}
     
     
 
@@ -90,7 +128,10 @@ export class MyprofileComponent {
    {
      if(this.psw1 ===this.psw2)
     {
-         this.camposEditar.nuevopassword = this.psw1;
+        
+      this.camposEditar.nombre= this.nombre;
+        this.camposEditar.id=this.uid;  
+        this.camposEditar.nuevopassword = this.psw1;
          
          this.servicio.modificarpassword(this.camposEditar)
          .subscribe(resp =>
