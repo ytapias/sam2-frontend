@@ -35,6 +35,7 @@ import { GestionesComponent } from './gestiones/gestiones.component';
 import { CargarComponent } from './mantenimientos/cargar/cargar.component';
 import { CompararComponent } from './mantenimientos/comparar/comparar.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
+import { RegistroComponent } from './registro/registro.component';
 
 
  
@@ -60,6 +61,7 @@ import { MyprofileComponent } from './myprofile/myprofile.component';
     CargarComponent,
     CompararComponent,
     MyprofileComponent,
+    RegistroComponent,
   ],
   exports :[
     DashboardComponent,

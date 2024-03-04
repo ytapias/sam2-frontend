@@ -110,3 +110,78 @@
     border-radius: 3px; /* Bordes redondeados */
     margin-bottom: 0px; /* Espacio inferior para separar del contenido siguiente */
   }
+
+  .footer-bar {
+    position: fixed;
+    bottom: 60px;
+    background-color: #f8f9fa; /* Cambia el color de fondo según tus preferencias */
+    padding: 10px 0;
+    display: flex;
+  /*  justify-content: center;*/
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Opcional: agrega una sombra para un efecto elevado */
+
+    display: flex; /* Usa flexbox para alinear los elementos horizontalmente */
+    align-items: center; /* Alinea los elementos verticalmente al centro */
+    justify-content: start; /* Alinea los elementos al inicio del contenedor */
+    width: 100%; /* Asegura que la barra de pie ocupe todo el ancho */
+
+}
+
+.footer-bar .btn {
+    margin: 0 10px;
+}
+
+.footer-bar .form-control {
+  width: 400px; /* Ancho fijo para el campo de entrada */
+  margin-right: 10px; /* Espaciado entre el campo de entrada y los botones */
+}
+
+.menu-contextual {
+  position: fixed;
+  z-index: 1000;
+  width: 200px;
+  background: rgb(145, 205, 233);
+  color: rgb(1, 48, 117); /* Texto blanco */
+  border: 1px solid #ddd;
+  box-shadow: 2px 2px 5px #04036b;
+}
+
+.menu-contextual ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-contextual li {
+  padding: 8px 12px;
+  cursor: pointer;
+}
+
+.menu-contextual li:hover {
+  background-color: #010936;
+  color: rgb(176, 200, 236); 
+}
+
+.data-display {
+  display: inline-block;
+  padding: 4px;
+  margin: 2px 0;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  background-color: #f9f9f9;
+  color: #333;
+  min-width: 200px; /* O el ancho que prefieras */
+}
+
+
+.tabla-contenedor {
+  max-height: 440px; /* Ajusta esto según la altura de tus filas */
+  overflow: auto;
+}
+
+.sticky-header th {
+  position: sticky;
+  top: 0;
+  background-color: rgb(10, 16, 73); /* O el color de fondo de tu elección */
+  z-index: 100; /* Esto asegura que el encabezado se mantenga sobre los otros elementos al desplazarse */
+}

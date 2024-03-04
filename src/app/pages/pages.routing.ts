@@ -22,6 +22,7 @@ import { GestionesComponent } from './gestiones/gestiones.component';
 import { CargarComponent } from './mantenimientos/cargar/cargar.component';
 import { CompararComponent } from './mantenimientos/comparar/comparar.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
+import { RegistroComponent } from './registro/registro.component';
  
 const routes: Routes =[
     {
@@ -39,6 +40,7 @@ const routes: Routes =[
        //   {path: '',redirectTo:'/dashboard',pathMatch:'full'},
           
        //mantenimiento
+       {path: 'registro',component:RegistroComponent,data :{titulo :'Registro'}},
           {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
           {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
           {path: 'gacetas',component:GacetasComponent,data :{titulo :'Gacetas Realizadas'}},

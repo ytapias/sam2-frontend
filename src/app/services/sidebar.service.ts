@@ -21,6 +21,7 @@ export class SidebarService {
       titulo: 'Funcional',
       icono:'mdi mdi-folder-lock-open',
       submenu: [
+        { titulo:'Registro',url:'registro'},
         { titulo:'Consultas',url:'consultas'},
         { titulo:'Gacetas',url:'gacetas'},
         { titulo:'Expedientes',url:'principal'},

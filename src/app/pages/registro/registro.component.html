@@ -1,0 +1,177 @@
+ <!--
+<div class="table-like">
+    <div class="header-row">
+      <div class="header-cell">País radicación</div>
+      <div class="header-cell">Fecha Solicitud</div>
+      <div class="header-cell">Tipo de solicitud</div>
+    
+    </div>
+    <div class="data-row">
+      <div class="data-cell">COLOMBIA</div>
+      <div class="data-cell"> </div>
+      <div class="data-cell">DESAFÍO THE BOX</div>
+     
+    </div>
+    Repite data-row para más filas de datos 
+  </div>
+-->
+<div class="card">
+    <div class="card-body">
+            <div class="row">
+                        
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+
+                    <h6 >Expediente :  </h6> <h6  class="data-display">  {{expediente2.expediente}}</h6>
+                </div>
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Marca :  </h6> <h6 class="data-display">{{expediente2.marca}} </h6>
+                </div>                                    
+                    
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Pais Radicacion:  </h6> <h6 class="data-display">{{expediente2.pais}} </h6>
+                </div>                                    
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Fecha: </h6> <h6 class="data-display"> {{expediente2.fechapb | date:'yyyy-MM-dd'}} </h6>
+                </div>                                    
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Dominio : </h6> <h6 class="data-display"> {{expediente2.dominio}} </h6>
+                </div> 
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Año : </h6> <h6 class="data-display"> {{expediente2.anno}} </h6>
+                </div> 
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Clase : </h6> <h6 class="data-display"> {{expediente2.clase}} </h6>
+                </div>  
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 >Tipo Solicitud : </h6> <h6 class="data-display"> {{expediente2.tiposol}} </h6>
+                </div>  
+                
+            </div>
+    </div>
+</div>
+
+<div class="table-responsive table-Al tabla-contenedor">
+    <div class="card">
+        <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
+            <thead class="sticky-header">
+                <tr style="color:aliceblue">
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="persist" class="tablesaw-cell-persist tablesaw-sortable-head" data-sortable-numeric="false">
+                         Denominacion 
+                    </th>
+                  
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="1" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="">
+                         
+                        <abbr title="Rotten Tomato Rating">Expediente</abbr>
+                    
+                    </th>
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-sortable-default-col="" data-tablesaw-priority="3" class="tablesaw-sortable-head tablesaw-sortable-ascending" data-sortable-numeric="">
+                         Pais Rad 
+                    </th>
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-sortable-default-col="" data-tablesaw-priority="3" class="tablesaw-sortable-head tablesaw-sortable-ascending" data-sortable-numeric="">
+                         Dominio 
+                    </th>
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="2" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="">
+                         Año 
+                    </th>
+               
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="4" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="false">
+                         Clase 
+                    </th>
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="4" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="false">
+                        No. Interno
+                    </th>
+           
+                    <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="4" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="false">
+                        Certificado 
+                    </th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of expedientesI" (click)="filaClickeada(item)" (contextmenu)="mostrarMenuContextual($event)" (keydown)="manejarTeclado($event)">
+                    <td class="title tablesaw-cell-persist">  {{ item.marca}}</td>
+                    <td>  {{ item.expediente}}</td>
+                    <td>  {{ item.pais}}</td>
+                    <td >  {{ item.dominio}}</td>
+                    <td >  {{ item.anno}}</td>
+                    <td >  {{ item.clase}}</td>
+                    <td >  {{ item.nrointerno}}</td>
+                    <td >  {{ item.certif}}</td>
+                </tr>
+             
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Definición del menú contextual -->
+<div class="menu-contextual" *ngIf="menuVisible" [ngStyle]="{'top': menuPosicion.y + 'px', 'left': menuPosicion.x + 'px'}">
+    <ul>
+        <li (click)="editar()">Editar</li>
+        <li (click)="crearGestion()">Crear Gestión</li>
+    </ul>
+</div>
+
+
+<div class="footer-bar">
+    <input type="text" 
+    class ="form-control"
+    placeholder="Buscar x Expediente / Marca / Pais"
+     
+    #txttermino
+    />         
+    <button class="btn btn-primary"  (click)="buscar(txttermino.value)">Buscar</button>
+    <button class="btn btn-secondary">Gestiones</button>
+</div>
+
+<style>
+    /* Ajusta el estilo para las celdas de la tabla */
+    table.tablesaw td {
+        padding: 5px; /* Disminuye el relleno; ajusta según sea necesario */
+        line-height: 1.2; /* Disminuye el espaciado entre líneas; ajusta según sea necesario */
+        width: 100%; /* Hace que la tabla ocupe todo el ancho */
+        max-width: none; /* Elimina cualquier restricción de ancho máximo */
+        margin: 0; /* Opcional: elimina márgenes para que la tabla alcance los bordes de la pantalla */
+    }
+
+    /* Opcional: Ajustar el estilo para los encabezados de la tabla, si es necesario */
+    table.tablesaw th {
+        padding: 5px; /* Disminuye el relleno; ajusta según sea necesario */
+        line-height: 1.2; /* Disminuye el espaciado entre líneas; ajusta según sea necesario */
+        width: 100%;
+        max-width: none;
+        padding: 0; /* Elimina el relleno si es necesario */
+    }
+    .table-Alto {
+    max-height: 300px; /* Establece el alto máximo del contenedor */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si el contenido excede el alto máximo */
+}
+
+.table-like {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  border-collapse: collapse; /* Para que no haya espacios entre las celdas */
+  
+}
+
+.header-row, .data-row {
+  display: flex;
+}
+
+.header-cell, .data-cell {
+  flex: 1; /* Distribuye el espacio de manera uniforme */
+  border: 1px solid #000; /* Borde negro para cada celda */
+  padding: 8px; /* Espaciado interno para el texto */
+  text-align: left; /* Alinea el texto a la izquierda */
+  background-color: #ddd; /* Fondo gris para las celdas del encabezado */
+  white-space: nowrap; /* Asegura que el texto no se pase a la línea siguiente */
+}
+
+.data-cell {
+  background-color: #fff; /* Fondo blanco para las celdas de datos */
+}
+
+/* Añade estilos adicionales para los bordes, sombras, o lo que necesites */
+.selected {
+  background-color: #e9ecef; /* Cambia el color de fondo de la fila seleccionada */
+}
+</style>
