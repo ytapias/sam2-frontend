@@ -21,32 +21,88 @@
                         
                 <div class="col-lg-4 col-xlg-3 col-md-5">
 
-                    <h6 >Expediente :  </h6> <h6  class="data-display">  {{expediente2.expediente}}</h6>
+                    <h6 ><b>Expediente :</b>  </h6> <h6  class="data-display">  {{expediente2.expediente}}</h6>
                 </div>
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Marca :  </h6> <h6 class="data-display">{{expediente2.marca}} </h6>
+                    <h6 ><b>Marca :</b>  </h6> <h6 class="data-display">{{expediente2.marca}} </h6>
                 </div>                                    
                     
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Pais Radicacion:  </h6> <h6 class="data-display">{{expediente2.pais}} </h6>
+                    <h6 ><b>Pais Radicacion:</b>  </h6> <h6 class="data-display">{{expediente2.pais}} </h6>
                 </div>                                    
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Fecha: </h6> <h6 class="data-display"> {{expediente2.fechapb | date:'yyyy-MM-dd'}} </h6>
+                    <h6 ><b>Fecha :</b> </h6> <h6 class="data-display"> {{expediente2.fechapb | date:'yyyy-MM-dd'}} </h6>
                 </div>                                    
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Dominio : </h6> <h6 class="data-display"> {{expediente2.dominio}} </h6>
+                    <h6 ><b>Dominio :</b> </h6> <h6 class="data-display"> {{expediente2.dominio}} </h6>
                 </div> 
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Año : </h6> <h6 class="data-display"> {{expediente2.anno}} </h6>
+                    <h6 ><b>Año :</b> </h6> <h6 class="data-display"> {{expediente2.anno}} </h6>
                 </div> 
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Clase : </h6> <h6 class="data-display"> {{expediente2.clase}} </h6>
+                    <h6 ><b>Clase :</b> </h6> <h6 class="data-display"> {{expediente2.clase}} </h6>
                 </div>  
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 >Tipo Solicitud : </h6> <h6 class="data-display"> {{expediente2.tiposol}} </h6>
+                    <h6 ><b>Tipo Solicitud :</b> </h6> <h6> {{expediente2.tiposol}} </h6>
                 </div>  
                 
             </div>
+
+        <hr>
+
+            <div class="row">
+                        
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+
+                    <h6 ><b>Tipo Proceso :</b>  </h6> <h6>  {{expediente2.tipoproceso}}</h6>
+                </div>
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Apoderado :</b>  </h6> <h6>{{expediente2.apoderado}}</h6>
+                </div>                                    
+                    
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Agente:</b>  </h6> <h6>{{expediente2.agente}} </h6>
+                </div>                                    
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Compañia:</b> </h6> <h6>  {{expediente2.empresa}} </h6>
+                </div>                                    
+              
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Gaceta :</b> </h6> <h6> {{expediente2.gaceta}} </h6>
+                </div> 
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Certificado :</b> </h6> <h6> {{expediente2.certif}} </h6>
+                </div> 
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Vencimiento :</b> </h6> <h6>  {{expediente2.vencimb | date:'yyyy-MM-dd'}} </h6>
+                </div>  
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Fecha Inac :</b> </h6> <h6>  {{expediente2.fechainac | date:'yyyy-MM-dd'}} </h6>
+                </div>  
+            </div>
+        <hr>
+
+        <div class="row">
+                        
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+
+                <h6 ><b>Resolucion :</b>  </h6> <h6>  {{expediente2.resolucion}}</h6>
+            </div>
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <h6 ><b>Tipo Resolucion :</b>  </h6> <h6>{{expediente2.tiporesolucion}}</h6>
+            </div>                                    
+                
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <h6 ><b>Fecha Resb :</b>  </h6> <h6>{{expediente2.fecharesb | date:'yyyy-MM-dd'}} </h6>
+            </div>                                    
+            <div class="col-lg-4 col-xlg-3 col-md-5">
+                <h6 ><b>Fecha Pub :</b> </h6> <h6> {{expediente2.fechapub | date:'yyyy-MM-dd'}} </h6>
+            </div>                                    
+          
+          
+        </div>
+
+
     </div>
 </div>
 
@@ -122,7 +178,24 @@
     />         
     <button class="btn btn-primary"  (click)="buscar(txttermino.value)">Buscar</button>
     <button class="btn btn-secondary">Gestiones</button>
+
+    &nbsp;&nbsp;&nbsp;
+    <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(0)">Primera</button>
+    <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(-1)">Anterior</button>
+    <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(1)">Siguiente</button>
+    <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(99)">Ultima</button>
+    &nbsp;&nbsp;&nbsp;
+    <button class="btn btn-success"  (click)="abrirModal()" >Nuevo</button>
+    <button class="btn btn-success">Editar Actual</button>
+    &nbsp;&nbsp;&nbsp;
+    <button (click)="abrirUrl()">Ir a la S.I.C.</button>
+
+    
+
 </div>
+
+
+
 
 <style>
     /* Ajusta el estilo para las celdas de la tabla */
@@ -175,3 +248,164 @@
   background-color: #e9ecef; /* Cambia el color de fondo de la fila seleccionada */
 }
 </style>
+
+
+
+
+
+<!---------------
+        MODAL
+-->
+
+
+
+<div class="modal animated fadeIn fast" *ngIf="!ocultarModal" >
+
+    <!--
+         <div class="modal-dialog  modal-lg  modal-dialog-scrollable">
+             <div class="modal-content">
+       -->
+       
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModal()">×</button>
+                </div>
+               
+                <div class="modal-body">
+                    <div class="card-body">
+                    
+                        <div class="form-body" > 
+                      
+
+
+                                <div class="row">
+                            
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                    
+                                        <h6 ><b>Expediente :</b>  </h6> 
+                                            <input type="text" id="lastName" class="form-control form-control-danger" placeholder="Expediente" [(ngModel)]="camposEditar.expediente">
+                                         
+                                    </div>
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Marca :</b>  </h6>  
+                                            <input type="text" id="lastName" class="form-control form-control-danger" placeholder="Marca" [(ngModel)]="camposEditar.marca">
+
+                                         
+                                    </div>                                    
+                                        
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Pais Radicacion:</b>  </h6>
+                                        <input type="text" id="lastName" class="form-control form-control-danger" placeholder="Pais Radicacion" [(ngModel)]="camposEditar.pais">
+                                    </div>                                    
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Fecha :</b> </h6> 
+                                        <input type="text" id="lastName" class="form-control form-control-danger" placeholder="Fecha Publicacion" [(ngModel)]="camposEditar.fechapb">
+
+                                    </div>                                    
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Dominio :</b> </h6> <h6 class="data-display"> {{expediente2.dominio}} </h6>
+                                    </div> 
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Año :</b> </h6> <h6 class="data-display"> {{expediente2.anno}} </h6>
+                                    </div> 
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Clase :</b> </h6> <h6 class="data-display"> {{expediente2.clase}} </h6>
+                                    </div>  
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Tipo Solicitud :</b> </h6> <h6> {{expediente2.tiposol}} </h6>
+                                    </div>  
+                                    
+                                </div>
+                    
+                            <hr>
+                    
+                                <div class="row">
+                                            
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                    
+                                        <h6 ><b>Tipo Proceso :</b>  </h6> <h6>  {{expediente2.tipoproceso}}</h6>
+                                    </div>
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Apoderado :</b>  </h6> <h6>{{expediente2.apoderado}}</h6>
+                                    </div>                                    
+                                        
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Agente:</b>  </h6> <h6>{{expediente2.agente}} </h6>
+                                    </div>                                    
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Compañia:</b> </h6> <h6>  {{expediente2.empresa}} </h6>
+                                    </div>                                    
+                                
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Gaceta :</b> </h6> <h6> {{expediente2.gaceta}} </h6>
+                                    </div> 
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Certificado :</b> </h6> <h6> {{expediente2.certif}} </h6>
+                                    </div> 
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Vencimiento :</b> </h6> <h6>  {{expediente2.vencimb | date:'yyyy-MM-dd'}} </h6>
+                                    </div>  
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Fecha Inac :</b> </h6> <h6>  {{expediente2.fechainac | date:'yyyy-MM-dd'}} </h6>
+                                    </div>  
+                                </div>
+                            <hr>
+                    
+                            <div class="row">
+                                            
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    
+                                    <h6 ><b>Resolucion :</b>  </h6> <h6>  {{expediente2.resolucion}}</h6>
+                                </div>
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Tipo Resolucion :</b>  </h6> <h6>{{expediente2.tiporesolucion}}</h6>
+                                </div>                                    
+                                    
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Fecha Resb :</b>  </h6> <h6>{{expediente2.fecharesb | date:'yyyy-MM-dd'}} </h6>
+                                </div>                                    
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Fecha Pub :</b> </h6> <h6> {{expediente2.fechapub | date:'yyyy-MM-dd'}} </h6>
+                                </div>                                    
+                            
+                            
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn btn-default waves-effect" 
+                                data-dismiss="modal"
+                                (click)="cerrarModal()"
+                            >Cerrar</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
+                        </div>
+
+                    </div>
+                </div>
+                     
+            </div>
+       
+     
+
+</div>

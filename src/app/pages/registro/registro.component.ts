@@ -48,12 +48,11 @@ public elementos :number = 12;
   constructor(     
     private expedientesService: ExpedientesService, 
     private gestionesService :GestionesService){
-      this.buscar(""); 
+      this.buscar( this.busqueda); 
 
   }
  
-
-
+  busqueda : string = "";
   async buscar(termino : string )
   {
     //if( this.cargando ==false)
@@ -69,6 +68,9 @@ public elementos :number = 12;
           
     // if(termino.length>0)
      // {
+    if(this.busqueda!=termino)
+        this.busqueda= termino;
+    
     this.elementos = 50;
     if(termino !="")
     { 
@@ -76,13 +78,13 @@ public elementos :number = 12;
 
     }
 
-        await this.expedientesService.cargar(1,this.elementos,0,termino )
+        await this.expedientesService.cargar(this.desde,this.elementos,0,this.busqueda )
         .subscribe ( (res1:any) => 
         {
             this.expedientesI= res1['resultado'];
-         //   this.total=res1.total;
-          //  this.paginasTotales= Math.round(this.total/this.limite);
-           // this.paginaActual=  this.desde+1;
+            this.total=res1.total;
+            this.paginasTotales= Math.round(this.total/this.limite);
+            this.paginaActual=  this.desde+1;
     
             //this.cargando = false;
         });
@@ -282,5 +284,221 @@ manejarTeclado(event: KeyboardEvent) {
       // Lógica para crear gestión
       this.ocultarMenu();
     }
+
+    
+    public total : number=0;
+    public desde : number=0;
+    public paginaActual : number=0;
+    public paginasTotales : number=0;
+    public limite  : number=5;
+    public cargando : boolean=true;
+    public filtro : number=0;
+  
+  cambiarPagina(valor: number)
+  {
+    let antiguo_valor = this.desde;
+    /*
+    if(valor =0)
+    {
+      this.desde=1;
+    }
+    else if(valor = 99)
+    {
+      this.desde=this.paginasTotales-1;
+    }
+    else{
+    
+    }
+    */
+    this.desde +=valor;
+   
+    this.cargando = true;
+   //console.log(this.desde +">=" + this.paginasTotales)
+    if(this.desde<0)
+    {
+      this.desde=0;
+    }
+    else if (this.desde >= (this.paginasTotales))
+    {
+        this.desde =antiguo_valor;
+    }
+    else{
+      this.buscar( this.busqueda);
+    }
+
+    this.cargando = false;
+
+    //this.Logs="Cambiando pagina "+ this.desde;
+  }
+
+
+  abrirUrl(): void {
+    window.open('https://sipi.sic.gov.co/sipi/Extra/IP/TM/Qbe.aspx?sid=638452362591870433', '_blank');
+  }
+
+
+    //////////////////////////////////////////
+  // MODAL 
+  //////////////////////////////////////////
+
+  private _ocultarModal: boolean = true;
+  private _Crear: boolean = true;
+  private _Uid: string = "";
+
+   public camposEditar : Expedientes=new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
+   "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
+ 
+      
+    
+    abrirCrear(){
+        //console.log(this.modalFormularioServices.ocultarModal);
+        this._Crear=true;
+        this.SubTitulo="Crear";
+        
+        this.camposEditar =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
+        "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
+      
+        this.abrirModal();
+    }
+
+    abrirModificar(dtiposdetalle:Expedientes){
+      this._Crear=false;
+
+      this.SubTitulo="Modificar";
+
+      this.camposEditar = dtiposdetalle;
+      // this.opcionSeleccionada2 = this.camposEditar.idtipopersona;
+      // this.opcionSeleccionada3 = this.camposEditar.idtipoidentificacion;
+      // this.opcionSeleccionada4 = this.camposEditar.idciudad;
+
+      this.abrirModal();
+    }
+    salvarModal()
+    {
+      
+      // if(this.opcionSeleccionada2>0)
+      // {
+      //   this.camposEditar.id = this.opcionSeleccionada2 ; 
+      // }
+      // else{
+      //   this.camposEditar.id = 1;
+      // }
+      
+      // console.log( this.camposEditar);
+
+
+      //   if(this._Crear === true)
+      //   {
+      //     this.personasService.crear(this.camposEditar)
+      //       .subscribe({
+      //         next: (resp: RespuestaBackend) => {
+      //             this.Logs = JSON.stringify(resp);
+      //             console.log(resp);
+
+      //             // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+      //             if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+      //                 // Si nuevoID es mayor que 0, manejar como éxito
+      //                 Swal.fire(
+      //                   'Crear!',
+      //                   `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
+      //                   'success'
+      //                 );
+      //             } else {
+      //                 // Manejar los casos en los que nuevoID no es mayor que 0
+      //                 let mensajeError = 'Ocurrió un error desconocido.';
+      //                 if (resp && resp.resultado) {
+      //                     mensajeError = resp.resultado.mensaje || mensajeError;
+      //                 }
+      //                 Swal.fire(
+      //                     'Crear',
+      //                     mensajeError,
+      //                     'error'
+      //                 );
+      //             }
+      //         },
+      //         error: (errorResp) => {
+      //             // Manejo de errores de la petición
+      //             console.error('Error en la petición:', errorResp);
+      //             Swal.fire(
+      //                 'Error en la Petición',
+      //                 'Ocurrió un error al realizar la petición al servidor.',
+      //                 'error'
+      //             );
+      //         }
+      //     });
+ 
+      //   }
+      //   else
+      //   {
+                
+      //     this.personasService.modificar(this.camposEditar)
+      //     .subscribe({
+      //         next: (resp: RespuestaBackend) => {
+      //             this.Logs = JSON.stringify(resp);
+      //             console.log(resp);
+
+      //             // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+      //             if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+      //                 // Si nuevoID es mayor que 0, manejar como éxito
+      //                 Swal.fire(
+      //                     'Modificar',
+      //                     `El item fue modificado con éxito. ID Nuevo: ${resp.resultado.nuevoID}`,
+      //                     'success'
+      //                 );
+      //             } else {
+      //                 // Manejar los casos en los que nuevoID no es mayor que 0
+      //                 let mensajeError = 'Ocurrió un error desconocido.';
+      //                 if (resp && resp.resultado) {
+      //                     mensajeError = resp.resultado.mensaje || mensajeError;
+      //                 }
+      //                 Swal.fire(
+      //                     'Modificar',
+      //                     mensajeError,
+      //                     'error'
+      //                 );
+      //             }
+      //         },
+      //         error: (errorResp) => {
+      //             // Manejo de errores de la petición
+      //             console.error('Error en la petición:', errorResp);
+      //             Swal.fire(
+      //                 'Error en la Petición',
+      //                 'Ocurrió un error al realizar la petición al servidor.',
+      //                 'error'
+      //             );
+      //         }
+      //     });
+ 
+      
+
+      //   }
+
+       // console.log(ciudadPais);
+        
+      
+      
+        
+        this.cerrarModal();
+    }
+
+    get ocultarModal(){
+      return this._ocultarModal;
+    }
+
+    abrirModal(){
+      this._ocultarModal=false;
+
+    }
+
+    cerrarModal(){
+      this._ocultarModal=true;
+     
+    
+
+    }
+  ///////////////////////////////////////
+  //    FIN MODAL
+  ////////////////////////////////////// 
+
 
 }
