@@ -17,8 +17,12 @@ export class Expedientes {
       public agente:  string,
 
       public idtipoestadotramite:  number,
-
       public tipoestadotramite: string,
+
+      public idsolicitante:  number,
+      public solicitante: string,
+
+      
 
       public idtiposolicitud :  number,
       public tiposolicitud :  string,

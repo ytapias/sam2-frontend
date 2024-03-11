@@ -299,7 +299,7 @@
                                     </div>                                    
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Fecha :</b> </h6> 
-                                        <input type="date" id="fecha"  placeholder="Fecha Publicacion" [(ngModel)]="camposEditar.fechapb">
+                                        <input type="date" id="fecha"  placeholder="Fecha Publicacion" [ngModel]="camposEditar.fechapb| date:'yyyy-MM-dd'">
                                     </div>       
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Año :</b> </h6> 
@@ -315,7 +315,7 @@
                                    </div>  
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Vencimiento :</b> </h6> 
-                                        <input type="date" id="Vence"  placeholder="Tipo Solicitud" [(ngModel)]="camposEditar.vencimb">
+                                        <input type="date" id="Vence"  placeholder="Tipo Solicitud" [ngModel]="camposEditar.vencimb | date:'yyyy-MM-dd'">
                                     </div>  
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Dominio :</b> </h6> 
@@ -336,6 +336,10 @@
                                 </div>
                             <hr>
                                 <div class="row">
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Solicitante :</b>  </h6> 
+                                        <input type="text" id="Solicitante" placeholder="Solicitante" [(ngModel)]="camposEditar.solicitante">
+                                    </div>
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Apoderado :</b>  </h6> 
                                         <input type="text" id="marca" placeholder="Apoderado" [(ngModel)]="camposEditar.apoderado">
@@ -362,11 +366,11 @@
                                     </div> 
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Fecha Prioridad :</b> </h6>
-                                        <input type="date" id="marca" placeholder="Estado Tramite" [(ngModel)]="camposEditar.fechapri">
+                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.fechapri | date:'yyyy-MM-dd'">
                                     </div> 
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>expedipri :</b> </h6> 
-                                        <input type="date" id="marca" placeholder="Estado Tramite" [(ngModel)]="camposEditar.expedipri">
+                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.expedipri | date:'yyyy-MM-dd'">
                                     </div>  
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Yourref :</b> </h6> 
@@ -387,7 +391,7 @@
                                     
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>fechapub:</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [(ngModel)]="camposEditar.fechapub">
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechapub | date:'yyyy-MM-dd'">
                                     </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>MActiva :</b> </h6> 
@@ -399,11 +403,11 @@
                                  </div>
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>ptram :</b> </h6> 
-                                    <input type="date" id="pagcert"  placeholder="pagcert" [(ngModel)]="camposEditar.ptram">
+                                    <input type="date" id="pagcert"  placeholder="pagcert" [ngModel]="camposEditar.ptram | date:'yyyy-MM-dd'">
                              </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>fechainac:</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [(ngModel)]="camposEditar.fechainac">
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechainac | date:'yyyy-MM-dd'">
                                     </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>vcniza :</b> </h6> 
@@ -420,7 +424,7 @@
                                     
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>frrenova :</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [(ngModel)]="camposEditar.frrenova">
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.frrenova | date:'yyyy-MM-dd'">
                                     </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>otro :</b> </h6> 
@@ -428,8 +432,9 @@
                                 </div>              
                             </div>
                         </div>
-
+ 
                         <div class="modal-footer">
+                            PEGAR COPIA SIC<input type="text" (paste)="onPaste($event)" style="color: #000;background-color: #000;">
                             <button type="button" 
                                 class="btn btn-default waves-effect" 
                                 data-dismiss="modal"

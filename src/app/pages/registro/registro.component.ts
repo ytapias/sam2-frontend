@@ -5,6 +5,7 @@ import { ExpedientesService } from 'src/app/services/expedientes.service';
 import { Gestiones } from 'src/app/models/gestiones';
 import { Marcas } from 'src/app/models/denomi.model';
 import { GestionesService } from 'src/app/services/gestiones.service';
+ import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-registro',
@@ -33,14 +34,16 @@ export class RegistroComponent {
 
 public TIpoProceso =  { _id: "", nombre:"", codigo:""};
 public TIpoMarca =  { _id: "", nombre:"", codigo:""};
-public APoderado =  { _id: "", nombre:"", identificacion:""};
-public AGente =  { _id: "", nombre:"", identificacion:""};
+public APoderado =  { _id: "", nombre:"", apellido:"", identificacion:"",direccion:""};
+public AGente =  { _id: "", nombre:"", identificacion:"",direccion:""};
+public Solicitante =  { _id: "", nombre:"",apellido:"",  identificacion:"",direccion:""};
+
 public EStado =  { _id: "", nombre:"", codigo:""};
 
 
   public fecha: Date = new Date();
 
-  public expediente2: Expedientes =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
+  public expediente2: Expedientes =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
   "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
 
 public elementos :number = 12;
@@ -157,11 +160,16 @@ public elementos :number = 12;
 
       if(this.APoderado == null ||this.APoderado  == undefined )
       {
-        this.APoderado =  { _id: "", nombre:"", identificacion:""};
+        this.APoderado =  { _id: "", nombre:"",apellido:"",  identificacion:"" ,direccion:""};
+      }
+      
+      if(this.Solicitante == null ||this.Solicitante  == undefined )
+      {
+        this.Solicitante =  { _id: "", nombre:"", apellido:"", identificacion:"" ,direccion:""};
       }
       if(this.AGente == null ||this.AGente  == undefined )
       {
-        this.AGente =  { _id: "", nombre:"", identificacion:""};
+        this.AGente =  { _id: "", nombre:"", identificacion:"",direccion:""};
       }
 
       if(this.PAis == null ||this.PAis  == undefined )
@@ -345,7 +353,7 @@ manejarTeclado(event: KeyboardEvent) {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Expedientes=new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
+   public camposEditar : Expedientes=new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
    "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
  
       
@@ -355,7 +363,7 @@ manejarTeclado(event: KeyboardEvent) {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
+        this.camposEditar =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
         "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
       
         this.abrirModal();
@@ -496,6 +504,353 @@ manejarTeclado(event: KeyboardEvent) {
     
 
     }
+
+
+    miVariable: string | undefined; // Esta es la variable que llenarás con el texto pegado
+
+    onPaste(event: ClipboardEvent) {
+      // Usa el objeto ClipboardEvent para acceder al texto pegado
+      if (event.clipboardData) {
+        const pastedText = event.clipboardData.getData('text');
+        this.miVariable = pastedText;
+
+        let variable :string ="";
+        let Operacion = 0;
+
+        const lineas = this.miVariable.split('\n');
+        lineas.forEach(linea => {
+          // Buscar y procesar "Referencia del solicitante"
+            if (linea.includes('Referencia del solicitante')) {
+              this.camposEditar.agente = linea.split('\t')[1].trim();
+            }
+
+ //------------------------------------
+          //------------------------------------
+          // Buscar y procesar "Estado"
+          if (linea.includes('Estado')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            this.camposEditar.tiposolicitud= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
+          }
+    
+          // if (linea.includes('Fecha de orden de publicación')) {
+          //   // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+          //   variable= linea.split('Fecha de orden de publicación')[1].split('\t')[1].trim();
+          //   console.log(variable);
+          //   console.log( this.procesarFecha(variable));
+
+          //   if(variable !== null)
+          //   {
+          //     this.camposEditar.fechapub= this.procesarFecha(variable);
+          //   }
+          //   variable ="";
+          // }
+
+          //------------------------------------
+          //------------------------------------
+          // Buscar y procesar "Estado"
+          if (linea.includes('Estado')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            this.camposEditar.tipoestadotramite= linea.split('Estado')[1].split('Fecha de radicación')[0].trim();
+          }
+    
+          if (linea.includes('Fecha de radicación')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            variable= linea.split('Fecha de radicación')[1].split('\t')[1].trim();
+            console.log(variable);
+            console.log( this.procesarFecha(variable));
+
+            if(variable !== null)
+            {
+              this.camposEditar.fechapb= this.procesarFecha(variable);
+              let [dia, mes, anno] = variable.split(' ');
+
+              // console.log("año");
+              // console.log(anno);
+              // console.log(variable);
+
+              this.camposEditar.anno=parseInt(anno);
+            }
+            variable ="";
+          }
+          //------------------------------------
+          //------------------------------------
+
+
+          //------------------------------------
+          //------------------------------------
+          // Buscar y procesar "Estado"
+          if (linea.includes('Tipo de solicitud')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            this.camposEditar.tiposolicitud= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
+          }
+    
+          if (linea.includes('Fecha de orden de publicación')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            variable= linea.split('Fecha de orden de publicación')[1].split('\t')[1].trim();
+            console.log(variable);
+            console.log( this.procesarFecha(variable));
+
+            if(variable !== null)
+            {
+              this.camposEditar.fechapub= this.procesarFecha(variable);
+            }
+            variable ="";
+          }
+          //------------------------------------
+          //------------------------------------
+          //this.Solicitante =  { _id: "", nombre:"", identificacion:"" ,direccion:""};
+          //------------------------------------
+          //------------------------------------
+          // Buscar y procesar "Estado"
+
+          if(Operacion==11)
+          {
+            let [identificacion1,otro2,Nombres1, Apellidos1,Direccion,otro] = linea.split('\t');
+            Direccion = Direccion.replace('Dirección Física', '');
+            Direccion = Direccion.replace(' : ', '');
+            Direccion = Direccion.replace('\r', '');
+            Operacion=0;
+
+            // console.log("DIRECCION");
+            
+            // console.log(identificacion1);
+            // console.log(Nombres1);
+            // console.log(Apellidos1);
+            // console.log(Direccion);
+            // console.log(otro);
+            this.APoderado.identificacion= identificacion1;
+            this.APoderado.nombre= Nombres1;
+            this.APoderado.apellido= Apellidos1;
+            this.APoderado.direccion= Direccion;
+            this.camposEditar.apoderado= Nombres1 +' ' +Apellidos1;
+            console.log(this.APoderado);
+          }
+
+          if(linea.includes('Apoderado')){
+            Operacion= 1;
+          }
+
+          if (linea.includes('Número de identificación') && Operacion== 1 ) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            Operacion= 11;
+          }
+
+
+          // if (linea.includes('Número de identificación') && Operacion== 1 ) {
+          //   // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+          //   this.camposEditar.tiposolicitud= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
+          // }
+    
+         
+          
+          //------------------------------------
+          //------------------------------------
+
+//------------------------------------
+          //------------------------------------
+          // Buscar y procesar "Estado"
+
+          if(Operacion==22)
+          {
+            let [identificacion2,otro2,Nombres2, Direccion2,otro] = linea.split('\t');
+            
+            // console.log(identificacion2);
+            // console.log(otro2);
+            // console.log(Nombres2);
+            
+            // console.log(Direccion2);
+            // console.log(otro);
+
+            
+            
+            Direccion2 = Direccion2.replace('Dirección Física', '');
+            Direccion2 = Direccion2.replace(' : ', '');
+            Direccion2 = Direccion2.replace('\r', '');
+            Operacion=0;
+
+           
+            this.Solicitante.identificacion= identificacion2;
+            this.Solicitante.nombre= Nombres2;
+            this.Solicitante.apellido= "";
+            this.Solicitante.direccion= Direccion2;
+
+            console.log(this.Solicitante);
+          }
+
+          if(linea.includes('Solicitante')){
+            Operacion= 2;
+          }
+
+          if (linea.includes('Número de identificación') && Operacion== 2 ) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            Operacion= 22;
+          }
+
+ 
+         
+          
+          //------------------------------------
+          //------------------------------------
+
+
+          //------------------------------------
+          //------------------------------------
+          // Clase
+
+          if(Operacion==33)
+          {
+            let [clase,descripcion] = linea.split('\t');
+            
+
+            this.camposEditar.clase=  clase;
+            Operacion=0;
+          }
+
+          if(linea.includes('Descripción de productos y/o servicios')){
+            Operacion= 3;
+          }
+
+          if (linea.includes('Clase(s)') && Operacion== 3 ) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            Operacion=33;
+          }
+
+ 
+         
+          
+          //------------------------------------
+          //------------------------------------
+
+          //------------------------------------
+          //------------------------------------
+          // PAis
+
+          if(Operacion==44)
+          {
+            let [pais,fechaprioridad,numeroprioridad,clase1,reinvindicaciones] = linea.split('\t');
+            
+            this.camposEditar.pais=  pais;
+            // console.log("fechaprioridad");
+            // console.log(fechaprioridad);
+            // console.log(pais);
+            // console.log(numeroprioridad);
+            // console.log(clase1);
+            // console.log(reinvindicaciones);
+
+
+           this.camposEditar.fechapri=  this.procesarFecha(fechaprioridad);
+            Operacion=0;
+          }
+
+          if(linea.includes('País') && linea.includes('Fecha de prioridad') ){
+            Operacion= 44;
+          }
+
+         
+ 
+         
+          
+          //------------------------------------
+          //------------------------------------
+
+          
+
+          if (linea.includes('Versión de la Clasificación de Niza')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            this.camposEditar.vcniza=  parseInt(linea.split('Versión de la Clasificación de Niza')[1].split('\t')[1].trim());
+          }
+
+
+          if (linea.includes('Tipo de Signo Distintivo')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            let tipoSIgno= linea.split('Tipo de Signo Distintivo')[1].split('\t')[1].trim();
+          }
+
+          if (linea.includes('Denominación del Signo')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            this.camposEditar.marca= linea.split('Denominación del Signo')[1].split('\t')[1].trim();
+          }
+
+
+          if (linea.includes('Naturaleza')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            let naturaleza=  linea.split('Naturaleza')[1].split('\t')[1].trim();
+          }
+        
+
+          if (linea.includes('Número de la gaceta')) {
+            // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+            this.camposEditar.gaceta= linea.split('Número de la gaceta')[1].split('Fecha de publicación')[0].trim();
+          }
+        
+
+
+
+          // ... procesar otras líneas según sea necesario
+        });
+
+       // console.log(this.miVariable);
+      
+
+      } else {
+        // Manejar la situación cuando clipboardData es null, si es necesario
+      }
+    }
+
+  procesarFecha(fechaTexto: string): Date  {
+      // Define el tipo de objeto con un índice de tipo string
+      const meses: { [key: string]: string } = {
+        ene: '01', feb: '02', mar: '03', abr: '04', may: '05', jun: '06',
+        jul: '07', ago: '08', sep: '09', oct: '10', nov: '11', dic: '12'
+      };
+
+      // Dividir la fecha en sus componentes
+      const componentes = fechaTexto.split(' '); 
+      let fecharesp :Date;
+    //  console.log(componentes);
+
+      if (componentes.length === 3) {
+        let [dia, mesTexto, año] = componentes;
+        mesTexto = mesTexto.replace('.', ''); // Elimina el punto del mes
+
+        // Convierte el mes a número y verifica que sea válido
+        const mes = meses[mesTexto.toLowerCase()];
+        if (!mes) {
+          console.error('Mes no válido:', mesTexto);
+          return   new Date();
+        }
+//console.log(mes);
+
+        // Reorganiza la fecha en un formato que JavaScript pueda entender
+        const fechaFormateada = `${año} ${mes} ${dia.padStart(2, '0')}`;
+       
+        // Crear el objeto Date
+         fecharesp = new Date(fechaFormateada);
+
+        //  const df = moment(fecharesp,"DD/MM/YYYY"); 
+
+        //  const locale ='en-US';
+        //  const format='yyyy-MM-dd';
+
+        //    console.log("this.formatearFecha(fechaFormateada)");
+        //    console.log(formatDate(fecharesp,format,locale));
+
+           
+
+          return   fecharesp ;
+
+       
+
+
+
+      } else {
+        console.error('Formato de fecha no válido:', fechaTexto);
+        return   new Date();  }
+  }
+
+  
+
+    
   ///////////////////////////////////////
   //    FIN MODAL
   ////////////////////////////////////// 
