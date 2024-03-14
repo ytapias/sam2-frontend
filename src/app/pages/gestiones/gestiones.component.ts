@@ -385,8 +385,8 @@ export class GestionesComponent {
 
    public camposEditar : Gestiones=new Gestiones(0,0,0,0,0,'',0,'','',0,'',new Date(),0,'',new Date(),'','',0,'');
       
-    Titulo: string="Configuracion";
-    SubTitulo: string="ingrese los datos de Configuracion";
+    Titulo: string="Gestiones";
+    SubTitulo: string="ingrese los datos de Gestion";
 
     abrirCrear(){
         //console.log(this.modalFormularioServices.ocultarModal);
