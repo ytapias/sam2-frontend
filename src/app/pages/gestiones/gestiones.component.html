@@ -228,7 +228,7 @@
                                          <label class="control-label">Tipo Proceso</label>
                                 </div>        
                                 <div class="col-md-2">        
-                                         <select class="custom-select" [(ngModel)]="opcionSeleccionada3"
+                                         <select  class="custom-select"   [(ngModel)]="opcionSeleccionada3"
                                         (ngModelChange)="cambiarTipo2($event)">
                                             <option value="{{dato.id}}" *ngFor="let dato of TiposProceso">
                                                 {{dato.nombre}}
@@ -254,10 +254,9 @@
                                 <div class="col-md-2">
                                     
                                         <label class="control-label">Fecha Actuacion</label>
-                                         {{ Fechaactuacion | json }}
-                                </div>
+                                 </div>
                                 <div class="col-md-2">
-                                    <input type="date" [(ngModel)]="Fechaactuacion" value="camposEditar.fechactuacion" placeholder="yyyy/mm/dd">
+                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar.fechactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-2">
@@ -265,10 +264,11 @@
                                 </div>
                                 <div class="col-md-2">
                                         <label class="control-label">Fecha Vencimiento</label>
-                                         {{ Fechavencimiento | json }}
-                                </div>
+                                 </div>
                                 <div class="col-md-2">
-                                       <input type="date" [(ngModel)]="Fechavencimiento"  placeholder="yyyy/mm/dd">
+                                       <!-- <input type="date" [(ngModel)]="camposEditar.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> -->
+                                       <input type="date" id="vence" placeholder="Vence" [ngModel]="camposEditar.vence | date:'yyyy-MM-dd'">
+
                                 </div>
                                 <!--/span-->
                             </div>
@@ -314,9 +314,10 @@
                                 </div>
                            
                                 <div class="col-md-2">
-                                    <input type="text"  cols="40" 
-                                    rows="3" 
+                                    <textarea name="textarea"  cols="20" 
+                                    rows="4" 
                                     style="width:300px; height:80px;"  id="observaciones"  placeholder="observaciones"  [(ngModel)]="camposEditar.observaciones">
+                                   </textarea>
                                    
                                 </div>
                             </div>

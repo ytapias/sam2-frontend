@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Gestiones } from 'src/app/models/gestiones';
 import { paisesyciudades } from 'src/app/models/paisesyciudades.model';
+import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.service';
 import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
 import { GestionesService } from 'src/app/services/gestiones.service';
 import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
@@ -50,7 +51,9 @@ export class GestionesComponent {
   seccionMinimizada: boolean = false;
 
 
-  constructor(private servicio: GestionesService,private tiposdetService: TptiposdetalleService,)
+  constructor(private servicio: GestionesService,
+              private tiposdetService: TptiposdetalleService,
+              private paisesyciudadesService: TppaisesyciudadesService)
   {
     
   }
@@ -182,19 +185,19 @@ export class GestionesComponent {
   }
 
   cargarPais() {
-/*
+ 
     this.cargando = true;
 
-    this.tiposdetService.cargar(0,-2,1,"" )
+    this.paisesyciudadesService.cargar(0,-2,225,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
-        this.TipoEstado= res1['tiposdetalle'];
+        //console.log(res1);
+        this.paises= res1['resultado'];
       
         this.cargando = false;
     });
 
-*/
+ 
   }
 
 
@@ -405,48 +408,72 @@ export class GestionesComponent {
 
       this.camposEditar = dtiposdetalle;
 
-      this.idpaisseleccionado= this.camposEditar.idpais;
+      this.idpaisseleccionado= dtiposdetalle.idpais;
 
-      this.opcionSeleccionada2 = this.camposEditar.idtipoactuacion;
-      this.opcionSeleccionada3 = this.camposEditar.idtipoproceso;
-      this.TipoEstadoSeleccionado= this.camposEditar.idestado;
+      this.opcionSeleccionada2 = dtiposdetalle.idtipoactuacion;
+      this.opcionSeleccionada3 = dtiposdetalle.idtipoproceso;
+      this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
   
-      this.Fechavencimiento= this.camposEditar.vence;
-      this.Fechaactuacion= this.formatDateToYYYYMMDD(this.camposEditar.fechactuacion);
-   //   this.opcionSeleccionada2 = this.camposEditar.espais;
+      this.camposEditar.fechactuacion= dtiposdetalle.fechactuacion;
+      this.camposEditar.vence=dtiposdetalle.vence;
+      this.camposEditar.observaciones=dtiposdetalle.observaciones;
       
-      console.log(this.camposEditar);
-
-      console.log(this.opcionSeleccionada2 );
+     
 
       this.abrirModal();
     }
 
-    formatDateToYYYYMMDD(dateString: string | number | Date): Date {
-      if (!dateString) {
-        return new Date();
+    
+  procesarFecha(fechaTexto: string): Date  {
+    // Define el tipo de objeto con un índice de tipo string
+    const meses: { [key: string]: string } = {
+      ene: '01', feb: '02', mar: '03', abr: '04', may: '05', jun: '06',
+      jul: '07', ago: '08', sep: '09', oct: '10', nov: '11', dic: '12'
+    };
+
+    // Dividir la fecha en sus componentes
+    const componentes = fechaTexto.split(' '); 
+    let fecharesp :Date;
+  //  console.log(componentes);
+
+    if (componentes.length === 3) {
+      let [dia, mesTexto, año] = componentes;
+      mesTexto = mesTexto.replace('.', ''); // Elimina el punto del mes
+
+      // Convierte el mes a número y verifica que sea válido
+      const mes = meses[mesTexto.toLowerCase()];
+      if (!mes) {
+        console.error('Mes no válido:', mesTexto);
+        return   new Date();
       }
-    
-      const date = new Date(dateString);
-    
-      if (isNaN(date.getTime())) {
-        return new Date();
-      }
-    
-      let month = '' + (date.getMonth() + 1);
-      let day = '' + date.getDate();
-      let year = date.getFullYear();
-    
-      if (month.length < 2) {
-        month = '0' + month;
-      }
-      if (day.length < 2) {
-        day = '0' + day;
-      }
-    
-      const date2 = new Date([year, month, day].join('-'));
-      return date2;
-    }
+//console.log(mes);
+
+      // Reorganiza la fecha en un formato que JavaScript pueda entender
+      const fechaFormateada = `${año} ${mes} ${dia.padStart(2, '0')}`;
+     
+      // Crear el objeto Date
+       fecharesp = new Date(fechaFormateada);
+
+      //  const df = moment(fecharesp,"DD/MM/YYYY"); 
+
+      //  const locale ='en-US';
+      //  const format='yyyy-MM-dd';
+
+      //    console.log("this.formatearFecha(fechaFormateada)");
+      //    console.log(formatDate(fecharesp,format,locale));
+
+         
+
+        return   fecharesp ;
+
+     
+
+
+
+    } else {
+      console.error('Formato de fecha no válido:', fechaTexto);
+      return   new Date();  }
+}
 
 
 /*
@@ -492,9 +519,29 @@ export class GestionesComponent {
       console.log( this.camposEditar);
 
 */
+
+
         if(this._Crear === true)
         {
-          this.servicio.crear(this.camposEditar)
+
+
+          
+          if (this.camposEditar.fechactuacion === null)
+          {
+            this.camposEditar.fechactuacion = new Date();
+          }
+
+          if (this.camposEditar.vence === null)
+          {
+            this.camposEditar.vence = new Date();
+          }
+
+          let  nueva    : Gestiones = new Gestiones(0,0,this.camposEditar.expediente,0,0,'',this.idpaisseleccionado,''
+          ,'',this.opcionSeleccionada3,'',this.camposEditar.fechactuacion,this.opcionSeleccionada2,'',
+          this.camposEditar.vence,'',this.camposEditar.observaciones,this.TipoEstadoSeleccionado,'');
+ 
+
+          this.servicio.crear(nueva)
           .subscribe(resp =>
             {
               this.Logs = JSON.stringify(resp);
