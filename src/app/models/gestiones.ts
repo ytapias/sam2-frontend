@@ -10,11 +10,11 @@ export class Gestiones {
       public idpais:number,
       public pais: string,
       
-      public clase: string,
+      public clase: number,
       public idtipoproceso: number,
       public tipoproceso: string,
 
-      public fechactuacion: Date,
+      public fechaactuacion: Date,
       public idtipoactuacion: number,
       public tipoactuacion: string,
       public vence: Date,

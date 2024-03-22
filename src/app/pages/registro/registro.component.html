@@ -106,7 +106,7 @@
     </div>
 </div>
 
-<div class="table-responsive table-Al tabla-contenedor">
+<div class="table-responsive table-Al tabla-contenedor" *ngIf="ocultarModalgestionP">
     <div class="card">
         <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
             <thead class="sticky-header">
@@ -160,6 +160,51 @@
 
 </div>
 
+<div class="table-responsive table-Al tabla-contenedor" *ngIf="!ocultarModalgestionP">
+    <div class="card">
+        <table  #tabla1 class="  table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
+            <thead class="sticky-header">
+                <tr style="color:aliceblue">
+                    <th class="w100">Expediente</th>
+                    <th class="w300">Marca</th>
+                    <th class="w100">Pais</th>
+                    <th class="w100">Clase</th>
+                    <th class="w100">Tipo Proces</th>
+                    <th class="w100">Fecha ACT</th>
+                    <th class="w100">Tipo ACT</th>
+                    <th class="w100">Vence</th>
+                    <th class="w100">Tipo Gest</th>
+                    <th class="w300">Observaciones</th>
+                    <th  class="w100">Estado</th>
+                    <th  class="w60">id</th>             
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let nitem of Items1">
+                   
+                    <td>
+                        {{ nitem.expediente }} 
+                    </td>
+                    <td>{{ nitem.marca }}</td>
+                    <td>{{ nitem.pais }}</td>
+                    <td>{{ nitem.clase }}</td>
+                    <td>{{ nitem.tipoproceso }}</td>
+
+                    <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ nitem.tipoactuacion }}</td>
+                    <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
+                    <td>{{ nitem.tipogest }}</td>
+                    <td>{{ nitem.observaciones }}</td>
+                    <td>{{ nitem.estado }}</td>
+                    <td>{{ nitem.id }}</td>
+                </tr>
+             
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
 <!-- Definición del menú contextual -->
 <div class="menu-contextual" *ngIf="menuVisible" [ngStyle]="{'top': menuPosicion.y + 'px', 'left': menuPosicion.x + 'px'}">
     <ul>
@@ -177,7 +222,7 @@
     #txttermino
     />         
     <button class="btn btn-primary"  (click)="buscar(txttermino.value)">Buscar</button>
-    <button class="btn btn-secondary">Gestiones</button>
+    <button class="btn btn-secondary" (click)="abrirGestiones()">Gestiones</button>
 
     &nbsp;&nbsp;&nbsp;
     <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(0)">Primera</button>
@@ -248,8 +293,6 @@
   background-color: #e9ecef; /* Cambia el color de fondo de la fila seleccionada */
 }
 </style>
-
-
 
 
 
@@ -445,6 +488,180 @@
 
                     </div>
                 </div>
+                     
+            </div>
+       
+     
+
+</div>
+
+
+  
+<!--
+ 
+--------------------------------------------
+--------------------------------------------
+---------MODAL
+-------------------------------------------- -->
+
+
+<div class="modal animated fadeIn fast"
+*ngIf="!ocultarModalgestion" >
+
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModalGestion()">×</button>
+                </div>
+               
+                <div class="modal-body">
+                     
+                        <div class="form-body" > 
+                            <h3 class="card-title">{{SubTitulo}}</h3>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label">Tipo Actuacion</label>
+
+                                </div>
+                                <div class="col-md-2">
+                                            <select class=" custom-select" [(ngModel)]="opcionSeleccionada2"
+                                         >
+                                            <option value="{{dato.id}}" *ngFor="let dato of TiposActuacion">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                </div>
+                                  <!--/span-->
+                                  <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+
+                                <div class="col-md-2">
+                                    <label class="control-label">Clase</label>
+                           </div>        
+                           <div class="col-md-2">        
+                                 <input type="text" id="clase"  placeholder="Clase"  [(ngModel)]="camposEditar2.clase">
+                             </div>
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                         <label class="control-label">Tipo Proceso</label>
+                                </div>        
+                                <div class="col-md-2">        
+                                         <select  class="custom-select"   [(ngModel)]="opcionSeleccionada3"
+                                        >
+                                            <option value="{{dato.id}}" *ngFor="let dato of TiposProceso">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                  </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Expediente</label>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <input type="text" id="expediente"  placeholder="codigo"  [(ngModel)]="camposEditar2.expediente">
+                                   
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    
+                                        <label class="control-label">Fecha Actuacion</label>
+                                 </div>
+                                <div class="col-md-2">
+                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar2.fechaactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-2">
+                                        <label class="control-label">Fecha Vencimiento</label>
+                                 </div>
+                                <div class="col-md-2">
+                                       <!-- <input type="date" [(ngModel)]="camposEditar2.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> -->
+                                       <input type="date" id="vence" placeholder="Vence" [ngModel]="camposEditar2.vence | date:'yyyy-MM-dd'">
+
+                                </div>
+                                <!--/span-->
+                            </div>
+                             <!--/row-->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label">Pais</label>
+                                </div>
+                                <div class="col-md-2">
+                                        <select class="w140" name="idpais"
+                                        [(ngModel)]="idpaisseleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of paises">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                    
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Estado</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control w140" name="TipoEST"
+                                    [(ngModel)]="TipoEstadoSeleccionado">
+                                        
+                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
+                                            {{dato.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <div class="row">
+
+
+                                <div class="col-md-2">
+                                    <label class="control-label">Observaciones</label>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <textarea name="textarea"  cols="20" 
+                                    rows="4" 
+                                    style="width:300px; height:80px;"  id="observaciones"  placeholder="observaciones"  [(ngModel)]="camposEditar2.observaciones">
+                                   </textarea>
+                                   
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                        <div class="row"> &nbsp;</div>
+
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn btn-default waves-effect" 
+                                data-dismiss="modal"
+                                (click)="cerrarModal()"
+                            >Cerrar</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
+                        </div>
+
+                 </div>
                      
             </div>
        

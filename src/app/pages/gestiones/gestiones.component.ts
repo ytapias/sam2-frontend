@@ -16,6 +16,13 @@ import * as XLSX from 'xlsx';
 })
 export class GestionesComponent {
 
+
+  get Empresa():number{
+    let idempresa=  localStorage.getItem('emp') || '';
+    return parseInt(idempresa);
+  }
+
+
   public totalTipos:number = 0;
 
   public Items: Gestiones[]=[];
@@ -24,6 +31,7 @@ export class GestionesComponent {
   public TiposActuacion: tiposdetalle[]=[];
   public TiposProceso: tiposdetalle[]=[];
   public TipoEstado: tiposdetalle[]=[];
+  public ClaseActuacion: tiposdetalle[]=[];
   public paises: paisesyciudades[]=[];
 
   public total:number = 0;
@@ -60,6 +68,7 @@ export class GestionesComponent {
 
   ngOnInit(): void {
     this.cargar();
+    this.cargarClase();
     this.cargarTipoEstado();
     this.cargarTipoProceso();
     this.cargarTipoActuacion();
@@ -94,6 +103,7 @@ export class GestionesComponent {
   opcionSeleccionada: number=0; 
   opcionSeleccionada2: number=0; 
   opcionSeleccionada3: number=0; 
+  opcionSeleccionada4: number=0; 
   TipoEstadoSeleccionado: number=0; 
   idpaisseleccionado: number=0;  
 
@@ -145,6 +155,23 @@ export class GestionesComponent {
     {
      console.log(res1);
         this.TipoEstado= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
+  
+  cargarClase() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,10,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.ClaseActuacion= res1['tiposdetalle'];
       
         this.cargando = false;
     });
@@ -386,7 +413,7 @@ export class GestionesComponent {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Gestiones=new Gestiones(0,0,0,0,0,'',0,'','',0,'',new Date(),0,'',new Date(),'','',0,'');
+   public camposEditar : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
       
     Titulo: string="Gestiones";
     SubTitulo: string="ingrese los datos de Gestion";
@@ -396,7 +423,7 @@ export class GestionesComponent {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new Gestiones(0,0,0,0,0,'',0,'','',0,'',new Date(),0,'',new Date(),'','',0,'');
+        this.camposEditar =new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
         
         this.abrirModal();
     }
@@ -414,7 +441,7 @@ export class GestionesComponent {
       this.opcionSeleccionada3 = dtiposdetalle.idtipoproceso;
       this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
   
-      this.camposEditar.fechactuacion= dtiposdetalle.fechactuacion;
+      this.camposEditar.fechaactuacion= dtiposdetalle.fechaactuacion;
       this.camposEditar.vence=dtiposdetalle.vence;
       this.camposEditar.observaciones=dtiposdetalle.observaciones;
       
@@ -526,20 +553,23 @@ export class GestionesComponent {
 
 
           
-          if (this.camposEditar.fechactuacion === null)
-          {
-            this.camposEditar.fechactuacion = new Date();
-          }
+//           if (this.camposEditar.fechaactuacion === null)
+//           {
+//             this.camposEditar.fechaactuacion = new Date();
+//           }
 
-          if (this.camposEditar.vence === null)
-          {
-            this.camposEditar.vence = new Date();
-          }
-
-          let  nueva    : Gestiones = new Gestiones(0,0,this.camposEditar.expediente,0,0,'',this.idpaisseleccionado,''
-          ,'',this.opcionSeleccionada3,'',this.camposEditar.fechactuacion,this.opcionSeleccionada2,'',
+//           if (this.camposEditar.vence === null)
+//           {
+//             this.camposEditar.vence = new Date();
+//           }
+// 
+          
+          let  nueva    : Gestiones = new Gestiones(0,this.Empresa,0,this.camposEditar.expediente,0,'',this.idpaisseleccionado,''
+          ,this.camposEditar.clase,this.opcionSeleccionada3,'',this.camposEditar.fechaactuacion,this.opcionSeleccionada2,'',
           this.camposEditar.vence,'',this.camposEditar.observaciones,this.TipoEstadoSeleccionado,'');
  
+console.log(nueva);
+console.log(this.camposEditar.fechaactuacion);
 
           this.servicio.crear(nueva)
           .subscribe(resp =>

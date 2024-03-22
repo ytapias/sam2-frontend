@@ -18,18 +18,18 @@
                 <div class="card-body ">
                     
                     BUSCAR
-                   
+                    <div class="m-t-40">
+                        &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
+                         class ="form-control"
+                         placeholder="Buscar Expediente / Marca"
+                         (keyup)="buscar(txttermino.value)"
+                         #txttermino
+                         />        
+                     </div>
                     <div class="row">
                       
-                        <div class="col-6">
-                           &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
-                            class ="form-control"
-                            placeholder="Buscar Expediente / Marca"
-                            (keyup)="buscar(txttermino.value)"
-                            #txttermino
-                            />        
-                        </div>
-                        <div class="col-md-6 d-flex justify-content-end">
+                        
+                        <div class="col-md-12 d-flex justify-content-end">
                             <div  >
                                 <button class="btn btn-primary" (click)="descargarCSV()"> CSV</button>
                                 <button class="btn btn-success" (click)="exportarAExcel()"> Excel</button>
@@ -130,7 +130,7 @@
                             <td>{{ nitem.clase }}</td>
                             <td>{{ nitem.tipoproceso }}</td>
 
-                            <td>{{ nitem.fechactuacion | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
                             <td>{{ nitem.tipoactuacion }}</td>
                             <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
                             <td>{{ nitem.tipogest }}</td>
@@ -208,19 +208,17 @@
                                             </option>
                                         </select>
                                 </div>
-                               
-
-                                <!--/span-->
-                                <div class="col-md-12">
-                                  
-                                        <!--     
-                                            <label class="control-label">Date of Birth</label>
-                                            <input type="date" class="form-control" placeholder="dd/mm/yyyy">
-
-                                        -->
-                                        
-                                     
+                                  <!--/span-->
+                                  <div class="col-md-2">
+                                    &nbsp;
                                 </div>
+
+                                <div class="col-md-2">
+                                    <label class="control-label">Clase</label>
+                           </div>        
+                           <div class="col-md-2">        
+                                 <input type="text" id="clase"  placeholder="Clase"  [(ngModel)]="camposEditar.clase">
+                             </div>
                                 <!--/span-->
                             </div>
                             <div class="row">
@@ -256,7 +254,7 @@
                                         <label class="control-label">Fecha Actuacion</label>
                                  </div>
                                 <div class="col-md-2">
-                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar.fechactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
+                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar.fechaactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-2">
@@ -310,13 +308,13 @@
 
 
                                 <div class="col-md-2">
-                                    <label class="control-label">Observaciones</label>
+                                    <label class="control-label">Pendientes</label>
                                 </div>
                            
                                 <div class="col-md-2">
                                     <textarea name="textarea"  cols="20" 
                                     rows="4" 
-                                    style="width:300px; height:80px;"  id="observaciones"  placeholder="observaciones"  [(ngModel)]="camposEditar.observaciones">
+                                    style="width:300px; height:80px;"  id="observaciones"  placeholder="Pendientes"  [(ngModel)]="camposEditar.observaciones">
                                    </textarea>
                                    
                                 </div>

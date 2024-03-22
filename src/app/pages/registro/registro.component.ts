@@ -6,6 +6,11 @@ import { Gestiones } from 'src/app/models/gestiones';
 import { Marcas } from 'src/app/models/denomi.model';
 import { GestionesService } from 'src/app/services/gestiones.service';
  import { formatDate } from '@angular/common';
+import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
+import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
+import { paisesyciudades } from 'src/app/models/paisesyciudades.model';
+import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.service';
+
 
 @Component({
   selector: 'app-registro',
@@ -48,13 +53,134 @@ public EStado =  { _id: "", nombre:"", codigo:""};
 
 public elementos :number = 12;
 
+
+
+public TiposActuacion: tiposdetalle[]=[];
+public TiposProceso: tiposdetalle[]=[];
+public TipoEstado: tiposdetalle[]=[];
+public ClaseActuacion: tiposdetalle[]=[];
+public paises: paisesyciudades[]=[];
+
+opcionSeleccionada2: number=0; 
+  opcionSeleccionada3: number=0; 
+  opcionSeleccionada4: number=0; 
+  TipoEstadoSeleccionado: number=0; 
+  idpaisseleccionado: number=0;  
+
+
   constructor(     
     private expedientesService: ExpedientesService, 
-    private gestionesService :GestionesService){
+    private tiposdetService: TptiposdetalleService,
+    private gestionesService :GestionesService,
+    private paisesyciudadesService: TppaisesyciudadesService,
+    private servicio: GestionesService){
       this.buscar( this.busqueda); 
 
+      this.cargarTipoEstado();
+      this.cargarTipoProceso();
+      this.cargarTipoActuacion();
+      this.cargarPais();
+      this.cargarGestion() ;
+
   }
+  public Items1: Gestiones[]=[];
+
+  
+  cargarGestion() {
+
+    this.cargando = true;
+
+    this.servicio.cargar(this.desde,this.limite,this.filtro,"" )
+    .subscribe ( (res1:any) => 
+    {
+        this.Items1= res1['resultado'];
+        
+    });
+
+
+  }
+
+  cargarTipoEstado() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,1,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TipoEstado= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
+  
+  cargarClase() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,10,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.ClaseActuacion= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
+  cargarTipoActuacion() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,10,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TiposActuacion= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
+  cargarTipoProceso() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,3,"" )
+    .subscribe ( (res1:any) => 
+    {
+     console.log(res1);
+        this.TiposProceso= res1['tiposdetalle'];
+      
+        this.cargando = false;
+    });
+
+
+  }
+
+  cargarPais() {
  
+    this.cargando = true;
+
+    this.paisesyciudadesService.cargar(0,-2,225,"" )
+    .subscribe ( (res1:any) => 
+    {
+        //console.log(res1);
+        this.paises= res1['resultado'];
+      
+        this.cargando = false;
+    });
+
+ 
+  }
+
   busqueda : string = "";
   async buscar(termino : string )
   {
@@ -346,12 +472,17 @@ manejarTeclado(event: KeyboardEvent) {
     window.open('https://sipi.sic.gov.co/sipi/Extra/IP/TM/Qbe.aspx?sid=638452362591870433', '_blank');
   }
 
+   public camposEditar2 : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+
 
     //////////////////////////////////////////
   // MODAL 
   //////////////////////////////////////////
 
   private _ocultarModal: boolean = true;
+  private _ocultarModalgestionP: boolean = true;
+
+  private _ocultarModalgestion: boolean = true;
   private _Crear: boolean = true;
   private _Uid: string = "";
 
@@ -880,6 +1011,45 @@ manejarTeclado(event: KeyboardEvent) {
   ///////////////////////////////////////
   //    FIN MODAL
   ////////////////////////////////////// 
+
+
+  /////////////////////////////////////////
+  //   mODAL 2
+  /////////////////////////////////////////
+
+
+  get ocultarModalgestionP(){
+    return this._ocultarModalgestionP;
+  }
+
+  abrirGestiones(){
+
+
+    this._ocultarModalgestionP=!this._ocultarModalgestionP;
+
+  }
+
+   /////////////////////////////////////////
+  //   mODAL 2
+  /////////////////////////////////////////
+
+
+  get ocultarModalgestion(){
+    return this._ocultarModalgestion;
+  }
+
+  abrirModalGestion(){
+    this._ocultarModalgestion=false;
+
+  }
+
+  cerrarModalGestion(){
+    this._ocultarModalgestion=true;
+   
+  
+
+  }
+
 
 
 }
