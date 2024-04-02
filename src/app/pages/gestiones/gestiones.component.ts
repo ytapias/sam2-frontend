@@ -8,6 +8,8 @@ import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
+import { tareas } from 'src/app/models/tareas.model';
+import { tareasService } from 'src/app/services/tareas.service';
 
 @Component({
   selector: 'app-gestiones',
@@ -20,7 +22,7 @@ export class GestionesComponent {
   get Empresa():number{
     let idempresa=  localStorage.getItem('emp') || '';
     return parseInt(idempresa);
-  }
+  } 
 
 
   public totalTipos:number = 0;
@@ -61,7 +63,8 @@ export class GestionesComponent {
 
   constructor(private servicio: GestionesService,
               private tiposdetService: TptiposdetalleService,
-              private paisesyciudadesService: TppaisesyciudadesService)
+              private paisesyciudadesService: TppaisesyciudadesService,
+              private tareasService: tareasService)
   {
     
   }
@@ -410,10 +413,13 @@ export class GestionesComponent {
   */
  
   private _ocultarModal: boolean = true;
+  
+  
   private _Crear: boolean = true;
   private _Uid: string = "";
 
    public camposEditar : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+   
       
     Titulo: string="Gestiones";
     SubTitulo: string="ingrese los datos de Gestion";
@@ -636,6 +642,72 @@ console.log(this.camposEditar.fechaactuacion);
   //    FIN MODAL
   ////////////////////////////////////// 
 
+///////////////////////////////////////
+  //     MODAL  TAREA
+  ////////////////////////////////////// 
 
+  private _ocultarModalTarea: boolean = true;
+  public camposEditarTarea : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+
+
+  get ocultarModalTarea(){
+    return this._ocultarModalTarea;
+  }
+
+  abrirModalTarea(Gestiondetalle:Gestiones){
+    
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+
+    this._ocultarModalTarea=false;
+    
+  }
+
+  cerrarModalTarea(){
+    this._ocultarModalTarea=true;
+   
+  
+
+  }
+
+  fechaVenceTarea:Date=new Date();
+
+  cambiarFechavence(tipow :any)
+  {
+    console.log("TIPO---------------");
+    console.log(tipow);
+    this.fechaVenceTarea= tipow;
+  }
+
+
+  salvarModalTarea()
+  {
+
+    
+
+    let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+
+    console.log(nueva);
+    console.log("nueva");
+    console.log(this.fechaVenceTarea);
+
+    this.tareasService.crear(nueva)
+      .subscribe(resp =>
+       {
+         this.Logs = JSON.stringify(resp);
+        
+         console.log(resp);
+         Swal.fire(
+           'Crear!',
+           `El item  ${this.camposEditarTarea.tarea} fue creado con exito.`,
+           'success'
+         );
+
+       });
+    
+  }
+
+  ///////////////////////////////////////
+  //    FIN MODAL
+  ////////////////////////////////////// 
 
 }

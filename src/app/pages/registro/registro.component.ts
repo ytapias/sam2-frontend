@@ -116,6 +116,7 @@ opcionSeleccionada2: number=0;
 
   }
 
+
   
   cargarClase() {
 
@@ -262,7 +263,6 @@ opcionSeleccionada2: number=0;
       this.expediente2.fecharesb=  expediente.fechapri;
 
       this.expediente2.vencimb=  expediente.vencimb;
-
       this.expediente2.certif=  expediente.certif;
 
       this.expediente2.gaceta=  expediente.gaceta;
@@ -1012,6 +1012,13 @@ manejarTeclado(event: KeyboardEvent) {
   //    FIN MODAL
   ////////////////////////////////////// 
 
+
+
+
+
+
+
+  
 
   /////////////////////////////////////////
   //   mODAL 2
