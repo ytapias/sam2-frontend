@@ -18,13 +18,13 @@
                 <div class="card-body ">
                     
                     BUSCAR
-                    <div class="m-t-40">
+                    <div >
                         &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
                          class ="form-control"
                          placeholder="Buscar Expediente / Marca"
                          (keyup)="buscar(txttermino.value)"
                          #txttermino
-                         />        
+                         style="width: 400px;"/>        
                      </div>
                     <div class="row">
                       
@@ -215,7 +215,7 @@
                                 </div>
                                 <div class="col-md-2">
                                             <select class=" custom-select" [(ngModel)]="opcionSeleccionada2"
-                                        (ngModelChange)="cambiarTipo2($event)">
+                                        (ngModelChange)="cambiarTipo2($event)"   style="width: 300px;">
                                             <option value="{{dato.id}}" *ngFor="let dato of TiposActuacion">
                                                 {{dato.nombre}}
                                             </option>
@@ -223,7 +223,7 @@
                                 </div>
                                   <!--/span-->
                                   <div class="col-md-2">
-                                    &nbsp;
+                                    &nbsp; 
                                 </div>
 
                                 <div class="col-md-2">
@@ -240,7 +240,7 @@
                                 </div>        
                                 <div class="col-md-2">        
                                          <select  class="custom-select"   [(ngModel)]="opcionSeleccionada3"
-                                        (ngModelChange)="cambiarTipo2($event)">
+                                        (ngModelChange)="cambiarTipo2($event)"   style="width: 300px;">
                                             <option value="{{dato.id}}" *ngFor="let dato of TiposProceso">
                                                 {{dato.nombre}}
                                             </option>
@@ -267,7 +267,8 @@
                                         <label class="control-label">Fecha Actuacion</label>
                                  </div>
                                 <div class="col-md-2">
-                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar.fechaactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
+                                    <input type="date" id="fechaactuacion" (ngModelChange)="cambiarFechaActuacion($event)" 
+                                     [ngModel]="camposEditar.fechaactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-2">
@@ -278,7 +279,8 @@
                                  </div>
                                 <div class="col-md-2">
                                        <!-- <input type="date" [(ngModel)]="camposEditar.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> -->
-                                       <input type="date" id="vence" placeholder="Vence" [ngModel]="camposEditar.vence | date:'yyyy-MM-dd'">
+                                       <input type="date" id="vence" (ngModelChange)="cambiarFechaVenceGestion($event)" 
+                                       placeholder="Vence" [ngModel]="camposEditar.vence | date:'yyyy-MM-dd'">
 
                                 </div>
                                 <!--/span-->
@@ -307,7 +309,7 @@
                                 </div>
                                 <div class="col-md-2">
                                     <select class="form-control w140" name="TipoEST"
-                                    [(ngModel)]="TipoEstadoSeleccionado">
+                                    [(ngModel)]="TipoEstadoSeleccionado"   style="width: 200px;">
                                         
                                         <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
                                             {{dato.nombre}}
@@ -317,7 +319,7 @@
                                 <!--/span-->
                             </div>
 
-                            <div class="row">
+                            <!-- <div class="row">
 
 
                                 <div class="col-md-2">
@@ -332,7 +334,7 @@
                                    
                                 </div>
                             </div>
-                            
+                             -->
 
                         </div>
                         <div class="row"> &nbsp;</div>
@@ -412,6 +414,31 @@
                         (ngModelChange)="cambiarFechavence($event)" 
                         [ngModel]="camposEditarTarea.fechavence  | date:'yyyy-MM-dd'" placeholder="fecha Vencimiento">
                         </div>
+
+                        
+                        <div class="col-md-6">
+
+                            <label class="control-label">Estado</label>
+                            </div>
+                            <div class="col-md-6">
+                            <!-- <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1"  [(ngModel)]="camposEditarTarea.idestado">
+                                    <option value="1">Activo</option>
+                                    <option value="0">inactivo</option>
+                                    <option value="2">Anulado</option>
+                                    <option value="219">Terminado</option>
+                                    <option value="221">Eliminado</option> -->
+                             <!-- </select> -->
+                             <select class="form-control w140" name="TipoEST"
+                             [(ngModel)]="TipoEstadoSeleccionado"      style="width: 200px;">
+                             
+                                 <option value="dato.id" *ngFor="let dato of TipoEstado">
+                                     {{dato.nombre}}
+                                 </option>
+                             </select>
+                            
+                             
+                            </div>
+    
                         <!--/span-->
 
                     </div>
@@ -450,7 +477,7 @@
 
 
 
-    <div class="fondo_modal animated fadeIn fast"
+<div class="fondo_modal animated fadeIn fast"
     *ngIf="!ocultarModalTarea2" >
 
 
@@ -486,47 +513,24 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let nitem of Items">
+                                <tr *ngFor="let nitem2 of ItemsTareas">
                                     <td >
-                                        <!--
-                                        -->
-                                     
-                                             <a (click)="abrirModificar(nitem)"
-                                             class="cursor"
-                                              data-toggle="tooltip" data-original-title="Editar"> 
-                                             <i class="fas fa-edit text-inverse m-r-10">
-                                             </i> </a>
-                                            
-        
-                                    <td>{{ nitem.marca }}</td>
-                                    <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
-                                    <td>{{ nitem.estado }}</td>
-                                    <td>{{ nitem.id }}</td>
+                                    
+                                        <a (click)="abrirModificarTarea(nitem2)"
+                                            class="cursor"
+                                            data-toggle="tooltip" data-original-title="Editar"> 
+                                            <i class="fas fa-edit text-inverse m-r-10">
+                                            </i> </a>
+                                    <td>{{ nitem2.tarea }}</td>
+                                    <td>{{ nitem2.fechavence| date:'yyyy-MM-dd' }}</td>
+                                    <td>{{ nitem2.estado }}</td>
+                                    <td>{{ nitem2.id }}</td>
                                 </tr>
                              
                             </tbody>
                         </table>
         
-                        
-                            <div>
-                                <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
-                                &nbsp;
-                                <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
-                                &nbsp;
-                                VER :
-                               <!-- <input type="text" [(ngModel)]="limite" 
-                                placeholder="Limite"
-                                max="200"
-                                style="width: 40px;" 
-                                    />
-                            -->        
-                                    <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
-                                        <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
-                                      </select>
         
-                            </div>
-                        
-            
                     </div>
 
 

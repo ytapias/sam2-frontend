@@ -33,10 +33,15 @@ export class tareasService {
  // public totalUsuarios :number =0;
  //public tiposdetalle:Empresas[]=[];
 
-  cargar(desde: number =0,cuantos: number =10,  nombre :string="")
+  cargar(desde: number =0,cuantos: number =10,   idexpediente : number = 0 , idgestion: number = 0 )
   {
-    const url = `${ base_url }/tareasSQL?desde=${desde}&elementos=${cuantos}&nombre=${nombre}`;
-    return this.http.get(url,this.headers);
+    const url = `${ base_url }/tareasSQL?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente }&idgestion=${idgestion }`;
+   
+    console.log ( url);
+   
+    var respuesta = this.http.get(url,this.headers);
+    console.log(respuesta);
+    return respuesta;
   }
 
   crear(item : tareas)

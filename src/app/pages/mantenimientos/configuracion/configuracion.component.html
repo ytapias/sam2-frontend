@@ -29,7 +29,7 @@
                     <div class="col-6">
                     <select class="form-control w140" name="TipoSEL"
                     [(ngModel)]="opcionSeleccionada"
-                    (ngModelChange)="cambiarTipo($event)">
+                    (ngModelChange)="cambiarTipo($event)" style="width: 200px;">
                     <option value="0">Todos</option>
                         <option value="{{dato.id}}" *ngFor="let dato of Tipo">
                             {{dato.nombre}}
@@ -47,6 +47,7 @@
                             placeholder="Buscar Tipos Detalle"
                             (keyup)="buscar(txttermino.value)"
                             #txttermino
+                            style="width: 300px;"
                             />        
                         </div>
                         <div class="col-md-6 d-flex justify-content-end">

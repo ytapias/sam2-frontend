@@ -110,6 +110,7 @@ export class GestionesComponent {
   TipoEstadoSeleccionado: number=0; 
   idpaisseleccionado: number=0;  
 
+  
   textoBuscar : string='';
 
   cambiarTipo(tipow :any){
@@ -137,6 +138,7 @@ export class GestionesComponent {
     this.servicio.cargar(this.desde,this.limite,this.filtro,this.busquedaNombre )
     .subscribe ( (res1:any) => 
     {
+      console.log( res1['resultado']);
         this.Items= res1['resultado'];
         this.totalTipos=res1.total;
         this.paginasTotales= Math.round(this.totalTipos/this.limite);
@@ -257,7 +259,25 @@ export class GestionesComponent {
     this.Logs="Cambiando pagina "+ this.desde;
   }
 
+  fechaVenceGestion:Date=new Date();
+  fechaActuacion:Date=new Date();
 
+
+  cambiarFechaActuacion(tipow :any)
+  {
+    console.log("TIPO---------------");
+    console.log(tipow);
+    this.fechaActuacion= tipow;
+  }
+  
+  
+
+  cambiarFechaVenceGestion(tipow :any)
+  {
+    console.log("TIPO---------------");
+    console.log(tipow);
+    this.fechaVenceGestion= tipow;
+  }
 
 
   buscar(termino : string )
@@ -280,7 +300,7 @@ export class GestionesComponent {
   {
     //console.log(tptiposdetalle2);
     Swal.fire({
-      title: '¿Borrar Tipos Detalles?',
+      title: '¿Borrar Gestiones?',
       text: ` esta a punto de borrar a ${ tptiposdetalle2.id } `,
       icon: 'warning',
       showCancelButton: true,
@@ -447,6 +467,9 @@ export class GestionesComponent {
       this.opcionSeleccionada3 = dtiposdetalle.idtipoproceso;
       this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
   
+      this.fechaVenceGestion=dtiposdetalle.vence;
+      this.fechaActuacion= dtiposdetalle.fechaactuacion;
+
       this.camposEditar.fechaactuacion= dtiposdetalle.fechaactuacion;
       this.camposEditar.vence=dtiposdetalle.vence;
       this.camposEditar.observaciones=dtiposdetalle.observaciones;
@@ -455,127 +478,27 @@ export class GestionesComponent {
 
       this.abrirModal();
     }
-
-    
-  procesarFecha(fechaTexto: string): Date  {
-    // Define el tipo de objeto con un índice de tipo string
-    const meses: { [key: string]: string } = {
-      ene: '01', feb: '02', mar: '03', abr: '04', may: '05', jun: '06',
-      jul: '07', ago: '08', sep: '09', oct: '10', nov: '11', dic: '12'
-    };
-
-    // Dividir la fecha en sus componentes
-    const componentes = fechaTexto.split(' '); 
-    let fecharesp :Date;
-  //  console.log(componentes);
-
-    if (componentes.length === 3) {
-      let [dia, mesTexto, año] = componentes;
-      mesTexto = mesTexto.replace('.', ''); // Elimina el punto del mes
-
-      // Convierte el mes a número y verifica que sea válido
-      const mes = meses[mesTexto.toLowerCase()];
-      if (!mes) {
-        console.error('Mes no válido:', mesTexto);
-        return   new Date();
-      }
-//console.log(mes);
-
-      // Reorganiza la fecha en un formato que JavaScript pueda entender
-      const fechaFormateada = `${año} ${mes} ${dia.padStart(2, '0')}`;
-     
-      // Crear el objeto Date
-       fecharesp = new Date(fechaFormateada);
-
-      //  const df = moment(fecharesp,"DD/MM/YYYY"); 
-
-      //  const locale ='en-US';
-      //  const format='yyyy-MM-dd';
-
-      //    console.log("this.formatearFecha(fechaFormateada)");
-      //    console.log(formatDate(fecharesp,format,locale));
-
-         
-
-        return   fecharesp ;
-
-     
-
-
-
-    } else {
-      console.error('Formato de fecha no válido:', fechaTexto);
-      return   new Date();  }
-}
-
-
-/*
-     formatDateToYYYYMMDD(dateString: string | number | Date) :Date {
-      if (!dateString) {
-        return new Date();
-      }
-    
-      const date = new Date(dateString);
-    
-      // Asegurarse de que date es un objeto Date válido
-      if (isNaN(date.getTime())) {
-        return new Date();
-      }
-    
-      let month = '' + (date.getMonth() + 1);
-      let day = '' + date.getDate();
-      let year = date.getFullYear();
-    
-      if (month.length < 2) {
-        month = '0' + month;
-      }
-      if (day.length < 2) {
-        day = '0' + day;
-      }
-    
-      const date2 = new Date([year, month, day].join('-'));
-      return date2;
-    }
-*/
-
+ 
+    // cambiarEstado(tipow2 :any)
+    // {
+    //   console.log("ESTADO ---------------");
+    //   console.log(tipow2);
+    //   this.TipoEstadoSeleccionado= tipow2;
+    // } 
+  
     salvarModal()
     {
- /*     
-      if(this.opcionSeleccionada2>0)
-      {
-        this.camposEditar.espais = this.opcionSeleccionada2 ; 
-      }
-      else{
-        this.camposEditar.espais = 0;
-      }
-      
-      console.log( this.camposEditar);
-
-*/
-
 
         if(this._Crear === true)
         {
-
-
-          
-//           if (this.camposEditar.fechaactuacion === null)
-//           {
-//             this.camposEditar.fechaactuacion = new Date();
-//           }
-
-//           if (this.camposEditar.vence === null)
-//           {
-//             this.camposEditar.vence = new Date();
-//           }
-// 
+ 
           
           let  nueva    : Gestiones = new Gestiones(0,this.Empresa,0,this.camposEditar.expediente,0,'',this.idpaisseleccionado,''
-          ,this.camposEditar.clase,this.opcionSeleccionada3,'',this.camposEditar.fechaactuacion,this.opcionSeleccionada2,'',
-          this.camposEditar.vence,'',this.camposEditar.observaciones,this.TipoEstadoSeleccionado,'');
- 
-console.log(nueva);
-console.log(this.camposEditar.fechaactuacion);
+          ,this.camposEditar.clase,this.opcionSeleccionada3,'',this.fechaActuacion,this.opcionSeleccionada2,'',
+          this.fechaVenceGestion,'',this.camposEditar.observaciones,this.TipoEstadoSeleccionado,'');
+          
+          console.log(nueva);
+          console.log(this.camposEditar.fechaactuacion);
 
           this.servicio.crear(nueva)
           .subscribe(resp =>
@@ -595,6 +518,10 @@ console.log(this.camposEditar.fechaactuacion);
         }
         else
         {
+          this.camposEditar.vence= this.fechaVenceGestion;
+          this.camposEditar.fechaactuacion=this.fechaActuacion;
+          this.camposEditar.idestado= this.TipoEstadoSeleccionado;
+
           this.servicio.modificar(this.camposEditar)
           .subscribe(resp =>
             {
@@ -610,7 +537,7 @@ console.log(this.camposEditar.fechaactuacion);
 
             });
 
- 
+            this.cargar();
       
 
         }
@@ -682,27 +609,57 @@ console.log(this.camposEditar.fechaactuacion);
   salvarModalTarea()
   {
 
+    if (this.editarTareas===0)
+    {
+      //crear nueva tarea
+      let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+
+        console.log(nueva);
+        console.log("nueva");
+        console.log(this.fechaVenceTarea);
+
+        this.tareasService.crear(nueva)
+          .subscribe(resp =>
+          {
+            this.Logs = JSON.stringify(resp);
+            
+            console.log(resp);
+            Swal.fire(
+              'Crear!',
+              `El item  ${this.camposEditarTarea.tarea} fue creado con exito.`,
+              'success'
+            );
+
+          });
+      
+    }
+    else
+    {
+      //modificar tarea
+      let  nueva    : tareas =  new tareas(this.camposEditarTarea.id,this.camposEditarTarea.idempresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,this.camposEditarTarea.idestado,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+
+      console.log(nueva);
+      console.log("Editar");
+      console.log(this.fechaVenceTarea);
+
+      this.tareasService.modificar(nueva)
+        .subscribe(resp =>
+        {
+          this.Logs = JSON.stringify(resp);
+          
+          console.log(resp);
+          Swal.fire(
+            'Modificar!',
+            `El item  ${this.camposEditarTarea.tarea} fue modificada con exito.`,
+            'success'
+          );
+
+        });
     
 
-    let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+    }
+    this.cerrarModalTarea();
 
-    console.log(nueva);
-    console.log("nueva");
-    console.log(this.fechaVenceTarea);
-
-    this.tareasService.crear(nueva)
-      .subscribe(resp =>
-       {
-         this.Logs = JSON.stringify(resp);
-        
-         console.log(resp);
-         Swal.fire(
-           'Crear!',
-           `El item  ${this.camposEditarTarea.tarea} fue creado con exito.`,
-           'success'
-         );
-
-       });
     
   }
 
@@ -726,6 +683,11 @@ console.log(this.camposEditar.fechaactuacion);
 
   abrirModalTarea2(Gestiondetalle:Gestiones){
     
+    let idexpediente = Gestiondetalle.idexpediente;
+    let idgestion = Gestiondetalle.id;
+
+    this.cargarTarea(idexpediente,idgestion );
+
     this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
 
     this._ocultarModalTarea2=false;
@@ -739,8 +701,37 @@ console.log(this.camposEditar.fechaactuacion);
 
   }
 
-  
- 
+  public ItemsTareas: tareas[]=[];
+  public editarTareas:number=0;
+
+
+  cargarTarea(idexpediente :number=0,idgestion :number=0) {
+
+    // this.cargando = true;
+
+    this.tareasService.cargar(this.desde,this.limite,idexpediente ,idgestion )
+    .subscribe ( (res1:any) => 
+    {
+        this.ItemsTareas= res1['resultado'];
+        // this.totalTipos=res1.total;
+        // this.paginasTotales= Math.round(this.totalTipos/this.limite);
+        // this.paginaActual=  this.desde+1;
+
+        // this.cargando = false;
+    });
+
+
+  }
+
+  abrirModificarTarea(nitem2:tareas)
+  {
+    this._ocultarModalTarea2=true;
+    this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente);
+    this.editarTareas=1;
+    this._ocultarModalTarea=false;
+    
+  }
+
 
   ///////////////////////////////////////
   //    FIN MODAL
