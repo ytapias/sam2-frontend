@@ -1,20 +1,4 @@
-/*******************
-Date paginator page
-******************/
-.dp-selected[style] {
-    background-color: #398bf7 !important; }
-  
-  .datepaginator-sm .pagination li a,
-  .datepaginator-lg .pagination li a,
-  .datepaginator .pagination li a {
-    padding: 0 5px;
-    height: 60px;
-    border: 1px solid rgba(120, 130, 140, 0.13);
-    float: left;
-    position: relative; }
-
-
-    /* -------------------------------- 
+/* -------------------------------- 
 
 Main Components 
 
@@ -251,7 +235,7 @@ Main Components
     -ms-transform: translateX(-50%) translateY(-50%);
     -o-transform: translateX(-50%) translateY(-50%);
     transform: translateX(-50%) translateY(-50%);
-    
+    background: url(../img/cd-arrow.svg) no-repeat 0 0;
 }
 
 .cd-timeline-navigation a.prev {
@@ -473,4 +457,4 @@ Main Components
     width: 0px;
     margin-left: -1.5px;
     background-color: #eeeeee;
-} 
+}

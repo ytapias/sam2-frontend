@@ -710,4 +710,43 @@ console.log(this.camposEditar.fechaactuacion);
   //    FIN MODAL
   ////////////////////////////////////// 
 
+
+
+///////////////////////////////////////
+  //     MODAL  TAREA
+  ////////////////////////////////////// 
+
+  private _ocultarModalTarea2: boolean = true;
+  public camposEditarTarea2 : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+
+
+  get ocultarModalTarea2(){
+    return this._ocultarModalTarea2;
+  }
+
+  abrirModalTarea2(Gestiondetalle:Gestiones){
+    
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+
+    this._ocultarModalTarea2=false;
+    
+  }
+
+  cerrarModalTarea2(){
+    this._ocultarModalTarea2=true;
+   
+  
+
+  }
+
+  
+ 
+
+  ///////////////////////////////////////
+  //    FIN MODAL
+  ////////////////////////////////////// 
+
+
+
+  
 }

@@ -82,7 +82,8 @@
 
                     <thead>
                         <tr>
-                          <th></th>
+                          <th class="w80"></th>
+                          <th>Tareas</th>
                             <th class="w100">Expediente</th>
                             <th class="w300">Marca</th>
                             <th class="w100">Pais</th>
@@ -92,7 +93,8 @@
                             <th class="w100">Tipo ACT</th>
                             <th class="w100">Vence</th>
                             <th class="w100">Tipo Gest</th>
-                            <th class="w300">Observaciones</th>
+                          <!--   <th class="w300">Observaciones</th>
+                            -->
                             <th  class="w100">Estado</th>
                             <th  class="w60">id</th>
                            
@@ -109,11 +111,7 @@
                                       data-toggle="tooltip" data-original-title="Editar"> 
                                      <i class="fas fa-edit text-inverse m-r-10">
                                      </i> </a>
-                                     <a (click)="abrirModalTarea(nitem)"
-                                     class="cursor"
-                                      data-toggle="tooltip" data-original-title="nuevo"> 
-                                     <i class="fas fa-plus text-inverse m-r-10">
-                                     </i> </a>
+                                    
 
                                 <a (click)="eliminarTiposdetalle(nitem)"
                                 class="cursor"
@@ -122,6 +120,19 @@
                                 </i> 
                             </a>
                              </td> 
+                             <td>
+                                <a (click)="abrirModalTarea(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="nuevo"> 
+                                <i class="fas fa-plus text-inverse m-r-10">
+                                </i> </a>
+
+                                <a (click)="abrirModalTarea2(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="ver"> 
+                                <i class="fas fa-eye text-inverse m-r-10">
+                                </i> </a>
+                             </td>
                             <td>
                                 {{ nitem.expediente }} 
                             </td>
@@ -134,7 +145,9 @@
                             <td>{{ nitem.tipoactuacion }}</td>
                             <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
                             <td>{{ nitem.tipogest }}</td>
-                            <td>{{ nitem.observaciones }}</td>
+                           <!--
+                             <td>{{ nitem.observaciones }}</td>
+                           -->
                             <td>{{ nitem.estado }}</td>
                             <td>{{ nitem.id }}</td>
                         </tr>
@@ -347,7 +360,7 @@
     ------------------------------------------------------------
     ------------------------------------------------------------
     ------------------------------------------------------------
-        MODAL tarea
+        MODAL tarea crear
     ------------------------------------------------------------
     ------------------------------------------------------------
     -->
@@ -424,5 +437,117 @@
 
 
 </div>
+
+
+   <!--
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+        MODAL tarea VER
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+    -->
+
+
+
+    <div class="fondo_modal animated fadeIn fast"
+    *ngIf="!ocultarModalTarea2" >
+
+
+    <div class="modal-dialog  modal-lg  modal-dialog-scrollable">
+       
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h4 class="modal-title">Ver Tareas</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModalTarea2()">×</button>
+            </div>
+            
+            <div class="modal-body">
+
+                <div class="form-body" > 
+                    <h3 class="card-title">Tareas</h3>
+
+                    <div class="table-responsive">
+                        <table class="table color-bordered-table inverse-bordered-table table-hover ">
+        
+        
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th class="w200">Tarea</th>
+                                    <th class="w100">Vencimiento</th>
+                                    <th  class="w100">Estado</th>
+                                    <th  class="w60">id</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let nitem of Items">
+                                    <td >
+                                        <!--
+                                        -->
+                                     
+                                             <a (click)="abrirModificar(nitem)"
+                                             class="cursor"
+                                              data-toggle="tooltip" data-original-title="Editar"> 
+                                             <i class="fas fa-edit text-inverse m-r-10">
+                                             </i> </a>
+                                            
+        
+                                    <td>{{ nitem.marca }}</td>
+                                    <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
+                                    <td>{{ nitem.estado }}</td>
+                                    <td>{{ nitem.id }}</td>
+                                </tr>
+                             
+                            </tbody>
+                        </table>
+        
+                        
+                            <div>
+                                <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                                &nbsp;
+                                <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
+                                &nbsp;
+                                VER :
+                               <!-- <input type="text" [(ngModel)]="limite" 
+                                placeholder="Limite"
+                                max="200"
+                                style="width: 40px;" 
+                                    />
+                            -->        
+                                    <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                        <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                                      </select>
+        
+                            </div>
+                        
+            
+                    </div>
+
+
+            
+                <div class="row"> &nbsp;</div>
+
+                    <div class="modal-footer">
+                        <button type="button" 
+                        class="btn btn-default waves-effect" 
+                        data-dismiss="modal"
+                        (click)="cerrarModalTarea2()">Cerrar
+                        </button>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
