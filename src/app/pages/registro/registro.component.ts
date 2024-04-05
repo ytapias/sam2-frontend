@@ -10,6 +10,10 @@ import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
 import { paisesyciudades } from 'src/app/models/paisesyciudades.model';
 import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.service';
+import { tareasService } from 'src/app/services/tareas.service';
+import { tareas } from 'src/app/models/tareas.model';
+
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -67,30 +71,36 @@ opcionSeleccionada2: number=0;
   TipoEstadoSeleccionado: number=0; 
   idpaisseleccionado: number=0;  
 
+  
+  get Empresa():number{
+    let idempresa=  localStorage.getItem('emp') || '';
+    return parseInt(idempresa);
+  } 
 
   constructor(     
     private expedientesService: ExpedientesService, 
     private tiposdetService: TptiposdetalleService,
     private gestionesService :GestionesService,
     private paisesyciudadesService: TppaisesyciudadesService,
-    private servicio: GestionesService){
+    private servicio: GestionesService,
+    private tareasService: tareasService){
       this.buscar( this.busqueda); 
 
       this.cargarTipoEstado();
       this.cargarTipoProceso();
       this.cargarTipoActuacion();
       this.cargarPais();
-      this.cargarGestion() ;
+    //  this.cargarGestion() ;
 
   }
   public Items1: Gestiones[]=[];
 
   
-  cargarGestion() {
+  cargarGestion(idexpediente : number=0) {
 
     this.cargando = true;
 
-    this.servicio.cargar(this.desde,this.limite,this.filtro,"" )
+    this.servicio.cargar(this.desde,this.limite,idexpediente,"" )
     .subscribe ( (res1:any) => 
     {
         this.Items1= res1['resultado'];
@@ -330,6 +340,8 @@ opcionSeleccionada2: number=0;
 
       console.log("entre a abrir item");
 
+
+
      //this.cargarGestion(this.expediente2.expediente);
 
 
@@ -344,7 +356,7 @@ opcionSeleccionada2: number=0;
   filaClickeada(item:  Expedientes)
   {
     this.expediente2=item;
-
+    this.cargarGestion(item.id);
 
   }
 
@@ -1029,11 +1041,21 @@ manejarTeclado(event: KeyboardEvent) {
     return this._ocultarModalgestionP;
   }
 
+   public TituloBoton : string="Gestiones";
+
   abrirGestiones(){
 
 
     this._ocultarModalgestionP=!this._ocultarModalgestionP;
 
+    console.log(this.TituloBoton);
+    if ( this.TituloBoton =="Gestiones")
+    {
+      this.TituloBoton ="Expedientes";
+    }
+    else{
+      this.TituloBoton ="Gestiones";
+    }
   }
 
    /////////////////////////////////////////
@@ -1058,5 +1080,172 @@ manejarTeclado(event: KeyboardEvent) {
   }
 
 
+///////////////////////////////////////
+  //     MODAL  TAREA
+  ////////////////////////////////////// 
+
+  private _ocultarModalTarea: boolean = true;
+  public camposEditarTarea : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+
+
+  get ocultarModalTarea(){
+    return this._ocultarModalTarea;
+  }
+
+  abrirModalTarea(Gestiondetalle:Gestiones){
+    
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+
+    this._ocultarModalTarea=false;
+    
+  }
+
+  cerrarModalTarea(){
+    this._ocultarModalTarea=true;
+   
+  
+
+  }
+
+  fechaVenceTarea:Date=new Date();
+
+  cambiarFechavence(tipow :any)
+  {
+    console.log("TIPO---------------");
+    console.log(tipow);
+    this.fechaVenceTarea= tipow;
+  }
+
+
+  salvarModalTarea()
+  {
+
+    if (this.editarTareas===0)
+    {
+      //crear nueva tarea
+      let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+
+        console.log(nueva);
+        console.log("nueva");
+        console.log(this.fechaVenceTarea);
+
+        this.tareasService.crear(nueva)
+          .subscribe(resp =>
+          {
+ //           this.Logs = JSON.stringify(resp);
+            
+            console.log(resp);
+            Swal.fire(
+              'Crear!',
+              `El item  ${this.camposEditarTarea.tarea} fue creado con exito.`,
+              'success'
+            );
+
+          });
+      
+    }
+    else
+    {
+      //modificar tarea
+      let  nueva    : tareas =  new tareas(this.camposEditarTarea.id,this.camposEditarTarea.idempresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,this.camposEditarTarea.idestado,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+
+      console.log(nueva);
+      console.log("Editar");
+      console.log(this.fechaVenceTarea);
+
+      this.tareasService.modificar(nueva)
+        .subscribe(resp =>
+        {
+     //     this.Logs = JSON.stringify(resp);
+          
+          console.log(resp);
+          Swal.fire(
+            'Modificar!',
+            `El item  ${this.camposEditarTarea.tarea} fue modificada con exito.`,
+            'success'
+          );
+
+        });
+    
+
+    }
+    this.cerrarModalTarea();
+
+    
+  }
+
+  ///////////////////////////////////////
+  //    FIN MODAL
+  ////////////////////////////////////// 
+
+
+
+///////////////////////////////////////
+  //     MODAL  TAREA
+  ////////////////////////////////////// 
+
+  private _ocultarModalTarea2: boolean = true;
+  public camposEditarTarea2 : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+
+
+  get ocultarModalTarea2(){
+    return this._ocultarModalTarea2;
+  }
+
+  abrirModalTarea2(Gestiondetalle:Gestiones){
+    
+    let idexpediente = Gestiondetalle.idexpediente;
+    let idgestion = Gestiondetalle.id;
+
+    this.cargarTarea(idexpediente,idgestion );
+
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+
+    this._ocultarModalTarea2=false;
+    
+  }
+
+  cerrarModalTarea2(){
+    this._ocultarModalTarea2=true;
+   
+  
+
+  }
+
+  public ItemsTareas: tareas[]=[];
+  public editarTareas:number=0;
+
+
+  cargarTarea(idexpediente :number=0,idgestion :number=0) {
+
+    // this.cargando = true;
+
+    this.tareasService.cargar(this.desde,this.limite,idexpediente ,idgestion )
+    .subscribe ( (res1:any) => 
+    {
+        this.ItemsTareas= res1['resultado'];
+        // this.totalTipos=res1.total;
+        // this.paginasTotales= Math.round(this.totalTipos/this.limite);
+        // this.paginaActual=  this.desde+1;
+
+        // this.cargando = false;
+    });
+
+
+  }
+
+  abrirModificarTarea(nitem2:tareas)
+  {
+    this._ocultarModalTarea2=true;
+    this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente);
+    this.editarTareas=1;
+    this._ocultarModalTarea=false;
+    
+  }
+
+
+  ///////////////////////////////////////
+  //    FIN MODAL
+  ////////////////////////////////////// 
 
 }

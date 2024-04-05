@@ -41,7 +41,7 @@ const routes: Routes =[
           
        //mantenimiento
        {path: 'registro',component:RegistroComponent,data :{titulo :'Registro'}},
-          {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
+       //   {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
           {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
           {path: 'gacetas',component:GacetasComponent,data :{titulo :'Gacetas Realizadas'}},
           {path: 'gestiones',component:GestionesComponent,data :{titulo :'Gestiones'}},
