@@ -23,6 +23,7 @@ import { CargarComponent } from './mantenimientos/cargar/cargar.component';
 import { CompararComponent } from './mantenimientos/comparar/comparar.component';
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { RegistroComponent } from './registro/registro.component';
+import { TareasComponent } from './tareas/tareas.component';
  
 const routes: Routes =[
     {
@@ -37,15 +38,16 @@ const routes: Routes =[
           {path: 'myprofile',component:MyprofileComponent,data :{titulo :'Ajustes'}},
           {path: 'promesas',component:PromesasComponent,data :{titulo :'Promesas'}},
           {path: 'rxjs',component:RxjsComponent,data :{titulo :'Rxjs'}},
+
        //   {path: '',redirectTo:'/dashboard',pathMatch:'full'},
           
-       //mantenimiento
+       //principal
        {path: 'registro',component:RegistroComponent,data :{titulo :'Registro'}},
        //   {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
           {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
-          {path: 'gacetas',component:GacetasComponent,data :{titulo :'Gacetas Realizadas'}},
+
           {path: 'gestiones',component:GestionesComponent,data :{titulo :'Gestiones'}},
-          
+             {path: 'tareas',component:TareasComponent,data :{titulo :'Tareas'}},
           {path: 'marcas',component:MarcasComponent,data :{titulo :'Marcas'}},
           {path: 'personas',component:PersonasComponent,data :{titulo :'Personas'}},
           
@@ -57,7 +59,7 @@ const routes: Routes =[
           {path: 'empresas',component:EmpresasComponent,data :{titulo :'Empresas'}},
           {path: 'cargar',component:CargarComponent,data :{titulo :'Cargador'}},
           {path: 'comparar',component:CompararComponent,data :{titulo :'Comparar'}},
-
+          {path: 'gacetas',component:GacetasComponent,data :{titulo :'Gacetas Realizadas'}},
         ]
       },
     

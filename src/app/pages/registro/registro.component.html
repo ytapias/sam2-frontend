@@ -4,7 +4,7 @@
       <div class="header-cell">País radicación</div>
       <div class="header-cell">Fecha Solicitud</div>
       <div class="header-cell">Tipo de solicitud</div>
-    
+     
     </div>
     <div class="data-row">
       <div class="data-cell">COLOMBIA</div>
@@ -15,7 +15,34 @@
     Repite data-row para más filas de datos 
   </div>
 -->
+  <!-- Botón para minimizar/expander -->
+ 
+    <!-- <div class="col-12">
+    <div class="card">
+  <div class="ml-auto">
+    <div class="busqueda-titulo">
+        <strong>E X P E D I E N T E&nbsp;&nbsp;&nbsp;</strong> 
+        <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
+            {{ seccionMinimizada ? '+' : '-' }}
+          </button>  
+    </div>
+
+    </div>
+    </div>
+   -->
+    <!-- Botón para minimizar/expander -->
+
 <div class="card">
+     <!-- Botón para minimizar/expander -->
+    <div class="ml-auto">
+        <div class="busqueda-titulo">
+            <strong>E X P E D I E N T E&nbsp;&nbsp;&nbsp;</strong> 
+            <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
+                {{ seccionMinimizada ? '+' : '-' }}
+              </button>  
+        </div>
+    </div>
+     <!-- FIN Botón para minimizar/expander -->
     <div class="card-body">
             <div class="row">
                         
@@ -47,67 +74,68 @@
                 </div>  
                 
             </div>
+            <div [ngClass]="{'minimizado': seccionMinimizada}" >
+                <hr>
 
-        <hr>
+                    <div class="row">
+                                
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
 
-            <div class="row">
-                        
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-
-                    <h6 ><b>Tipo Proceso :</b>  </h6> <h6>  {{expediente2.tipoproceso}}</h6>
-                </div>
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Apoderado :</b>  </h6> <h6>{{expediente2.apoderado}}</h6>
-                </div>                                    
+                            <h6 ><b>Tipo Proceso :</b>  </h6> <h6>  {{expediente2.tipoproceso}}</h6>
+                        </div>
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Apoderado :</b>  </h6> <h6>{{expediente2.apoderado}}</h6>
+                        </div>                                    
+                            
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Agente:</b>  </h6> <h6>{{expediente2.agente}} </h6>
+                        </div>                                    
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Compañia:</b> </h6> <h6>  {{expediente2.empresa}} </h6>
+                        </div>                                    
                     
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Agente:</b>  </h6> <h6>{{expediente2.agente}} </h6>
-                </div>                                    
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Compañia:</b> </h6> <h6>  {{expediente2.empresa}} </h6>
-                </div>                                    
-              
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Gaceta :</b> </h6> <h6> {{expediente2.gaceta}} </h6>
-                </div> 
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Certificado :</b> </h6> <h6> {{expediente2.certif}} </h6>
-                </div> 
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Vencimiento :</b> </h6> <h6>  {{expediente2.vencimb | date:'yyyy-MM-dd'}} </h6>
-                </div>  
-                <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Fecha Inac :</b> </h6> <h6>  {{expediente2.fechainac | date:'yyyy-MM-dd'}} </h6>
-                </div>  
-            </div>
-        <hr>
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Gaceta :</b> </h6> <h6> {{expediente2.gaceta}} </h6>
+                        </div> 
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Certificado :</b> </h6> <h6> {{expediente2.certif}} </h6>
+                        </div> 
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Vencimiento :</b> </h6> <h6>  {{expediente2.vencimb | date:'yyyy-MM-dd'}} </h6>
+                        </div>  
+                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                            <h6 ><b>Fecha Inac :</b> </h6> <h6>  {{expediente2.fechainac | date:'yyyy-MM-dd'}} </h6>
+                        </div>  
+                    </div>
+                <hr>
 
-        <div class="row">
+                <div class="row">
+                                
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+
+                        <h6 ><b>Resolucion :</b>  </h6> <h6>  {{expediente2.resolucion}}</h6>
+                    </div>
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <h6 ><b>Tipo Resolucion :</b>  </h6> <h6>{{expediente2.tiporesolucion}}</h6>
+                    </div>                                    
                         
-            <div class="col-lg-4 col-xlg-3 col-md-5">
-
-                <h6 ><b>Resolucion :</b>  </h6> <h6>  {{expediente2.resolucion}}</h6>
-            </div>
-            <div class="col-lg-4 col-xlg-3 col-md-5">
-                <h6 ><b>Tipo Resolucion :</b>  </h6> <h6>{{expediente2.tiporesolucion}}</h6>
-            </div>                                    
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <h6 ><b>Fecha Resb :</b>  </h6> <h6>{{expediente2.fecharesb | date:'yyyy-MM-dd'}} </h6>
+                    </div>                                    
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                        <h6 ><b>Fecha Pub :</b> </h6> <h6> {{expediente2.fechapub | date:'yyyy-MM-dd'}} </h6>
+                    </div>                                    
                 
-            <div class="col-lg-4 col-xlg-3 col-md-5">
-                <h6 ><b>Fecha Resb :</b>  </h6> <h6>{{expediente2.fecharesb | date:'yyyy-MM-dd'}} </h6>
-            </div>                                    
-            <div class="col-lg-4 col-xlg-3 col-md-5">
-                <h6 ><b>Fecha Pub :</b> </h6> <h6> {{expediente2.fechapub | date:'yyyy-MM-dd'}} </h6>
-            </div>                                    
-          
-          
-        </div>
+                
+                </div>
+            </div>
 
 
     </div>
 </div>
 
 <div class="table-responsive table-Al tabla-contenedor" *ngIf="ocultarModalgestionP">
-    E X P E D I E N T E S
+   <b>E X P E D I E N T E S</b>
     <div class="card">
         <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
             <thead class="sticky-header">
@@ -163,7 +191,7 @@
 
 <div class="table-responsive table-Al tabla-contenedor" *ngIf="!ocultarModalgestionP">
     <div class="card">
-        G E S T I O N E S
+    <b>G E S T I O N E S</b>
         <table  #tabla1 class="  table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
             <thead class="sticky-header">
                 <tr style="color:aliceblue">
@@ -237,7 +265,7 @@
     #txttermino
     />         
     <button class="btn btn-primary"  (click)="buscar(txttermino.value)">Buscar</button>
-    <button class="btn btn-secondary" (click)="abrirGestiones()">Gestiones</button>
+    <button class="btn btn-secondary" (click)="abrirGestiones()">{{TituloBoton}}</button>
 
     &nbsp;&nbsp;&nbsp;
     <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(0)">Primera</button>
@@ -636,10 +664,10 @@
                                     <label class="control-label">Estado</label>
                                 </div>
                                 <div class="col-md-2">
+                                    
                                     <select class="form-control w140" name="TipoEST"
                                     [(ngModel)]="TipoEstadoSeleccionado">
-                                        
-                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
+                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstado"  [selected]="dato.id === TipoEstadoSeleccionado">
                                             {{dato.nombre}}
                                         </option>
                                     </select>
@@ -879,3 +907,7 @@
 
 
 </div>
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

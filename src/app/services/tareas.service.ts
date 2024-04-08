@@ -33,9 +33,9 @@ export class tareasService {
  // public totalUsuarios :number =0;
  //public tiposdetalle:Empresas[]=[];
 
-  cargar(desde: number =0,cuantos: number =10,   idexpediente : number = 0 , idgestion: number = 0 )
+  cargar(desde: number =0,cuantos: number =10,   idexpediente : number = 0 , idgestion: number = 0 , resumen : number=0, fechai : string='', fechaf :string='')
   {
-    const url = `${ base_url }/tareasSQL?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente }&idgestion=${idgestion }`;
+    const url = `${ base_url }/tareasSQL?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente }&idgestion=${idgestion }&resumen=${resumen }&fechai=${fechai}&fechaf=${fechaf}`;
    
     console.log ( url);
    

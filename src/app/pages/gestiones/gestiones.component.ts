@@ -574,7 +574,7 @@ export class GestionesComponent {
   ////////////////////////////////////// 
 
   private _ocultarModalTarea: boolean = true;
-  public camposEditarTarea : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+  public camposEditarTarea : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0,0,0,'','');
 
 
   get ocultarModalTarea(){
@@ -583,7 +583,7 @@ export class GestionesComponent {
 
   abrirModalTarea(Gestiondetalle:Gestiones){
     
-    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente,0,0,'','');
 
     this._ocultarModalTarea=false;
     
@@ -612,7 +612,7 @@ export class GestionesComponent {
     if (this.editarTareas===0)
     {
       //crear nueva tarea
-      let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+      let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente,0,0,'','');
 
         console.log(nueva);
         console.log("nueva");
@@ -636,7 +636,7 @@ export class GestionesComponent {
     else
     {
       //modificar tarea
-      let  nueva    : tareas =  new tareas(this.camposEditarTarea.id,this.camposEditarTarea.idempresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,this.camposEditarTarea.idestado,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+      let  nueva    : tareas =  new tareas(this.camposEditarTarea.id,this.camposEditarTarea.idempresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,this.camposEditarTarea.idestado,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente,0,0,'','');
 
       console.log(nueva);
       console.log("Editar");
@@ -674,7 +674,7 @@ export class GestionesComponent {
   ////////////////////////////////////// 
 
   private _ocultarModalTarea2: boolean = true;
-  public camposEditarTarea2 : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+  public camposEditarTarea2 : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0,0,0,'','');
 
 
   get ocultarModalTarea2(){
@@ -688,7 +688,7 @@ export class GestionesComponent {
 
     this.cargarTarea(idexpediente,idgestion );
 
-    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente,0,0,'','');
 
     this._ocultarModalTarea2=false;
     
@@ -726,7 +726,7 @@ export class GestionesComponent {
   abrirModificarTarea(nitem2:tareas)
   {
     this._ocultarModalTarea2=true;
-    this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente);
+    this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente,0,0,'','');
     this.editarTareas=1;
     this._ocultarModalTarea=false;
     

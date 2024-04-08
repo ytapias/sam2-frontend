@@ -68,7 +68,7 @@ public paises: paisesyciudades[]=[];
 opcionSeleccionada2: number=0; 
   opcionSeleccionada3: number=0; 
   opcionSeleccionada4: number=0; 
-  TipoEstadoSeleccionado: number=0; 
+  TipoEstadoSeleccionado: number=1; 
   idpaisseleccionado: number=0;  
 
   
@@ -93,6 +93,17 @@ opcionSeleccionada2: number=0;
     //  this.cargarGestion() ;
 
   }
+
+  ////////////////////
+  //minimizar
+  seccionMinimizada: boolean = true;
+
+  toggleMinimizar() {
+    this.seccionMinimizada = !this.seccionMinimizada;
+  }
+
+  //FIN minimizar
+  ////////////////////
   public Items1: Gestiones[]=[];
 
   
@@ -1085,7 +1096,7 @@ manejarTeclado(event: KeyboardEvent) {
   ////////////////////////////////////// 
 
   private _ocultarModalTarea: boolean = true;
-  public camposEditarTarea : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+  public camposEditarTarea : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0,0,0,'','');
 
 
   get ocultarModalTarea(){
@@ -1094,7 +1105,7 @@ manejarTeclado(event: KeyboardEvent) {
 
   abrirModalTarea(Gestiondetalle:Gestiones){
     
-    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente,0,0,'','');
 
     this._ocultarModalTarea=false;
     
@@ -1123,7 +1134,7 @@ manejarTeclado(event: KeyboardEvent) {
     if (this.editarTareas===0)
     {
       //crear nueva tarea
-      let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+      let  nueva    : tareas =  new tareas(0,this.Empresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,1,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente,0,0,'','');
 
         console.log(nueva);
         console.log("nueva");
@@ -1147,7 +1158,7 @@ manejarTeclado(event: KeyboardEvent) {
     else
     {
       //modificar tarea
-      let  nueva    : tareas =  new tareas(this.camposEditarTarea.id,this.camposEditarTarea.idempresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,this.camposEditarTarea.idestado,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente);
+      let  nueva    : tareas =  new tareas(this.camposEditarTarea.id,this.camposEditarTarea.idempresa,'','',this.camposEditarTarea.tarea,this.fechaVenceTarea,this.camposEditarTarea.idestado,'',this.camposEditarTarea.idgestion,this.camposEditarTarea.idexpediente,0,0,'','');
 
       console.log(nueva);
       console.log("Editar");
@@ -1185,7 +1196,7 @@ manejarTeclado(event: KeyboardEvent) {
   ////////////////////////////////////// 
 
   private _ocultarModalTarea2: boolean = true;
-  public camposEditarTarea2 : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0);
+  public camposEditarTarea2 : tareas=new tareas(0,0,'','','',new Date(),0,'',0,0,0,0,'','');
 
 
   get ocultarModalTarea2(){
@@ -1196,10 +1207,10 @@ manejarTeclado(event: KeyboardEvent) {
     
     let idexpediente = Gestiondetalle.idexpediente;
     let idgestion = Gestiondetalle.id;
-
+    
     this.cargarTarea(idexpediente,idgestion );
 
-    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente);
+    this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente,0,0,'','');
 
     this._ocultarModalTarea2=false;
     
@@ -1224,6 +1235,7 @@ manejarTeclado(event: KeyboardEvent) {
     .subscribe ( (res1:any) => 
     {
         this.ItemsTareas= res1['resultado'];
+        this.TipoEstadoSeleccionado=  res1['resultado'].idestado;
         // this.totalTipos=res1.total;
         // this.paginasTotales= Math.round(this.totalTipos/this.limite);
         // this.paginaActual=  this.desde+1;
@@ -1237,7 +1249,7 @@ manejarTeclado(event: KeyboardEvent) {
   abrirModificarTarea(nitem2:tareas)
   {
     this._ocultarModalTarea2=true;
-    this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente);
+    this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente,0,0,'','');
     this.editarTareas=1;
     this._ocultarModalTarea=false;
     

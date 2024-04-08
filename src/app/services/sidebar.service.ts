@@ -22,10 +22,10 @@ export class SidebarService {
       icono:'mdi mdi-folder-lock-open',
       submenu: [
         { titulo:'Registro',url:'registro'},
-        { titulo:'Consultas',url:'consultas'},
-        { titulo:'Gacetas',url:'gacetas'},
+        // { titulo:'Consultas',url:'consultas'},
         { titulo:'Expedientes',url:'principal'},
         { titulo:'Gestiones',url:'gestiones'},
+        { titulo:'Tareas',url:'tareas'},
         { titulo:'Marcas',url:'marcas'},
         { titulo:'Personas',url:'personas'},
         
@@ -41,6 +41,8 @@ export class SidebarService {
         { titulo:'Empresas',url:'empresas'},
         { titulo:'Cargador',url:'cargar'},
         { titulo:'Comparar',url:'comparar'},
+        { titulo:'Gacetas',url:'gacetas'},
+
       ]
     }
   ];

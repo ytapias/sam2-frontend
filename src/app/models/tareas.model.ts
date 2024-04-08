@@ -10,6 +10,11 @@ export class tareas {
         public estado: string,
         public idgestion: number,
         public idexpediente: number,
+        public expediente: number,
+        public idmarca: number,
+        public marca : string,
+        public tipoproceso: string
+
         ) 
     { }
 }
