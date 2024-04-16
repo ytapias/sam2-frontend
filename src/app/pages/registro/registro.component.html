@@ -58,7 +58,7 @@
                     <h6 ><b>Pais Radicacion:</b>  </h6> <h6 class="data-display">{{expediente2.pais}} </h6>
                 </div>                                    
                 <div class="col-lg-4 col-xlg-3 col-md-5">
-                    <h6 ><b>Fecha :</b> </h6> <h6 class="data-display"> {{expediente2.fechapb | date:'yyyy-MM-dd'}} </h6>
+                    <h6 ><b>Fecha :</b> </h6> <h6 class="data-display"> {{expediente2.fechapb | date:'yyyy/MM/dd':"GMT+0"}} </h6>
                 </div>                                    
                 <div class="col-lg-4 col-xlg-3 col-md-5">
                     <h6 ><b>Dominio :</b> </h6> <h6 class="data-display"> {{expediente2.dominio}} </h6>
@@ -101,10 +101,10 @@
                             <h6 ><b>Certificado :</b> </h6> <h6> {{expediente2.certif}} </h6>
                         </div> 
                         <div class="col-lg-4 col-xlg-3 col-md-5">
-                            <h6 ><b>Vencimiento :</b> </h6> <h6>  {{expediente2.vencimb | date:'yyyy-MM-dd'}} </h6>
+                            <h6 ><b>Vencimiento :</b> </h6> <h6>  {{expediente2.vencimb | date:'yyyy/MM/dd':"GMT+0"}} </h6>
                         </div>  
                         <div class="col-lg-4 col-xlg-3 col-md-5">
-                            <h6 ><b>Fecha Inac :</b> </h6> <h6>  {{expediente2.fechainac | date:'yyyy-MM-dd'}} </h6>
+                            <h6 ><b>Fecha Inac :</b> </h6> <h6>  {{expediente2.fechainac | date:'yyyy/MM/dd':"GMT+0"}} </h6>
                         </div>  
                     </div>
                 <hr>
@@ -120,10 +120,10 @@
                     </div>                                    
                         
                     <div class="col-lg-4 col-xlg-3 col-md-5">
-                        <h6 ><b>Fecha Resb :</b>  </h6> <h6>{{expediente2.fecharesb | date:'yyyy-MM-dd'}} </h6>
+                        <h6 ><b>Fecha Resb :</b>  </h6> <h6>{{expediente2.fecharesb | date:'yyyy/MM/dd':"GMT+0"}} </h6>
                     </div>                                    
                     <div class="col-lg-4 col-xlg-3 col-md-5">
-                        <h6 ><b>Fecha Pub :</b> </h6> <h6> {{expediente2.fechapub | date:'yyyy-MM-dd'}} </h6>
+                        <h6 ><b>Fecha Pub :</b> </h6> <h6> {{expediente2.fechapub | date:'yyyy/MM/dd':"GMT+0"}} </h6>
                     </div>                                    
                 
                 
@@ -134,11 +134,17 @@
     </div>
 </div>
 
-<div class="table-responsive table-Al tabla-contenedor" *ngIf="ocultarModalgestionP">
+<!-- <div class="table-responsive table-Al tabla-contenedor" *ngIf="ocultarModalgestionP"> -->
+
+<div class="tabla-container">
    <b>E X P E D I E N T E S</b>
     <div class="card">
-        <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
-            <thead class="sticky-header">
+        <!-- <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style=""> -->
+       
+            <table class="table color-bordered-table inverse-bordered-table table-hover">
+
+    
+            <thead>
                 <tr style="color:aliceblue">
                     <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="persist" class="tablesaw-cell-persist tablesaw-sortable-head" data-sortable-numeric="false">
                          Denominacion 
@@ -234,9 +240,9 @@
                     <td>{{ nitem.clase }}</td>
                     <td>{{ nitem.tipoproceso }}</td>
 
-                    <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
+                    <td>{{ nitem.fechaactuacion | date:'yyyy/MM/dd':"GMT+0" }}</td>
                     <td>{{ nitem.tipoactuacion }}</td>
-                    <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
+                    <td>{{ nitem.vence | date:'yyyy/MM/dd':"GMT+0"}}</td>
                     <td>{{ nitem.tipogest }}</td>
                     <td>{{ nitem.estado }}</td>
                     <td>{{ nitem.id }}</td>
@@ -385,7 +391,7 @@
                                     </div>                                    
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Fecha :</b> </h6> 
-                                        <input type="date" id="fecha"  placeholder="Fecha Publicacion" [ngModel]="camposEditar.fechapb| date:'yyyy-MM-dd'">
+                                        <input type="date" id="fecha"  placeholder="Fecha Publicacion" [ngModel]="camposEditar.fechapb| date:'yyyy/MM/dd':'GMT+0'">
                                     </div>       
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Año :</b> </h6> 
@@ -401,7 +407,7 @@
                                    </div>  
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Vencimiento :</b> </h6> 
-                                        <input type="date" id="Vence"  placeholder="Tipo Solicitud" [ngModel]="camposEditar.vencimb | date:'yyyy-MM-dd'">
+                                        <input type="date" id="Vence"  placeholder="Tipo Solicitud" [ngModel]="camposEditar.vencimb | date:'yyyy/MM/dd':'GMT+0'">
                                     </div>  
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Dominio :</b> </h6> 
@@ -452,11 +458,11 @@
                                     </div> 
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Fecha Prioridad :</b> </h6>
-                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.fechapri | date:'yyyy-MM-dd'">
+                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.fechapri | date:'yyyy-MM-dd':'GMT+0'">
                                     </div> 
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>expedipri :</b> </h6> 
-                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.expedipri | date:'yyyy-MM-dd'">
+                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.expedipri | date:'yyyy-MM-dd':'GMT+0'">
                                     </div>  
                                     <div class="col-lg-4 col-xlg-3 col-md-5">
                                         <h6 ><b>Yourref :</b> </h6> 
@@ -477,7 +483,7 @@
                                     
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>fechapub:</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechapub | date:'yyyy-MM-dd'">
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechapub | date:'yyyy-MM-dd':'GMT+0'">
                                     </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>MActiva :</b> </h6> 
@@ -489,11 +495,11 @@
                                  </div>
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>ptram :</b> </h6> 
-                                    <input type="date" id="pagcert"  placeholder="pagcert" [ngModel]="camposEditar.ptram | date:'yyyy-MM-dd'">
+                                    <input type="date" id="pagcert"  placeholder="pagcert" [ngModel]="camposEditar.ptram | date:'yyyy-MM-dd':'GMT+0'">
                              </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>fechainac:</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechainac | date:'yyyy-MM-dd'">
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechainac | date:'yyyy-MM-dd':'GMT+0'">
                                     </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>vcniza :</b> </h6> 
@@ -510,7 +516,7 @@
                                     
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>frrenova :</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.frrenova | date:'yyyy-MM-dd'">
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.frrenova | date:'yyyy-MM-dd':'GMT+0'">
                                     </div>                                    
                                 <div class="col-lg-4 col-xlg-3 col-md-5">
                                     <h6 ><b>otro :</b> </h6> 
@@ -625,7 +631,7 @@
                                         <label class="control-label">Fecha Actuacion</label>
                                  </div>
                                 <div class="col-md-2">
-                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar2.fechaactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
+                                    <input type="date" id="fechaactuacion" [ngModel]="camposEditar2.fechaactuacion  | date:'yyyy-MM-dd':'GMT+0'" placeholder="fecha Actuacion">
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-2">
@@ -636,7 +642,7 @@
                                  </div>
                                 <div class="col-md-2">
                                        <!-- <input type="date" [(ngModel)]="camposEditar2.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> -->
-                                       <input type="date" id="vence" placeholder="Vence" [ngModel]="camposEditar2.vence | date:'yyyy-MM-dd'">
+                                       <input type="date" id="vence" placeholder="Vence" [ngModel]="camposEditar2.vence | date:'yyyy-MM-dd':'GMT+0'">
 
                                 </div>
                                 <!--/span-->

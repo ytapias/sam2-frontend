@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 
 import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
 import {  HostListener } from '@angular/core';
+import { gacetas } from 'src/app/models/gacetas.model';
+import { GacetasService } from 'src/app/services/gacetas.service';
 
 
 @Component({
@@ -11,12 +13,39 @@ import {  HostListener } from '@angular/core';
 })
 export class GacetasComponent {
 
+  public Items: gacetas[]=[];
 
   // export class TuComponenteComponent {
     textoACopiar: string = 'Texto que quieres copiar al portapapeles';
   
-    constructor(private clipboardService: ClipboardService) { }
+    constructor(private servicio: GacetasService,
+      private clipboardService: ClipboardService) 
+      { 
+        this.cargar();
+
+      }
   
+      cargar() {
+
+       
+        this.servicio.cargar()
+        .subscribe ( (res1:any) => 
+        {
+            console.log(res1);
+            this.Items= res1['resultado'];
+            // this.labels1= res1['resultado'];
+            // this.labels1= res1['resultado'].cantidad;
+    
+         //   console.log(this.ItemsALL);
+    
+      
+        });
+    
+      //  console.log(this.Items);
+      }
+
+
+
     copiarAlPortapapeles() {
       this.clipboardService.copyFromContent(this.textoACopiar);
       console.log(this.textoACopiar);
@@ -34,5 +63,10 @@ export class GacetasComponent {
       console.log('Texto pegado desde el portapapeles: ' + this.textoPegado);
       alert('Texto copiado del  portapapeles: ' +  this.textoPegado);
     }
+
+
+
+
+
 
 }

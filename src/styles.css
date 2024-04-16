@@ -237,3 +237,54 @@
   appearance: none;
 }
  
+/*
+Estilo para dejar la barra fija de arriba
+*/
+
+/* Estilos para la tabla */
+.table-container {
+  max-height: 400px; /* Altura máxima del área de desplazamiento */
+  overflow-y: auto; /* Permitir desplazamiento vertical */
+}
+
+.table-container table {
+  width: 100%; /* Ancho completo */
+  border-collapse: collapse;
+}
+
+.table-container th,
+.table-container td {
+  padding: 8px;
+  text-align: left;
+}
+
+/* Estilos para el encabezado fijo */
+.table-container thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: white; /* Color de fondo del encabezado */
+}
+
+.table-container th {
+  background-color: #f5f5f5; /* Color de fondo de las celdas de encabezado */
+  position: sticky;
+  top: 0;
+}
+
+/* Estilos para el cuerpo de la tabla */
+.table-container tbody {
+  display: block;
+  width: 100%;
+  overflow: auto;
+  height: 300px; /* Altura del área de desplazamiento del cuerpo */
+}
+
+.table-container tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
