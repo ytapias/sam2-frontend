@@ -4,6 +4,8 @@ import { ClipboardModule, ClipboardService } from 'ngx-clipboard';
 import {  HostListener } from '@angular/core';
 import { gacetas } from 'src/app/models/gacetas.model';
 import { GacetasService } from 'src/app/services/gacetas.service';
+import { AnalisisService } from 'src/app/services/analisis.service';
+import { Analisis } from 'src/app/models/analisis.model';
 
 
 @Component({
@@ -14,11 +16,14 @@ import { GacetasService } from 'src/app/services/gacetas.service';
 export class GacetasComponent {
 
   public Items: gacetas[]=[];
+  public ItemsAnalisis: Analisis[]=[];
+
 
   // export class TuComponenteComponent {
     textoACopiar: string = 'Texto que quieres copiar al portapapeles';
   
     constructor(private servicio: GacetasService,
+      private servicioAnalisis: AnalisisService,
       private clipboardService: ClipboardService) 
       { 
         this.cargar();
@@ -65,7 +70,25 @@ export class GacetasComponent {
     }
 
 
+    abrirDetalle(item : gacetas)
+    {
+        console.log(item.gaceta);
+        
+        this.servicioAnalisis.cargar(0,10,item.gaceta)
+        .subscribe ( (res1:any) => 
+        {
+            console.log(res1);
+            this.ItemsAnalisis= res1['resultado'];
+            // this.labels1= res1['resultado'];
+            // this.labels1= res1['resultado'].cantidad;
+    
+        console.log(this.ItemsAnalisis);
+    
+      
+        });
+    
 
+    }
 
 
 
