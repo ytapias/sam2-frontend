@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, catchError, map, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { gacetas } from '../models/gacetas.model';
 
 const base_url =environment.base_url;
 
@@ -41,13 +42,13 @@ export class AnalisisService {
   }
 
 
-  // crear(item : Analisis)
-  // {
-  //     console.log('creando');
-  //     console.log(item);
+  analisis(gaceta : gacetas)
+  {
+      console.log('lanzando');
+      console.log(gaceta);
       
-  //     return this.http.post(`${ base_url }/EmpresasSQL/`,item,this.headers);
-  // }
+      return this.http.post(`${ base_url }/analisisSQL/`,gaceta,this.headers);
+  }
 
   // modificar(item : Analisis)
   // {
