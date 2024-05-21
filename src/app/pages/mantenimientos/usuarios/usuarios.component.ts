@@ -20,6 +20,8 @@ export class UsuariosComponent implements OnInit {
 
   public totalTipos:number = 0;
 
+  public usuario: Usuario;
+
   public Items: Usuario[]=[];
   public ItemsALL: Usuario[]=[];
 
@@ -55,7 +57,8 @@ export class UsuariosComponent implements OnInit {
   constructor(private servicio: UsuarioService,
     private servicioTiposDetalle: TptiposdetalleService)
   {
-    
+    this.usuario = servicio.usuario;
+
   }
 
   ngOnInit(): void {
@@ -222,6 +225,12 @@ export class UsuariosComponent implements OnInit {
 
   eliminar (item: Usuario)
   {
+    if (this.usuario.id=== item.id)
+    {
+      console.log("mismo usuario");
+    }
+
+return;
     console.log("Eliminar");
      console.log(item);
     Swal.fire({

@@ -83,8 +83,15 @@ export class UsuarioService {
 
                 } ).pipe(
                   tap((resp: any)=>{
-                 
-                          localStorage.setItem('token',resp.token); 
+                  const{
+                    idempresa, empresa, login, password, email, idrole, role, idpersona, idtipoidentificacion, 
+                    identificacion, nombre, idestado, estado,   id} = resp.usuario
+
+
+                      this.usuario = new Usuario(id,idempresa,empresa,login,''
+                                                ,email,idrole,role,idpersona,idtipoidentificacion,identificacion
+                                                ,nombre,idestado,estado,'');
+                      localStorage.setItem('token',resp.token); 
 
 //                           const token1=resp.token;
 //                           const login1=resp.nom;
