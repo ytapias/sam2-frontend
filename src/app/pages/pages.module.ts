@@ -37,6 +37,7 @@ import { CompararComponent } from './mantenimientos/comparar/comparar.component'
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { RegistroComponent } from './registro/registro.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { AnalisisComponent } from './analisis/analisis.component';
 
 
  
@@ -64,6 +65,7 @@ import { TareasComponent } from './tareas/tareas.component';
     MyprofileComponent,
     RegistroComponent,
     TareasComponent,
+    AnalisisComponent,
   ],
   exports :[
     DashboardComponent,

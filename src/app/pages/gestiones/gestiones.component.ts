@@ -658,6 +658,7 @@ export class GestionesComponent {
     
 
     }
+    this.cargar();
     this.cerrarModalTarea();
 
     

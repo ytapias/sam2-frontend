@@ -317,6 +317,7 @@ export class TareasComponent {
     
 
     }
+    this.cargarTareas();
     this.cerrarModalTarea();
 
     

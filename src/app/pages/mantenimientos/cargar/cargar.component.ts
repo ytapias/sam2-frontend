@@ -93,6 +93,13 @@ export class CargarComponent {
     };
 
     reader.readAsBinaryString(file);
+
+    // Swal.fire(
+    //   'Cargar GAceta!',
+    //   `La gaceta fue cargada con exito.`,
+    //   'success'
+    // );
+
   }
 
   uploadData(data: string) 

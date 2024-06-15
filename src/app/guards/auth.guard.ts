@@ -15,7 +15,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     
         tap( (estaAutenticado) =>  {
       //    console.log('debntro dle  ---- guard');
-          console.log("AUTENTICADO= "+estaAutenticado);
+          // console.log("AUTENTICADO= "+estaAutenticado);
   
   
           if ( !estaAutenticado ) {

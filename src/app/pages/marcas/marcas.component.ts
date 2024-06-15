@@ -132,7 +132,7 @@ export class MarcasComponent {
     this.servicioTiposDetalle.cargar(0,-2,1,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+    // console.log(res1);
         this.TipoEstado= res1['tiposdetalle'];
       
         this.cargando = false;

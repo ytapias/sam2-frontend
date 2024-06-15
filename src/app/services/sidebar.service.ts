@@ -28,7 +28,7 @@ export class SidebarService {
         { titulo:'Tareas',url:'tareas'},
         { titulo:'Marcas',url:'marcas'},
         { titulo:'Personas',url:'personas'},
-        
+        { titulo:'Analizar Gaceta',url:'analisis'},
       ]
     },
     {
@@ -39,9 +39,10 @@ export class SidebarService {
         { titulo:'Paises y Ciudades',url:'paisesyciudades'},
         { titulo:'Usuarios',url:'usuarios'},
         { titulo:'Empresas',url:'empresas'},
-        { titulo:'Cargador',url:'cargar'},
+       
         { titulo:'Comparar',url:'comparar'},
-        { titulo:'Gacetas',url:'gacetas'},
+        { titulo:'Cargador Gacetas',url:'cargar'},
+        { titulo:'Analizar Gacetas',url:'gacetas'},
 
       ]
     }

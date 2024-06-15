@@ -243,8 +243,10 @@ Estilo para dejar la barra fija de arriba
 
 /* Estilos para la tabla */
 .table-container {
-  max-height: 400px; /* Altura máxima del área de desplazamiento */
-  overflow-y: auto; /* Permitir desplazamiento vertical */
+  width: 100%;
+  overflow-y: auto;
+  max-height: 400px; /* Puedes ajustar la altura máxima según tus necesidades */
+  border: 1px solid #ddd;
 }
 
 .table-container table {
@@ -252,10 +254,16 @@ Estilo para dejar la barra fija de arriba
   border-collapse: collapse;
 }
 
-.table-container th,
-.table-container td {
+
+.table-container th, .table-container td {
   padding: 8px;
   text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-container th {
+  background-color: #333;
+  color: white;
 }
 
 /* Estilos para el encabezado fijo */

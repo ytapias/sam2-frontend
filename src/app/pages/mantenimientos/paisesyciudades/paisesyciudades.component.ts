@@ -84,7 +84,7 @@ export class PaisesyciudadesComponent {
 
   cambiarTipo(tipow :any){
  
-    console.log(tipow);
+    //console.log(tipow);
       this.desde =0;
       this.filtro =this.opcionSeleccionada;
       this.textoBuscar ='';
@@ -96,7 +96,7 @@ export class PaisesyciudadesComponent {
 
   cambiarTipo2(tipow :any){
  
-      console.log(tipow);
+    //  console.log(tipow);
        
    }
 
@@ -358,7 +358,7 @@ export class PaisesyciudadesComponent {
         this.camposEditar.idtipopais = 0;
       }
       
-      console.log( this.camposEditar);
+     // console.log( this.camposEditar);
 
 
         if(this._Crear === true)
@@ -367,7 +367,7 @@ export class PaisesyciudadesComponent {
           .subscribe({
             next: (resp: RespuestaBackend) => {
                 this.Logs = JSON.stringify(resp);
-                console.log(resp);
+               // console.log(resp);
 
                 // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
                 if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
@@ -409,7 +409,7 @@ export class PaisesyciudadesComponent {
           .subscribe({
             next: (resp: RespuestaBackend) => {
                 this.Logs = JSON.stringify(resp);
-                console.log(resp);
+              //  console.log(resp);
 
                 // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
                 if (resp && resp.resultado && resp.resultado.nuevoID > 0) {

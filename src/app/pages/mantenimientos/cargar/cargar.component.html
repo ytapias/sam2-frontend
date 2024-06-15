@@ -17,7 +17,7 @@
             <div [ngClass]="{'minimizado': seccionMinimizada}" >
                 <div class="card-body ">
                     
-                    COMPARAR 
+                    CARGAR GACETAS 
                    
                     <div class="row">
                       <!--
@@ -36,10 +36,19 @@
                     <input type="file" (change)="onFileChange($event)">
 
                          &nbsp;&nbsp;
-                         <button class="btn btn-primary "   >
+                         <!-- <button class="btn btn-primary "   >
                             <i class="fa fa-city"></i>
                             Procesar
-                        </button>
+                        </button> -->
+
+<br>
+<br>
+Se debe cargar un archivo excel: el nombre de  la hoja donde se encuentre la gaceta debe ser " gaceta " y  que cada columna debe tener los siguientes nombres de columnas
+<br>
+<br>                    
+                        paisrad ,dominio ,anno ,expedi ,fechapb ,estado ,ts ,natural ,denomi ,civersion ,clase ,apoderado ,dirapo ,emailapode ,paisapod ,solicitant ,direcsol ,emailsol ,nomciu ,depto ,pais ,codpais ,contacto ,dircont ,emailcont ,ciudcont ,paiscont ,tipomarc ,tipoproc ,gaceta ,expedinu ,plazopo ,clases ,fechapub ,tiposol ,expedio ,numpub ,prioridad ,fechapri ,regint ,fregint ,codciud ,direccion ,clasesig ,direccion ,clasesig 
+
+
                     </div>
                 </div>
 
@@ -47,4 +56,4 @@
     </div>
     </div>
 </div>
-<p>cargar works!</p>
+ 

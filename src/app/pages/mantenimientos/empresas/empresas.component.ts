@@ -110,11 +110,11 @@ export class EmpresasComponent {
       
   }
 
-  cambiarTipo2(tipow :any){
+  // cambiarTipo2(tipow :any){
  
-      console.log(tipow);
+  //     console.log(tipow);
        
-   }
+  //  }
 
   cargar() {
 
@@ -269,7 +269,7 @@ export class EmpresasComponent {
     
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'datos.csv');
+    link.setAttribute('download', 'empresas.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -285,8 +285,8 @@ export class EmpresasComponent {
     const datosExcel = this.convertirAFormatoExcel(this.Items);
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-    XLSX.writeFile(wb, 'datos.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'Empresas');
+    XLSX.writeFile(wb, 'empresas.xlsx');
   }
 
 
@@ -301,8 +301,8 @@ export class EmpresasComponent {
           const datosExcel =  this.convertirAFormatoExcel( this.ItemsALL);
           const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
           const wb: XLSX.WorkBook = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-          XLSX.writeFile(wb, 'datos.xlsx');
+          XLSX.utils.book_append_sheet(wb, ws, 'Empresas');
+          XLSX.writeFile(wb, 'empresas.xlsx');
       });
      
 
@@ -416,7 +416,7 @@ export class EmpresasComponent {
             {
               this.Logs = JSON.stringify(resp);
               
-              console.log(resp);
+           //   console.log(resp);
               Swal.fire(
                 'Crear!',
                 `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
@@ -435,7 +435,7 @@ export class EmpresasComponent {
               this.Logs = JSON.stringify(resp);
               //var variable: RespuestaBackend = resp;
               
-              console.log(resp);
+             // console.log(resp);
               Swal.fire(
                 'Modificar!',
                 `El item  ${ this.camposEditar.nombre }   fue modificado  con exito.`,

@@ -20,7 +20,7 @@ export class UsuariosComponent implements OnInit {
 
   public totalTipos:number = 0;
 
-  public usuario: Usuario;
+   public usuario: Usuario;
 
   public Items: Usuario[]=[];
   public ItemsALL: Usuario[]=[];
@@ -225,14 +225,21 @@ export class UsuariosComponent implements OnInit {
 
   eliminar (item: Usuario)
   {
-    if (this.usuario.id=== item.id)
-    {
-      console.log("mismo usuario");
-    }
+      if (this.usuario.id=== item.id)
+     {
+        //console.log("mismo usuario");
+        Swal.fire(
+          'Borrado!',
+          `El usuario  ${ item.login } no puede ser eliminado.`,
+          'info'
+        );
 
-return;
-    console.log("Eliminar");
-     console.log(item);
+        return;
+     }
+
+ 
+    // console.log("Eliminar");
+    //  console.log(item);
     Swal.fire({
       title: '¿Borrar usuario?',
       text: ` esta a punto de borrar a ${ item.login } `,

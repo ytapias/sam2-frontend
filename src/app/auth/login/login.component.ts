@@ -45,7 +45,10 @@ export class LoginComponent {
                           .subscribe
                           ({
                              next: resp =>{
-                             
+                          
+                              console.log("Login resp");
+                          console.log(resp);
+
                              if ( this.loginForm.get('remember')?.value ){ 
                                 localStorage.setItem('login', this.loginForm.get('login')?.value );
 

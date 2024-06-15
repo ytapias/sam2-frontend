@@ -24,6 +24,7 @@ import { CompararComponent } from './mantenimientos/comparar/comparar.component'
 import { MyprofileComponent } from './myprofile/myprofile.component';
 import { RegistroComponent } from './registro/registro.component';
 import { TareasComponent } from './tareas/tareas.component';
+import { AnalisisComponent } from './analisis/analisis.component';
  
 const routes: Routes =[
     {
@@ -50,6 +51,7 @@ const routes: Routes =[
              {path: 'tareas',component:TareasComponent,data :{titulo :'Tareas'}},
           {path: 'marcas',component:MarcasComponent,data :{titulo :'Marcas'}},
           {path: 'personas',component:PersonasComponent,data :{titulo :'Personas'}},
+          {path: 'analisis',component:AnalisisComponent,data :{titulo :'Analizar Gaceta'}},
           
 
           //mantenimientos

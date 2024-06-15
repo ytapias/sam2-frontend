@@ -70,10 +70,10 @@ export class UsuarioService {
 
   validarToken() : Observable<boolean>
   {
- //   console.log("valida token");
+  //   console.log("valida token");
     
 
-   // console.log(this.token);
+  // console.log(this.token);
     return this.http.get(`${ base_url }/login/renew`, 
                 {
                     headers:
@@ -83,17 +83,25 @@ export class UsuarioService {
 
                 } ).pipe(
                   tap((resp: any)=>{
-                  const{
-                    idempresa, empresa, login, password, email, idrole, role, idpersona, idtipoidentificacion, 
-                    identificacion, nombre, idestado, estado,   id} = resp.usuario
 
+                      // console.log("renew TOKEN");
+                      // console.log(resp);
 
-                      this.usuario = new Usuario(id,idempresa,empresa,login,''
-                                                ,email,idrole,role,idpersona,idtipoidentificacion,identificacion
-                                                ,nombre,idestado,estado,'');
-                      localStorage.setItem('token',resp.token); 
+                    localStorage.setItem('token',resp.token); 
+                      
+                      // console.log(resp);
+                      
+                      const{
+                        idempresa, empresa, login, password, email, idrole, role, idpersona, idtipoidentificacion, 
+                        identificacion, nombre, idestado, estado,   id} = resp.usuarioDB[0][0]
+    
+    
+                          this.usuario = new Usuario(id,idempresa,empresa,login,''
+                                                    ,email,idrole,role,idpersona,idtipoidentificacion,identificacion
+                                                    ,nombre,idestado,estado,'');
 
-//                           const token1=resp.token;
+                         //  console.log(this.usuario);
+                          //                           const token1=resp.token;
 //                           const login1=resp.nom;
 //                           const login = resp.decode.nom;
 // 
@@ -121,15 +129,19 @@ export class UsuarioService {
   
   login(formData : LoginForm)
   {
-      //console.log('login usuario');
+   console.log('login usuario');
+
+   console.log(formData);
       return this.http.post(`${ base_url }/login`,formData)
                   .pipe(
                     tap( (resp:any) =>{
-     
-                          const {login,nombre, email} = resp.decode;
-                          localStorage.setItem('token',resp.token); 
+                      console.log(" resp.token");    
+                      console.log( resp.token);
+
+
+                           localStorage.setItem('token',resp.token); 
                           localStorage.setItem('nom',resp.decode.nom); 
-                          localStorage.setItem('login',login);
+                          localStorage.setItem('login',resp.login);
                           localStorage.setItem('intentos',resp.decode.uid); 
 
                           localStorage.setItem('email',resp.decode.email); 

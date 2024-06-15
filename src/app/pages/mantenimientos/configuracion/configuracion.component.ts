@@ -350,7 +350,7 @@ export class ConfiguracionComponent implements OnInit {
         this.camposEditar.idtipo = 1;
       }
       
-      console.log( this.camposEditar);
+     // console.log( this.camposEditar);
 
 
         if(this._Crear === true)
@@ -379,7 +379,7 @@ export class ConfiguracionComponent implements OnInit {
               this.Logs = JSON.stringify(resp);
               //var variable: RespuestaBackend = resp;
               
-              console.log(resp);
+       //       console.log(resp);
               Swal.fire(
                 'Modificar!',
                 `El item  ${ this.camposEditar.nombre }   fue modificado  con exito.`,

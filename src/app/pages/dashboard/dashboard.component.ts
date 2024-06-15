@@ -124,9 +124,9 @@ export class DashboardComponent {
   isFechaVencida(fechaVencimiento: Date): boolean {
     const fechaHoy = new Date(); // Obtener la fecha actual
 
-console.log ( fechaVencimiento < fechaHoy);
-console.log (fechaVencimiento );
-  console.log (fechaHoy );
+// console.log ( fechaVencimiento < fechaHoy);
+// console.log (fechaVencimiento );
+//   console.log (fechaHoy );
 
     return fechaVencimiento < fechaHoy; // Comparar la fecha de vencimiento con la fecha actual
   }

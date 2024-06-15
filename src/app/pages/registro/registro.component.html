@@ -135,12 +135,11 @@
 </div>
 
 <!-- <div class="table-responsive table-Al tabla-contenedor" *ngIf="ocultarModalgestionP"> -->
-
-<div class="tabla-container">
+<!-- 
+<div class="tabla-container"  *ngIf="ocultarModalgestionP">
    <b>E X P E D I E N T E S</b>
     <div class="card">
-        <!-- <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style=""> -->
-       
+        
             <table class="table color-bordered-table inverse-bordered-table table-hover">
 
     
@@ -193,14 +192,54 @@
         </table>
     </div>
 
+</div> -->
+
+
+
+<div *ngIf="ocultarModalgestionP">
+    <b>E X P E D I E N T E S</b>
+    <div class="card table-container">
+        <table class="table color-bordered-table inverse-bordered-table table-hover">
+            <thead class="fixed-header">
+                <tr style="color:aliceblue">
+                    <th>Denominacion</th>
+                    <th><abbr title="Rotten Tomato Rating">Expediente</abbr></th>
+                    <th>Pais Rad</th>
+                    <th>Dominio</th>
+                    <th>Año</th>
+                    <th>Clase</th>
+                    <th>No. Interno</th>
+                    <th>Certificado</th>                    
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of expedientesI" (click)="filaClickeada(item)" (contextmenu)="mostrarMenuContextual($event)" (keydown)="manejarTeclado($event)">
+                    <td class="title tablesaw-cell-persist">{{ item.marca }}</td>
+                    <td>{{ item.expediente }}</td>
+                    <td>{{ item.pais }}</td>
+                    <td>{{ item.dominio }}</td>
+                    <td>{{ item.anno }}</td>
+                    <td>{{ item.clase }}</td>
+                    <td>{{ item.nrointerno }}</td>
+                    <td>{{ item.certif }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
-<div class="table-responsive table-Al tabla-contenedor" *ngIf="!ocultarModalgestionP">
+<div *ngIf="!ocultarModalgestionP">
+    <b>G E S T I O N E S</b>
+    <div class="card table-container">
+        <table class="table color-bordered-table inverse-bordered-table table-hover">
+            <thead class="fixed-header">
+                <tr style="color:orange">
+<!-- <div class="table-responsive table-Al tabla-contenedor" *ngIf="!ocultarModalgestionP">
     <div class="card">
     <b>G E S T I O N E S</b>
         <table  #tabla1 class="  table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
-            <thead class="sticky-header">
-                <tr style="color:aliceblue">
+            <thead class="fixed-header">  <tr style="color:aliceblue">-->
+               
                     <th></th>
 
                     <th class="w100">Expediente</th>

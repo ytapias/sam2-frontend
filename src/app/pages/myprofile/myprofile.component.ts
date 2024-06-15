@@ -11,6 +11,8 @@ import Swal from 'sweetalert2';
 export class MyprofileComponent {
 
 
+  public usuario: Usuario;
+
 LEER :string = localStorage.getItem('intentos')||'';
 EMPRESA :string ='';
     // Leer el nombre
@@ -33,6 +35,7 @@ EMPRESA :string ='';
     constructor(private servicio: UsuarioService,
      )
     {
+      this.usuario = servicio.usuario;
       
     }
 
