@@ -1,0 +1,584 @@
+<div class="row">
+    <div class="col-12">
+    <div class="card">
+           <!-- Botón para minimizar/expander -->
+           <div class="ml-auto">
+            <div class="busqueda-titulo2">
+                <strong>B U S Q U E D A &nbsp;&nbsp;&nbsp;</strong> 
+                <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
+                    {{ seccionMinimizada ? '+' : '-' }}
+                  </button>  
+            </div>
+           
+            
+          </div>
+           <!-- FIN Botón para minimizar/expander -->
+
+            <div [ngClass]="{'minimizado': seccionMinimizada}" >
+                <div class="card-body ">
+                    
+                    BUSCAR
+                    <div >
+                        &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
+                         class ="form-control"
+                         placeholder="Buscar Expediente / Marca"
+                         (keyup)="buscar(txttermino.value)"
+                         #txttermino
+                         style="width: 400px;"/>        
+                     </div>
+                    <div class="row">
+                      
+                        
+                        <div class="col-md-12 d-flex justify-content-end">
+                            <div  >
+                                <button class="btn btn-primary" (click)="descargarCSV()"> CSV</button>
+                                <button class="btn btn-success" (click)="exportarAExcel()"> Excel</button>
+                                <button class="btn btn-primary" (click)="exportarAExcelTodo()"> Excel All</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+    </div>
+    </div>
+</div> 
+
+<div class="row animated fadein fast"  *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando ... </h4>
+            <i class="fa fa-spin fa-refresh fa-2x"> </i>
+
+            <p class="mb-0"> Por favor espere</p>
+        </div>
+
+
+        
+
+    </div>
+</div> 
+<div class="row  animated fadein fast"  *ngIf="!cargando">
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Total registros ({{ totalTipos }})</h4>
+            <div class="row">
+
+                <div class="col-6">
+                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina {{paginaActual}} de {{paginasTotales}} </h6>
+
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div  >
+                        <button class="btn btn-warning" (click)="abrirCrear()"> + </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table color-bordered-table inverse-bordered-table table-hover ">
+
+
+                    <thead>
+                        <tr>
+                          <th class="w80"></th>
+                          <th>Tareas</th>
+                            <th class="w100">Expediente</th>
+                            <th class="w300">MarcaDemanda</th>
+                            <th class="w100">Pais</th>
+                            <th class="w100">Marca</th>
+                            <th class="w100">Cliente</th>
+                            <th class="w100">fechasolicitud</th>
+                            <th class="w100">observaciones</th>
+                            <th class="w100">gaceta</th>
+                            <th class="w100">empresa</th>
+                          <!--   <th class="w300">Observaciones</th>
+                            -->
+                            <th  class="w100">Estado</th>
+                            <th  class="w60">coddeman</th>
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let nitem of Items">
+                            <td >
+                                <!--
+                                -->
+                             
+                                     <a (click)="abrirModificar(nitem)"
+                                     class="cursor"
+                                      data-toggle="tooltip" data-original-title="Editar"> 
+                                     <i class="fas fa-edit text-inverse m-r-10">
+                                     </i> </a>
+                                    
+
+                                <a (click)="eliminarTiposdetalle(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="Borrar"> 
+                                <i class="fa fa-close text-danger">
+                                </i> 
+                            </a>
+                             </td> 
+                             <td>
+                                <a (click)="abrirModalTarea(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="nuevo"> 
+                                <i class="fas fa-plus text-inverse m-r-10">
+                                </i> </a>
+
+                                <a (click)="abrirModalGestion2(nitem)"
+                                class="cursor" 
+                                 data-toggle="tooltip" data-original-title="ver"> 
+                                <i class="fas fa-eye text-inverse m-r-10">
+                                </i> </a>
+                             </td>
+                            <td>
+                                {{ nitem.expediente }} 
+                            </td>
+                            <td>{{ nitem.marcademandada }}</td>
+                            <td>{{ nitem.pais }}</td>
+                            <td>{{ nitem.marca }}</td>
+                            <td>{{ nitem.cliente }}</td>
+
+                            <td>{{ nitem.fechasolicitud | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ nitem.observaciones }}</td>
+                            <td>{{ nitem.gaceta}}</td>
+
+                           <!--
+                             <td>{{ nitem.observaciones }}</td>
+                           -->
+                            <td>{{ nitem.estado }}</td>
+                            <td>{{ nitem.empresa }}</td>
+                            <td>{{ nitem.coddeman }}</td>
+                        </tr>
+                     
+                    </tbody>
+                </table>
+
+                
+                    <div>
+                        <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
+                        &nbsp;
+                        VER :
+                       <!-- <input type="text" [(ngModel)]="limite" 
+                        placeholder="Limite"
+                        max="200"
+                        style="width: 40px;" 
+                            />
+                    -->        
+                            <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                              </select>
+
+                    </div>
+                
+    
+            </div>
+            <div>
+                LOG:{{ Logs }}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!---------------
+        MODAL
+-->
+
+
+
+<div class="modal animated fadeIn fast"
+*ngIf="!ocultarModal" >
+
+        
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModal()">×</button>
+                </div>
+               
+                <div class="modal-body">
+                     
+                        <div class="form-body" > 
+                            <h3 class="card-title">{{SubTitulo}}</h3>
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label">Tipo Actuacion</label>
+
+                                </div>
+                                <div class="col-md-2">
+                                            <select class=" custom-select" [(ngModel)]="opcionSeleccionada2"
+                                        (ngModelChange)="cambiarTipo2($event)"   style="width: 300px;">
+                                            <option value="{{dato.id}}" *ngFor="let dato of TiposActuacion">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                </div>
+                                  <!--/span-->
+                                  <div class="col-md-2">
+                                    &nbsp; 
+                                </div>
+
+                                <!-- <div class="col-md-2">
+                                    <label class="control-label">Clase</label>
+                           </div>        
+                           <div class="col-md-2">        
+                                 <input type="text" id="clase"  placeholder="Clase"  [(ngModel)]="camposEditar.clase">
+                             </div> -->
+                                <!--/span-->
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                         <label class="control-label">Tipo Proceso</label>
+                                </div>        
+                                <div class="col-md-2">        
+                                         <select  class="custom-select"   [(ngModel)]="opcionSeleccionada3"
+                                        (ngModelChange)="cambiarTipo2($event)"   style="width: 300px;">
+                                            <option value="{{dato.id}}" *ngFor="let dato of TiposProceso">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                  </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+                                    &nbsp;
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Expediente</label>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <input type="text" id="expediente"  placeholder="codigo"  [(ngModel)]="camposEditar.expediente">
+                                   
+                                </div>
+                                <!--/span-->
+                            </div>
+                            <!--/row-->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    
+                                        <label class="control-label">Fecha Demanda</label>
+                                 </div>
+                                <div class="col-md-2">
+                                    <input type="date" id="fechademanda" (ngModelChange)="cambiarFechaActuacion($event)" 
+                                     [ngModel]="camposEditar.fechademanda| date:'yyyy-MM-dd'" placeholder="fecha Demanda">
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+
+                                </div>
+                                <!-- <div class="col-md-2">
+                                        <label class="control-label">Fecha Vencimiento</label>
+                                 </div>
+                                <div class="col-md-2">
+                                        <input type="date" [(ngModel)]="camposEditar.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> 
+                                       <input type="date" id="vence" (ngModelChange)="cambiarFechaVenceGestion($event)" 
+                                       placeholder="Vence" [ngModel]="camposEditar.vence | date:'yyyy-MM-dd'">
+
+                                </div> -->
+                                <!--/span-->
+                            </div>
+                             <!--/row-->
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label">Pais</label>
+                                </div>
+                                <div class="col-md-2">
+                                        <select class="w140" name="idpais"
+                                        [(ngModel)]="idpaisseleccionado">
+                                         
+                                            <option value="{{dato.id}}" *ngFor="let dato of paises">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                    
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Estado</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control w140" name="TipoEST"
+                                    [(ngModel)]="TipoEstadoSeleccionado"   style="width: 200px;">
+                                        
+                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
+                                            {{dato.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <!-- <div class="row">
+
+
+                                <div class="col-md-2">
+                                    <label class="control-label">Pendientes</label>
+                                </div>
+                           
+                                <div class="col-md-2">
+                                    <textarea name="textarea"  cols="20" 
+                                    rows="4" 
+                                    style="width:300px; height:80px;"  id="observaciones"  placeholder="Pendientes"  [(ngModel)]="camposEditar.observaciones">
+                                   </textarea>
+                                   
+                                </div>
+                            </div>
+                             -->
+
+                        </div>
+                        <div class="row"> &nbsp;</div>
+
+                        <div class="modal-footer">
+                            <button type="button" 
+                                class="btn btn-default waves-effect" 
+                                data-dismiss="modal"
+                                (click)="cerrarModal()"
+                            >Cerrar</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
+                        </div>
+
+                 </div>
+                     
+            </div>
+       
+     
+
+</div>
+
+
+
+    <!--
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+        MODAL tarea crear
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+    -->
+
+ 
+
+ <div class="fondo_modal animated fadeIn fast"
+    *ngIf="!ocultarModalTarea" >
+
+
+    <div class="modal-dialog  modal-lg  modal-dialog-scrollable">
+       
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h4 class="modal-title">Gestiones</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModalTarea()">×</button>
+            </div>
+            
+            <div class="modal-body">
+
+                <div class="form-body" > 
+                    <h3 class="card-title">Ingrese la Nueva Gestion</h3>
+
+                    <div class="col-md-6">        
+
+                    </div>
+                    
+
+                    <div class="row">
+                        <div class="col-md-6">
+                        <label class="control-label">Descripcion </label>
+                        </div>        
+                        <div class="col-md-6">       
+                        <textarea type="text" id="tarea"  placeholder="Descripcion"  [(ngModel)]="camposEditarTarea.descripcion">
+                            </textarea>
+
+                        </div>
+                      
+                        <div class="col-md-6">
+
+                        <label class="control-label">Fecha Vencimiento</label>
+                        </div>
+                        <div class="col-md-6">
+                        <input type="date" id="fechavencimiento" 
+
+                        [ngModel]="camposEditarTarea.termino  | date:'yyyy-MM-dd'" placeholder="fecha Vencimiento">
+                                                <!-- (ngModelChange)="cambiarFechavence($event)"  -->
+                        </div>
+                    </div> 
+                        
+                      
+                    <div class="row">
+                        <div class="col-md-6">
+                        <label class="control-label">Observaciones</label>
+                        </div>        
+                        <div class="col-md-6">       
+                        <textarea type="text" id="tarea"  placeholder="Observaciones"  [(ngModel)]="camposEditarTarea.observaciones">
+                            </textarea>
+
+                        </div>
+                      
+                        <div class="col-md-6">
+
+                        <label class="control-label">Fecha Vencimiento</label>
+                        </div>
+                        <div class="col-md-6">
+                        <input type="date" id="fechavencimiento" 
+
+                        [ngModel]="camposEditarTarea.termino  | date:'yyyy-MM-dd'" placeholder="fecha Vencimiento">
+                                                <!-- (ngModelChange)="cambiarFechavence($event)"  -->
+                        </div>
+                    </div>   
+                         <div class="col-md-6">
+
+                            <label class="control-label">Tipo Actuacion</label>
+                            </div>
+                            <div class="col-md-6">
+                       
+                             <select class="form-control w140" name="TipoEST"
+                             
+                                style="width: 200px;">
+                             
+                                 <option value="dato.id" *ngFor="let dato of TipoEstado">
+                                     {{dato.nombre}}
+                                 </option>
+                             </select>
+                             <!-- [(ngModel)]="TipoEstadoSeleccionado"    -->
+                             
+                            </div>
+    
+                  
+
+                    
+
+
+
+            
+                <div class="row"> &nbsp;</div>
+
+                    <div class="modal-footer">
+                        <button type="button" 
+                        class="btn btn-default waves-effect" 
+                        data-dismiss="modal"
+                        (click)="cerrarModalTarea()"
+                        >Cerrar</button>
+                        <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModalTarea()">Salvar cambios</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>  
+
+
+   <!--
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+        MODAL tarea VER
+    ------------------------------------------------------------
+    ------------------------------------------------------------
+    -->
+
+
+
+<div class="fondo_modal  animated fadeIn fast  centerModal"
+    *ngIf="!ocultarModalTarea2" >
+
+
+    <div class="modal-dialog-scrollable anchoModal">
+       
+        <div class="modal-content">
+            <div class="modal-header">
+                    <h4 class="modal-title">Ver Gestiones</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModalTarea2()">×</button>
+            </div>
+            
+            <div class="modal-body">
+
+                <div class="form-body" > 
+                    <h3 class="card-title">Tareas</h3>
+
+                    <div class="table-responsive">
+                        <table class="table color-bordered-table inverse-bordered-table table-hover ">
+        
+        
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    
+                                    
+                                    <th class="w100">FechaActua</th>
+                                    <th class="w200">Descripcion</th>
+                                    <th class="w100">Vence</th>
+                                    <th class="w200">Observaciones</th>
+                                    <th class="w200">Codactua</th>
+                                    <th  class="w60">id</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let nitem2 of Items2">
+                                    <td >
+                                    
+                                        <!-- <a (click)="abrirModificarTarea(nitem2)"
+                                            class="cursor"
+                                            data-toggle="tooltip" data-original-title="Editar"> 
+                                            <i class="fas fa-edit text-inverse m-r-10">
+                                            </i> </a> -->
+                                  
+                                    <td>{{ nitem2.fechactua| date:'yyyy-MM-dd' }}</td>
+                                    <td  class="w200">{{ nitem2.descripcion }}</td>
+                                    <td>{{ nitem2.termino| date:'yyyy-MM-dd' }}</td>
+                                    <td  class="w200">{{ nitem2.observaciones }}</td>
+                                    <td>{{ nitem2.codactua }}</td>
+                                    
+                                    <td>{{ nitem2.id }}</td>
+                                </tr>
+                             
+                            </tbody>
+                        </table>
+        
+        
+                    </div>
+
+
+            
+                <div class="row"> &nbsp;</div>
+
+                    <div class="modal-footer">
+                        <button type="button" 
+                        class="btn btn-default waves-effect" 
+                        data-dismiss="modal"
+                        (click)="cerrarModalTarea2()">Cerrar
+                        </button>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

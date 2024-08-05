@@ -1256,8 +1256,60 @@ manejarTeclado(event: KeyboardEvent) {
   }
 
 
+  abrirCrearGestion()
+  {
+ 
+      //console.log(this.modalFormularioServices.ocultarModal);
+      this._Crear=true;
+      this.SubTitulo="Crear";
+      
+      this.camposEditarGestion =new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+      
+      this.abrirModalGestion2();
+  
+  }
+  public camposEditarGestion : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+
+  private _ocultarModalGestion: boolean = true;
+
+  abrirModalGestion2(){
+    this._ocultarModalGestion=false;
+
+  }
+
+  cerrarModalGestion2(){
+    this._ocultarModalGestion=true;
+     }
+
+  get ocultarModalGestion(){
+    return this._ocultarModalGestion;
+  }
+  fechaVenceGestion:Date=new Date();
+  fechaActuacion:Date=new Date();
+  cambiarFechaActuacion(tipow :any)
+  {
+    console.log("TIPO---------------");
+    console.log(tipow);
+    this.fechaActuacion= tipow;
+  }
+  
+  cambiarFechaVenceGestion(tipow :any)
+  {
+    console.log("TIPO---------------");
+    console.log(tipow);
+    this.fechaVenceGestion= tipow;
+  }
+  
+  cambiarTipo2(tipow :any){
+ 
+    console.log(tipow);
+     
+ }
+
   ///////////////////////////////////////
   //    FIN MODAL
   ////////////////////////////////////// 
+
+ 
 
 }

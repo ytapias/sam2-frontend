@@ -255,9 +255,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Login</label>
-                                        <input type="text" id="login" class="form-control" placeholder="login"  
+                                        <input type="text" id="login"   placeholder="login"  
                                                     [(ngModel)]="camposEditar.login">
-                                        <small class="form-control-feedback"> Digite Login </small> </div>
+                                         </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
@@ -272,17 +272,17 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="control-label">Email</label>
-                                        <input type="text" id="Email" class="form-control" placeholder="Email"  
+                                        <input type="text" id="Email"  placeholder="Email"  
                                                     [(ngModel)]="camposEditar.email">
-                                        <small class="form-control-feedback"> Digite Email </small> </div>
+                                         </div>
                                 </div>
                                 <!--/span-->
                                 <div class="col-md-6">
                                     <div class="form-group ">
                                         <label class="control-label">Nombre</label>
-                                        <input type="text" id="nombre" class="form-control form-control-danger" 
+                                        <input type="text" id="nombre" 
                                                     placeholder="nombre" [(ngModel)]="camposEditar.nombre">
-                                        <small class="form-control-feedback"> Digite Nombre </small> </div>
+                                       </div>
                                 </div>
                                 <!--/span    has-danger al lado de class="form-group "  -->
                             </div>
@@ -305,9 +305,9 @@
                                 <div class="col-md-6">
                                     <div class="form-group ">
                                         <label class="control-label">Identificacion</label>
-                                        <input type="text" id="nombre" class="form-control form-control-danger" 
+                                        <input type="text" id="nombre" 
                                                     placeholder="identificacion" [(ngModel)]="camposEditar.identificacion">
-                                        <small class="form-control-feedback"> Digite identificacion </small> 
+                                          
                                     </div>
                                 </div>
                                 <!--/span    has-danger al lado de class="form-group "  -->
@@ -379,19 +379,25 @@ MODAL 2 cambio de password
                            
                                 <!--/span-->
                                 <div class="col-md-6">
-                                    <div class="form-group ">
-                                        <label class="control-label">Nuevo Password</label>
-                                        <input type="password" id="password" class="form-control form-control-danger" 
-                                                    placeholder="password" [(ngModel)]="psw1">
-                                        <small class="form-control-feedback"> Digite password </small> </div>
-                                </div>
+                                  
+                                        <label class="control-label">Password</label>
+                                        </div>
                                 <div class="col-md-6">
-                                    <div class="form-group ">
-                                        <label class="control-label">Repita Nuevo Password</label>
-                                        <input type="password" id="password" class="form-control form-control-danger" 
-                                                    placeholder="password" [(ngModel)]="psw2">
-                                        <small class="form-control-feedback"> Digite password </small> </div>
-                                </div>
+                                            <input type="password" id="password"   
+                                                    placeholder="password" [(ngModel)]="psw1">
+                                 </div>
+                                 </div>
+
+                            <div class="row form-group p-t-20">
+                               <div class="col-md-6">
+                                     
+                                        <label class="control-label">Repita Password</label>
+                                    </div>
+                                    <div class="col-md-6">
+                                    
+                                        <input type="password" id="password" 
+                                                    placeholder="repita password" [(ngModel)]="psw2">
+                                 </div>
                                 <!--/span    has-danger al lado de class="form-group "  -->
                             </div>
 

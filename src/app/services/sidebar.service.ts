@@ -25,6 +25,7 @@ export class SidebarService {
         // { titulo:'Consultas',url:'consultas'},
         { titulo:'Expedientes',url:'principal'},
         { titulo:'Gestiones',url:'gestiones'},
+        { titulo:'Demandas',url:'demandas'},
         { titulo:'Tareas',url:'tareas'},
         { titulo:'Marcas',url:'marcas'},
         { titulo:'Personas',url:'personas'},

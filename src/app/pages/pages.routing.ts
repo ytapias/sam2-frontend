@@ -25,6 +25,7 @@ import { MyprofileComponent } from './myprofile/myprofile.component';
 import { RegistroComponent } from './registro/registro.component';
 import { TareasComponent } from './tareas/tareas.component';
 import { AnalisisComponent } from './analisis/analisis.component';
+import { DemandasComponent } from './demandas/demandas.component';
  
 const routes: Routes =[
     {
@@ -48,7 +49,8 @@ const routes: Routes =[
           {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
 
           {path: 'gestiones',component:GestionesComponent,data :{titulo :'Gestiones'}},
-             {path: 'tareas',component:TareasComponent,data :{titulo :'Tareas'}},
+          {path: 'demandas',component:DemandasComponent,data :{titulo :'Demandas'}},
+          {path: 'tareas',component:TareasComponent,data :{titulo :'Tareas'}},
           {path: 'marcas',component:MarcasComponent,data :{titulo :'Marcas'}},
           {path: 'personas',component:PersonasComponent,data :{titulo :'Personas'}},
           {path: 'analisis',component:AnalisisComponent,data :{titulo :'Analizar Gaceta'}},

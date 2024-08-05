@@ -63,10 +63,10 @@ Global Styles
 
 body {
   background: #fff;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Arial", sans-serif;
   margin: 0;
   overflow-x: hidden;
-  color: #67757c;
+  color: #000000;
   font-weight: 300; }
 
 html {
@@ -161,7 +161,7 @@ Blockquote
 *******************/
 html body blockquote {
   border-left: 5px solid #398bf7;
-  border: 1px solid rgba(120, 130, 140, 0.13);
+  border: 1px solid rgba(93, 116, 139, 0.13);
   padding: 15px; }
 
 .clear {
