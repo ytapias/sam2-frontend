@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { Administracion } from 'src/app/models/administracion.model';
 import { Expedientes } from 'src/app/models/expedientes';
-import { tareas } from 'src/app/models/tareas.model';
+import { Gestiones2 } from 'src/app/models/gestiones2';
 import { AdministracionService } from 'src/app/services/administracion.service';
-import { tareasService } from 'src/app/services/tareas.service';
+import { Gestiones2Service } from 'src/app/services/gestiones2.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,7 +13,7 @@ import { tareasService } from 'src/app/services/tareas.service';
 export class DashboardComponent {
   public Items: Administracion=new Administracion(0,"",0,"",0,0,0,0);
   public ItemsALL: Administracion[]=[new Administracion(0,"",0,"",0,0,0,0)];
-  public TareasAll: tareas[]=[];
+  public TareasAll: Gestiones2[]=[];
 
   public Tareasresumen =[ { estado: 'activo', cantidad: 1 },
                             { estado: 'inactivo', cantidad: 3 }];
@@ -36,7 +36,7 @@ export class DashboardComponent {
   }
 
   constructor(private servicio: AdministracionService,
-              private servicioTareas: tareasService,)
+              private servicioTareas: Gestiones2Service)
   {
     this.cargarTareasGrafica();
     this.cargarTareas();
@@ -69,7 +69,7 @@ export class DashboardComponent {
 
     
   
-    this.servicioTareas.cargar(0,0,0,0,1)
+    this.servicioTareas.cargar(0,0,0,'','','',0)
     .subscribe ( (res1:any) => 
     {
         //console.log(res1);
@@ -86,14 +86,15 @@ export class DashboardComponent {
   cargarTareas() 
   {
 
-    let Fechai = new Date();
-    let Fechaf = new Date(Fechai);
-    Fechaf.setDate(Fechai.getDate() + 30);
+    let Fechaf = new Date();
+    Fechaf.setDate(Fechaf.getDate() +10);
+    let Fechai = new Date(Fechaf);
+    Fechai.setDate(Fechai.getDate() - 30);
 
     let fechais=this.formatDate(Fechai);
     let fechafs=this.formatDate(Fechaf);
 
-    this.servicioTareas.cargar(0,0,0,0,99,fechais,fechafs)
+    this.servicioTareas.cargar(0,0,0,'-99',fechais,fechafs,0)
     .subscribe ( (res1:any) => 
     {
         //console.log(res1);
@@ -129,6 +130,24 @@ export class DashboardComponent {
 //   console.log (fechaHoy );
 
     return fechaVencimiento < fechaHoy; // Comparar la fecha de vencimiento con la fecha actual
+  }
+
+
+  getRowClass(vence: Date): string {
+    const hoy = new Date();
+    const fechaVence = new Date(vence);
+    const diferenciaDias = Math.floor((fechaVence.getTime() - hoy.getTime()) / (1000 * 3600 * 24));
+    
+    console.log("diferenciaDias");
+console.log(diferenciaDias);
+
+    if (diferenciaDias > 0 ) {
+      return 'semaforo-verde'; 
+    } else if (diferenciaDias <= -1 && diferenciaDias >= -7) {
+      return 'semaforo-amarillo';
+    } else {
+      return 'semaforo-rojo';
+    }
   }
 
 

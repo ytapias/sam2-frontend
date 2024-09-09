@@ -24,6 +24,14 @@ import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.ser
 
 export class PersonasComponent {
 
+
+  
+  get Empresa():number{
+    let idempresa=  localStorage.getItem('emp') || '';
+    return parseInt(idempresa);
+  } 
+
+
   public total:number = 0;
 
   public TiposDetalle: tiposdetalle[]=[];
@@ -67,12 +75,14 @@ export class PersonasComponent {
                       .subscribe((resp:any) =>
                         {
                           this.TiposDetalle = resp['tiposdetalle'];
+                          console.log(this.TiposDetalle);
                          }
                     );
       this.tiposdetService.cargar(1,-2,2,"")  //cargar tipos de personas
                     .subscribe((resp:any) =>
                       {
                         this.TiposIdentificacion = resp['tiposdetalle'];
+                        console.log(this.TiposIdentificacion);
                        }
                   );
       this.paisesyciudadesServise.cargar(1,-2,0,"")  //cargar tipos de personas
@@ -111,9 +121,9 @@ export class PersonasComponent {
   }
 
   opcionSeleccionada: number=0; 
-  opcionSeleccionada2: number=0; 
-  opcionSeleccionada3: number=0; 
-  opcionSeleccionada4: number=0; 
+  opTipoPersona: number=0; 
+  opIdIdentificacion: number=0; 
+  opIdCiudad: number=0; 
 
 
   textoBuscar : string='';
@@ -133,10 +143,22 @@ export class PersonasComponent {
       
   }
 
-  cambiarTipo2(tipow :any){
- 
-      console.log(tipow);
-       
+  cambiarTipo2(tipow2 :any){
+    //TIPO PERSONA
+    this.opTipoPersona= tipow2
+
+    console.log (tipow2);
+    console.log (this.opTipoPersona);
+   }
+
+   cambiarTipo3(tipow :any){
+    //TIPO IDENTIFICACION
+    this.opIdIdentificacion= tipow
+   }
+   
+   cambiarTipo4(tipow :any){
+    //TIPO IDENTIFICACION
+    this.opIdCiudad= tipow
    }
 
   cargar() {
@@ -360,25 +382,36 @@ export class PersonasComponent {
       this.SubTitulo="Modificar";
 
       this.camposEditar = dtiposdetalle;
-      this.opcionSeleccionada2 = this.camposEditar.idtipopersona;
-      this.opcionSeleccionada3 = this.camposEditar.idtipoidentificacion;
-      this.opcionSeleccionada4 = this.camposEditar.idciudad;
+      this.opTipoPersona = this.camposEditar.idtipopersona;
+      this.opIdIdentificacion = this.camposEditar.idtipoidentificacion;
+      this.opIdCiudad = this.camposEditar.idciudad;
 
       this.abrirModal();
     }
+ 
+ 
     salvarModal()
     {
       
-      if(this.opcionSeleccionada2>0)
-      {
-        this.camposEditar.id = this.opcionSeleccionada2 ; 
-      }
-      else{
-        this.camposEditar.id = 1;
-      }
-      
-      console.log( this.camposEditar);
+     // console.log(this.opcionSeleccionada2);
 
+      // if(this.opcionSeleccionada2>0)
+      // {
+      //   this.camposEditar.id = this.opcionSeleccionada2 ; 
+      // }
+      // else{
+      //   this.camposEditar.id = 1;
+      // }
+      
+
+
+      this.camposEditar.idempresa = this.Empresa;
+      this.camposEditar.idtipopersona = this.opTipoPersona;
+      this.camposEditar.idtipoidentificacion =this.opIdIdentificacion;
+      this.camposEditar.idciudad =this.opIdCiudad;
+
+      console.log("Personas");
+      console.log( this.camposEditar);
 
         if(this._Crear === true)
         {

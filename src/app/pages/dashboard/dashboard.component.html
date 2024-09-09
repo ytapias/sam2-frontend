@@ -77,34 +77,34 @@
                 <table class="table  full-color-table full-muted-table hover-table">
                     <thead>
                         <tr>
-                          <th class="w100">Gestion</th>
+                          <!-- <th class="w100">Marca</th> -->
                           <th class="w100">Expediente</th>
-                          <th>Marca</th>
-                            <th>Tarea</th>
+                          <th>Gestion</th>
+                            <th>Pendiente</th>
                             <th>Fecha Vence</th>
-                            <th  class="w100">Estado</th>
-                            <th>Vencida</th>
+                            <!-- <th  class="w100">Estado</th>
+                            <th>Vencida</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let items of TareasAll">
+                        <tr *ngFor="let items of TareasAll" [ngClass]="getRowClass(items.vence)">
                         
-                             <td>
-                                {{ items.idgestion }} 
-                            </td>                    
+                             <!-- <td>
+                                {{ items.marca }} 
+                            </td>                     -->
                             <td>
                                 {{ items.expediente }} 
                             </td>
-                            <td>{{ items.marca }}</td>
-                            <td>{{ items.tarea }}</td>
-                            <td>{{ items.fechavence  | date:'yyyy-MM-dd' }}</td>
-                            <td>{{ items.estado }}</td>
+                            <td>{{ items.gestion }}</td>
+                            <td>{{ items.pendiente }}</td>
+                            <td>{{ items.vence  | date:'yyyy-MM-dd' }}</td>
+                            <!-- <td>{{ items.estado }}</td>
                             <td>
-                                <span class="label label-danger" *ngIf="isFechaVencida(items.fechavence)">
+                                <span class="label label-danger" *ngIf="isFechaVencida(items.vence)">
                                     Atrasado
                                 </span>
 
-                            </td>
+                            </td> -->
                         </tr>
                      
                     </tbody>
@@ -117,13 +117,7 @@
 
           </div>
         </div>
-        <!-- <div class="card card-danger">
-          <div class="card-header">
-            <h3 class="card-title"></h3>
-          </div>
-          <div class="card-body">
-           </div>
-        </div> -->
+  
       </div>
 
 </div>

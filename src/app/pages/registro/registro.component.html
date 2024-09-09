@@ -232,64 +232,127 @@
     <b>G E S T I O N E S</b>
    
     <div class="card table-container">
-        <table class="table color-bordered-table inverse-bordered-table table-hover">
-            <thead class="fixed-header">
-                <tr style="color:orange">
-<!-- <div class="table-responsive table-Al tabla-contenedor" *ngIf="!ocultarModalgestionP">
-    <div class="card">
-    <b>G E S T I O N E S</b>
-        <table  #tabla1 class="  table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style="">
-            <thead class="fixed-header">  <tr style="color:aliceblue">-->
-               
-                    <th></th>
+         
+             <h4 class="card-title">Total registros ({{ totalTipos }})</h4>
+            <div class="row">
 
-                    <th class="w100">Expediente</th>
-                    <th class="w300">Marca</th>
-                    <th class="w100">Pais</th>
-                    <th class="w100">Clase</th>
-                    <th class="w100">Tipo Proces</th>
-                    <th class="w100">Fecha ACT</th>
-                    <th class="w100">Tipo ACT</th>
-                    <th class="w100">Vence</th>
-                    <th class="w100">Tipo Gest</th>
-                    <th  class="w100">Estado</th>
-                    <th  class="w60">id</th>             
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let nitem of Items1">
-                   
-                         <td>
-                            <a (click)="abrirModalTarea(nitem)"
-                            class="cursor"
-                             data-toggle="tooltip" data-original-title="nuevo"> 
-                            <i class="fas fa-plus text-inverse m-r-10">
-                            </i> </a>
+                <div class="col-6">
+                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina {{paginaActual}} de {{paginasTotales}} </h6>
 
-                            <a (click)="abrirModalTarea2(nitem)"
-                            class="cursor"
-                             data-toggle="tooltip" data-original-title="ver"> 
-                            <i class="fas fa-eye text-inverse m-r-10">
-                            </i> </a>
-                         </td>      
-                     <td>
-                        {{ nitem.expediente }} 
-                    </td>
-                    <td>{{ nitem.marca }}</td>
-                    <td>{{ nitem.pais }}</td>
-                    <td>{{ nitem.clase }}</td>
-                    <td>{{ nitem.tipoproceso }}</td>
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div  >
+                        <button class="btn btn-warning" (click)="abrirCrear()"> + </button>
+                    </div>
+                </div>
+            </div>
 
-                    <td>{{ nitem.fechaactuacion | date:'yyyy/MM/dd':"GMT+0" }}</td>
-                    <td>{{ nitem.tipoactuacion }}</td>
-                    <td>{{ nitem.vence | date:'yyyy/MM/dd':"GMT+0"}}</td>
-                    <td>{{ nitem.tipogest }}</td>
-                    <td>{{ nitem.estado }}</td>
-                    <td>{{ nitem.id }}</td>
-                </tr>
-             
-            </tbody>
-        </table>
+            <div class="table-responsive">
+                <table class="table color-bordered-table inverse-bordered-table table-hover ">
+
+
+                    <thead>
+                        <tr>
+                          <!-- <th class="w80"></th> -->
+                          <!-- <th>Tareas</th> -->
+                            <th class="w100">Expediente</th>
+                            <th class="w100">NroInterno</th>
+                            <th class="w300">Marca</th>
+                            <th class="w300">Gestion</th>
+                            <th class="w300">Pendiente</th>
+                            <th class="w100">Pais</th>
+                            <th class="w100">Clase</th>
+                            <th class="w100">Tipo Proces</th>
+                            <th class="w100">Fecha ACT</th>
+                            <th class="w100">Tipo ACT</th>
+                            <th class="w100">Vence</th>
+                            <!-- <th class="w100">Tipo Gest</th> -->
+                          <!--   <th class="w300">Observaciones</th>
+                            -->
+                            <th  class="w100">Estado</th>
+                            <!-- <th  class="w60">id</th> -->
+                           
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let nitem of Items1">
+
+                                <!--
+                                                        <td >
+                            </td>      
+                                -->
+<!--                              
+                                     <a (click)="abrirModificar(nitem)"
+                                     class="cursor"
+                                      data-toggle="tooltip" data-original-title="Editar"> 
+                                     <i class="fas fa-edit text-inverse m-r-10">
+                                     </i> </a>
+                                    
+
+                                <a (click)="eliminarTiposdetalle(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="Borrar"> 
+                                <i class="fa fa-close text-danger">
+                                </i> 
+                            </a> -->
+                       
+                             <!-- <td>
+                                <a (click)="abrirModalTarea(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="nuevo"> 
+                                <i class="fas fa-plus text-inverse m-r-10">
+                                </i> </a>
+
+                                <a (click)="abrirModalTarea2(nitem)"
+                                class="cursor"
+                                 data-toggle="tooltip" data-original-title="ver"> 
+                                <i class="fas fa-eye text-inverse m-r-10">
+                                </i> </a>
+                             </td> -->
+                            <td  class="w100">
+                                {{ nitem.expediente }} 
+                            </td>
+                            <td  class="w100">
+                                {{ nitem.nrointerno }} 
+                            </td>
+                            <td  class="w300">{{ nitem.marca }}</td>
+                            <td  class="w300">{{ nitem.gestion }}</td>
+                            <td>{{ nitem.pendiente }}</td>
+                            <td>{{ nitem.pais }}</td>
+                            <td>{{ nitem.clase }}</td>
+                            <td>{{ nitem.tipoproc }}</td>
+
+                            <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ nitem.codactua }}</td>
+                            <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
+                            <!-- <td>{{ nitem.tipogest }}</td> -->
+                           <!--
+                             <td>{{ nitem.observaciones }}</td>
+                           -->
+                            <td>{{ nitem.estado }}</td>
+                            <!-- <td>{{ nitem.id }}</td> -->
+                        </tr>
+                     
+                    </tbody>
+                </table>
+
+                
+                    <!-- <div>
+                        <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
+                        &nbsp;
+                        VER :
+                
+                            <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                              </select> 
+
+                    </div> -->
+                
+    
+            </div>
+        
     </div>
  
     <div class="col-md-6 d-flex justify-content-end">
@@ -324,7 +387,7 @@
     <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(99)">Ultima</button>
     &nbsp;&nbsp;&nbsp;
     <button class="btn btn-success"  (click)="abrirModal()" >Nuevo</button>
-    <button class="btn btn-success">Editar Actual</button>
+    <button class="btn btn-success" (click)="abrirModalNuevo()" >Editar Actual</button>
     &nbsp;&nbsp;&nbsp;
     <button (click)="abrirUrl()">Ir a la S.I.C.</button>
 
@@ -587,14 +650,354 @@
      
 
 </div>
+<!--
+------------------------------------------------------------
+NUEVO INGRESO EXPEDIENTES
+-->
+
+<!---------------
+        MODAL
+-->
 
 
-  
+
+<div class="modal animated fadeIn fast" *ngIf="!ocultarModalNuevo" >
+
+    <!--
+         <div class="modal-dialog  modal-lg  modal-dialog-scrollable">
+             <div class="modal-content">
+       -->
+       
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">{{Titulo}}</h4>
+                    <button type="button" 
+                    class="close" 
+                    data-dismiss="modal" 
+                    aria-hidden="true"
+                    (click)="cerrarModalNuevo()">×</button>
+                </div>
+               
+                <div class="modal-body">
+                    <div class="card-body">
+                    
+                        <div class="form-body" > 
+                      
+
+
+                                <div class="row">
+                            
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Expediente :</b>  </h6> 
+                                        <input type="text" id="lastName"  placeholder="Expediente" [(ngModel)]="camposEditar.expediente">
+                                    </div>
+                                
+                                 
+
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Pais Radicacion:</b>  </h6>
+                                        <!-- <input type="text" id="fecha"  placeholder="Pais Radicacion" [(ngModel)]="camposEditar.pais"> -->
+                                        <select class="form-control w140" name="tipoproc"
+                                        [(ngModel)]="opPais"   style="width: 200px;">
+                                            
+                                            <option value="{{dato.nombre}}" *ngFor="let dato of paises">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+
+                                    </div>                                    
+                                       
+                                    
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Nrointerno :</b> </h6> 
+                                        <input type="text" id="marca"  placeholder="Numero Interno" [(ngModel)]="camposEditar.nrointerno">
+
+                                    </div>            
+                   
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6><b>Clase :</b></h6>
+                                        <select class="form-control w140" name="tipoproc" [(ngModel)]="opClaseSeleccionadas" style="width: 200px;" >
+                                          <option [value]="dato.codigo" *ngFor="let dato of ClaseActuacion">
+                                            {{dato.nombre}}
+                                          </option>
+                                        </select>
+                                      
+                                        <!-- Botón para agregar clase seleccionada -->
+                                        <button type="button" (click)="agregarClase()">Agregar</button>
+                                        
+                                        <!-- Mostrar clases seleccionadas -->
+                                      
+                                          <input type="text" class="form-control" [value]="clasesSeleccionadas.join('; ')"  style="width: 200px;"  readonly  [(ngModel)]="camposEditar.clase"/>
+                                        
+                                        
+                                      </div>
+
+                                      <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Covertura :</b>  </h6> 
+                                        <textarea  id="Covertura" placeholder="Covertura" [(ngModel)]="camposEditar.declauso"  rows="4" cols="30">
+                                            </textarea>
+                                    </div>
+
+                                      <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Fecha :</b> </h6> 
+                                        <input type="date" id="fecha"  placeholder="Fecha Publicacion" [ngModel]="camposEditar.fechapb  | date:'yyyy/MM/dd':'GMT+0'"> 
+                                        <!-- | date:'yyyy/MM/dd':'GMT+0' -->
+                                    </div> 
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Vencimiento :</b> </h6> 
+                                        <input type="date" id="Vence"  placeholder="Tipo Solicitud" [ngModel]="camposEditar.vencimb | date:'yyyy/MM/dd':'GMT+0'">
+                                    </div>  
+                                  
+                                   
+                                    <!-- <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Tipo Proceso :</b> </h6>
+                                         
+
+                                        <select class="form-control w140" name="tipoproc"
+                                        [(ngModel)]="opTipoProceso"   style="width: 200px;">
+                                            
+                                            <option value="{{dato.nombre}}" *ngFor="let dato of TiposProceso">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+
+                                    </div>   -->
+                           
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Solicitante :</b>  </h6> 
+                                        <input type="text" id="Solicitante" placeholder="Solicitante" [(ngModel)]="camposEditar.solicitante">
+                                    </div>
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Apoderado :</b>  </h6> 
+                                        <input type="text" id="marca" placeholder="Apoderado" [(ngModel)]="camposEditar.apoderado">
+                                    </div>
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Gaceta :</b> </h6>
+                                        <input type="text" id="tipoproceso"  placeholder="Gaceta" [(ngModel)]="camposEditar.gaceta">
+                                   </div>  
+                                   <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Fecha Publicacion :</b> </h6> 
+                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechapub | date:'yyyy-MM-dd':'GMT+0'">
+                                    </div>      
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Certificado de Registro:</b> </h6>
+                                        <input type="text" id="certificado"  placeholder="Certificado" [(ngModel)]="camposEditar.certif">
+                                   </div>  
+
+                                   <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Tipo de Solicitud :</b> </h6> 
+                                        <!-- (ngModelChange)="onChangeEstadoTramite($event)"  -->
+
+                                        <select class="form-control w140" name="TipoSOL"
+                                        [(ngModel)]="opTipoSolicitud"  
+                                        style="width: 200px;">
+                                            
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoSolicitud">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Estado Tramite :</b> </h6> 
+                                        <!-- (ngModelChange)="onChangeEstadoTramite($event)"  -->
+
+                                        <select class="form-control w140" name="TipoESTT"
+                                        [(ngModel)]="opTipoEstadoTramite"  
+                                        style="width: 200px;">
+                                            
+                                            <option value="{{dato.id}}" *ngFor="let dato of TipoEstadoTramite">
+                                                {{dato.nombre}}
+                                            </option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-lg-4 col-xlg-3 col-md-5">
+                                        <h6 ><b>Declaracion Uso :</b> </h6> 
+                                        <input type="date" id="pagcert"  placeholder="pagcert" [(ngModel)]="camposEditar.declauso">
+                                    </div>     
+
+                                 
+
+                                </div>
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Signo :</b>  </h6>  
+                                    <input type="text" id="Signo"  placeholder="Signo" [(ngModel)]="camposEditar.marca">
+                                </div>
+                                
+                              
+
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Tipo Signo :</b> </h6> 
+                                    <!-- (ngModelChange)="onChangeEstadoTramite($event)"  -->
+
+                                    <select class="form-control w140" name="TipoESTT"
+                                    [(ngModel)]="opTipoSigno"  
+                                    style="width: 200px;">
+                                        
+                                        <option value="{{dato.nombre}}" *ngFor="let dato of TipoSigno">
+                                            {{dato.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+
+                              
+                                <div class="col-lg-4 col-xlg-3 col-md-5">
+                                    <h6 ><b>Naturaleza :</b> </h6> 
+                                    <!-- (ngModelChange)="onChangeEstadoTramite($event)"  -->
+
+                                    <select class="form-control w140" name="TipoESTT"
+                                    [(ngModel)]="opNaturaleza"  
+                                    style="width: 200px;">
+                                        
+                                        <option value="{{dato.nombre}}" *ngFor="let dato of Naturaleza">
+                                            {{dato.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                            
+                            
+                            
+                            </div>
+
+                                <hr>
+
+                                <!-- Botón para mostrar campos opcionales -->
+                                <button type="button" class="btn btn-link" (click)="mostrarOpcional = !mostrarOpcional">
+                                    {{ mostrarOpcional ? 'Ocultar Opcionales' : 'Mostrar Opcionales' }}
+                                </button>
+
+                                <!-- Campos opcionales -->
+                                <div *ngIf="mostrarOpcional">
+
+
+                                        <div class="row">
+                                          
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Agente :</b>  </h6>
+                                                <input type="text" id="agente"  placeholder="Agente" [(ngModel)]="camposEditar.agente">
+                                            </div>                                    
+                                         
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Año :</b> </h6> 
+                                                <input type="text" id="anno"  placeholder="Año" [(ngModel)]="camposEditar.anno">
+                                            </div> 
+
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Pais :</b> </h6> 
+                                                <input type="text" id="marca" placeholder="Pais" [(ngModel)]="camposEditar.pais">
+                                            </div> 
+
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Dominio :</b> </h6> 
+                                                <input type="text" id="dominio"  placeholder="Dominio" [(ngModel)]="camposEditar.dominio">
+                                            </div> 
+
+
+
+                                        
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Prioridad :</b> </h6> 
+                                                <input type="text" id="marca" placeholder="Prioridad" [(ngModel)]="camposEditar.prioridad">
+
+                                            </div> 
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Fecha Prioridad :</b> </h6>
+                                                <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.fechapri | date:'yyyy-MM-dd':'GMT+0'">
+                                            </div> 
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>expedipri :</b> </h6> 
+                                                <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.expedipri | date:'yyyy-MM-dd':'GMT+0'">
+                                            </div>  
+                                            <div class="col-lg-4 col-xlg-3 col-md-5">
+                                                <h6 ><b>Yourref :</b> </h6> 
+                                                <input type="text" id="marca" placeholder="yourref" [(ngModel)]="camposEditar.yourref">
+                                            </div>  
+                                        </div>
+                                    <hr>
+                            
+                                    <div class="row">
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>Licenuso :</b> </h6> 
+                                            <input type="text" id="marca" placeholder="yourref" [(ngModel)]="camposEditar.licenuso">
+                                        </div>
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>pagcert :</b> </h6> 
+                                            <input type="text" id="pagcert" placeholder="pagcert" [(ngModel)]="camposEditar.pagcert">
+                                    </div>                                    
+                                            
+                                                                    
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>MActiva :</b> </h6> 
+                                            <input type="text" id="pagcert"  placeholder="pagcert" [(ngModel)]="camposEditar.mactiva">
+                                        </div>                                    
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>ts :</b> </h6> 
+                                            <input type="text" id="marca"  placeholder="yourref" [(ngModel)]="camposEditar.ts">
+                                        </div>
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>ptram :</b> </h6> 
+                                            <input type="date" id="pagcert"  placeholder="pagcert" [ngModel]="camposEditar.ptram | date:'yyyy-MM-dd':'GMT+0'">
+                                    </div>                                    
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>fechainac:</b> </h6> 
+                                                <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechainac | date:'yyyy-MM-dd':'GMT+0'">
+                                            </div>                                    
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>vcniza :</b> </h6> 
+                                            <input type="text" id="pagcert"  placeholder="pagcert" [(ngModel)]="camposEditar.vcniza">
+                                        </div>                                    
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>rvidicac :</b> </h6> 
+                                            <input type="text" id="marca"  placeholder="yourref" [(ngModel)]="camposEditar.rvidicac">
+                                        </div>
+                                                                       
+                                            
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>frrenova :</b> </h6> 
+                                                <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.frrenova | date:'yyyy-MM-dd':'GMT+0'">
+                                            </div>                                    
+                                        <div class="col-lg-4 col-xlg-3 col-md-5">
+                                            <h6 ><b>otro :</b> </h6> 
+                                            <input type="text" id="pagcert" class="" placeholder="pagcert" [(ngModel)]="camposEditar.otro">
+                                        </div>              
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="modal-footer">
+                         
+                            <button type="button" 
+                                class="btn btn-default waves-effect" 
+                                data-dismiss="modal"
+                                (click)="cerrarModalNuevo()"
+                            >Cerrar</button>
+                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
+                        </div>
+
+                    </div>
+                </div>
+                     
+            </div>
+       
+     
+
+</div>
+
+
+
 <!--
  
 --------------------------------------------
 --------------------------------------------
----------MODAL
+---------MODAL  gestiones
 -------------------------------------------- -->
 
 
@@ -733,10 +1136,10 @@
                                 </div>
                            
                                 <div class="col-md-2">
-                                    <textarea name="textarea"  cols="20" 
+                                    <!-- <textarea name="textarea"  cols="20" 
                                     rows="4" 
                                     style="width:300px; height:80px;"  id="observaciones"  placeholder="observaciones"  [(ngModel)]="camposEditar2.observaciones">
-                                   </textarea>
+                                   </textarea> -->
                                    
                                 </div>
                             </div>

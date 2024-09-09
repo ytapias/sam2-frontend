@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
-import { Gestiones } from 'src/app/models/gestiones';
+import { Gestiones2 } from 'src/app/models/gestiones2';
 import { paisesyciudades } from 'src/app/models/paisesyciudades.model';
 import { TppaisesyciudadesService } from 'src/app/services/tppaisesyciudades.service';
 import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
-import { GestionesService } from 'src/app/services/gestiones.service';
+import { Gestiones2Service } from 'src/app/services/gestiones2.service';
 import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
 import { tareas } from 'src/app/models/tareas.model';
 import { tareasService } from 'src/app/services/tareas.service';
+import { PersonasService } from 'src/app/services/personas.service';
+import { Personas } from 'src/app/models/personas.model';
 
 @Component({
   selector: 'app-gestiones',
@@ -27,14 +29,19 @@ export class GestionesComponent {
 
   public totalTipos:number = 0;
 
-  public Items: Gestiones[]=[];
-  public ItemsALL: Gestiones[]=[];
+  public Items: Gestiones2[]=[];
+  public ItemsALL: Gestiones2[]=[];
 
   public TiposActuacion: tiposdetalle[]=[];
   public TiposProceso: tiposdetalle[]=[];
   public TipoEstado: tiposdetalle[]=[];
   public ClaseActuacion: tiposdetalle[]=[];
   public paises: paisesyciudades[]=[];
+
+  public Paralegales: Personas[]=[];
+
+
+  public TipoEstadoTramite: tiposdetalle[]=[];
 
   public total:number = 0;
 
@@ -43,6 +50,7 @@ export class GestionesComponent {
   Fechavencimiento: Date= new Date();
   Fechaactuacion: Date= new Date();
   
+  public busqueda = 1
  // public TiposDetalleTEMP: tiposdetalle[]=[];
 
   // public res1 : any;
@@ -56,15 +64,29 @@ export class GestionesComponent {
   public busquedaNombre : string="";
   Logs : string="";
 
-
-
+  public fechavence2 :Date =new Date();
+  public fechavence3 : string=this.fechavence2.toISOString().split('T')[0];
+  
   seccionMinimizada: boolean = false;
+  //opcionSeleccionada: number=0; 
+  opCodActua: string="";
+  opTiposProcesos: string="";
+  //opcionSeleccionada4: number=0; 
+  TipoEstadoSeleccionado: number=0; 
+  idpaisseleccionado: number=0;  
+  opParalegal:number=0;
+  TipoEstadoTramiteSelecctionado: number=0;  
+  opClaseActua: string="";
+  
+  
+  
+  textoBuscar : string='';
 
-
-  constructor(private servicio: GestionesService,
+  constructor(private servicio: Gestiones2Service,
               private tiposdetService: TptiposdetalleService,
               private paisesyciudadesService: TppaisesyciudadesService,
-              private tareasService: tareasService)
+              private tareasService: tareasService,
+              private personasService: PersonasService)
   {
     
   }
@@ -76,6 +98,9 @@ export class GestionesComponent {
     this.cargarTipoProceso();
     this.cargarTipoActuacion();
     this.cargarPais();
+
+    this.cargarEstadoTramite();
+    this.cargarParalegal();
 
   }
  
@@ -98,32 +123,29 @@ export class GestionesComponent {
 
   }
 
+  cambiarbusqueda() {
+    this.cargar(); 
+  }
+
+
 
   toggleMinimizar() {
     this.seccionMinimizada = !this.seccionMinimizada;
   }
 
-  opcionSeleccionada: number=0; 
-  opcionSeleccionada2: number=0; 
-  opcionSeleccionada3: number=0; 
-  opcionSeleccionada4: number=0; 
-  TipoEstadoSeleccionado: number=0; 
-  idpaisseleccionado: number=0;  
 
-  
-  textoBuscar : string='';
 
-  cambiarTipo(tipow :any){
+  // cambiarTipo(tipow :any){
  
-   // console.log(tipow);
-      this.desde =0;
-      this.filtro =this.opcionSeleccionada;
-      this.textoBuscar ='';
-      this.busquedaNombre='';
-      this.cargar(); 
-      this.Logs="";
+  //  // console.log(tipow);
+  //     this.desde =0;
+  //     this.filtro =this.opcionSeleccionada;
+  //     this.textoBuscar ='';
+  //     this.busquedaNombre='';
+  //     this.cargar(); 
+  //     this.Logs="";
       
-  }
+  // }
 
   cambiarTipo2(tipow :any){
  
@@ -134,19 +156,41 @@ export class GestionesComponent {
   cargar() {
 
     this.cargando = true;
+          
+        
+      if(this.busqueda == 1)
+      {
+        //console.log("1");
+        
+        this.servicio.cargar(this.desde,this.limite,this.filtro,this.busquedaNombre )
+          .subscribe ( (res1:any) => 
+          {
+          // console.log( res1['resultado']);
+              this.Items= res1['resultado'];
+              this.totalTipos=res1.total;
+              this.paginasTotales= Math.round(this.totalTipos/this.limite);
+              this.paginaActual=  this.desde+1;
 
-    this.servicio.cargar(this.desde,this.limite,this.filtro,this.busquedaNombre )
-    .subscribe ( (res1:any) => 
-    {
-      console.log( res1['resultado']);
-        this.Items= res1['resultado'];
-        this.totalTipos=res1.total;
-        this.paginasTotales= Math.round(this.totalTipos/this.limite);
-        this.paginaActual=  this.desde+1;
+              this.cargando = false;
+          });
+      }
+      else if(this.busqueda == 2)
+      {
+        console.log("2");
+      
 
-        this.cargando = false;
-    });
+        this.servicio.cargar(this.desde,this.limite,this.filtro,"-99",this.fechavence3,this.fechavence3,1)
+          .subscribe ( (res1:any) => 
+          {
+            console.log( res1['resultado']);
+              this.Items= res1['resultado'];
+              this.totalTipos=res1.total;
+              this.paginasTotales= Math.round(this.totalTipos/this.limite);
+              this.paginaActual=  this.desde+1;
 
+              this.cargando = false;
+          });
+      }
 
   }
   
@@ -158,7 +202,7 @@ export class GestionesComponent {
     this.tiposdetService.cargar(0,-2,1,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+    // console.log(res1);
         this.TipoEstado= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -166,6 +210,37 @@ export class GestionesComponent {
 
 
   }
+
+  cargarEstadoTramite() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,8,"" )
+    .subscribe ( (res1:any) => 
+    {
+      //console.log(res1);
+      this.TipoEstadoTramite= res1['tiposdetalle'];
+      
+       this.cargando = false;
+    });
+
+
+  }
+
+  cargarParalegal()
+  {
+    this.cargando = true;
+
+    this.personasService.cargar(0,100,240,'')
+    .subscribe ( (res1:any) => 
+    {
+   //  console.log(res1);
+        this.Paralegales= res1['resultado'];
+        this.cargando = false;
+    });
+
+  }
+
 
   
   cargarClase() {
@@ -233,6 +308,7 @@ export class GestionesComponent {
   }
 
 
+
   
   cambiarPagina(valor: number)
   {
@@ -296,7 +372,7 @@ export class GestionesComponent {
  
   }
 
-  eliminarTiposdetalle (tptiposdetalle2: Gestiones)
+  eliminarTiposdetalle (tptiposdetalle2: Gestiones2)
   {
     //console.log(tptiposdetalle2);
     Swal.fire({
@@ -438,7 +514,7 @@ export class GestionesComponent {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+   public camposEditar : Gestiones2=new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
    
       
     Titulo: string="Gestiones";
@@ -449,12 +525,35 @@ export class GestionesComponent {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+        this.camposEditar =new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
         
         this.abrirModal();
     }
 
-    abrirModificar(dtiposdetalle:Gestiones){
+
+
+    onChangeEstadoTramite(event: any): void {
+      // Acciones adicionales que deseas realizar
+      this.camposEditar.gestion= this.buscartextoporId(  this.TiposActuacion  ,this.TipoEstadoTramiteSelecctionado);
+  
+    console.log("aqui");
+  
+      
+    }
+
+       
+    buscartextoporId(lista: tiposdetalle[], id: number): string  {
+      const item = lista.find(element => element.id === id);
+      return item ? item.nombre : '';
+  }
+
+    buscarIdPorCodigo(lista: tiposdetalle[], codigo: string): number  {
+      const item = lista.find(element => element.codigo === codigo);
+      return item ? item.id : 0;
+  }
+
+  
+    abrirModificar(dtiposdetalle:Gestiones2){
       this._Crear=false;
 
       this.SubTitulo="Modificar";
@@ -462,9 +561,7 @@ export class GestionesComponent {
       this.camposEditar = dtiposdetalle;
 
       this.idpaisseleccionado= dtiposdetalle.idpais;
-
-      this.opcionSeleccionada2 = dtiposdetalle.idtipoactuacion;
-      this.opcionSeleccionada3 = dtiposdetalle.idtipoproceso;
+ 
       this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
   
       this.fechaVenceGestion=dtiposdetalle.vence;
@@ -472,9 +569,23 @@ export class GestionesComponent {
 
       this.camposEditar.fechaactuacion= dtiposdetalle.fechaactuacion;
       this.camposEditar.vence=dtiposdetalle.vence;
-      this.camposEditar.observaciones=dtiposdetalle.observaciones;
+      this.camposEditar.pendiente=dtiposdetalle.pendiente;
+      this.camposEditar.gestion=dtiposdetalle.gestion;
+      this.TipoEstadoTramiteSelecctionado=dtiposdetalle.tipogest;
       
-     
+      this.opParalegal=dtiposdetalle.idparalegal;
+      this.opCodActua=  dtiposdetalle.codactua ;
+      this.opTiposProcesos=  dtiposdetalle.tipoproc ;
+
+      // this.opCodActua= this.buscarIdPorCodigo(  this.TiposActuacion  ,dtiposdetalle.codactua);
+      //  this.opTiposProcesos= this.buscarIdPorCodigo(  this.TiposProceso  ,dtiposdetalle.tipoproc);
+
+
+       //this.opClaseActua= this.buscarIdPorCodigo(  this.ClaseActuacion  ,dtiposdetalle.clase);
+       this.opClaseActua= dtiposdetalle.clase;
+       //   console.log( this.TipoEstadoTramite );
+      // console.log(this.TipoEstadoTramite);
+      // console.log(dtiposdetalle.tipogest);
 
       this.abrirModal();
     }
@@ -493,9 +604,9 @@ export class GestionesComponent {
         {
  
           
-          let  nueva    : Gestiones = new Gestiones(0,this.Empresa,0,this.camposEditar.expediente,0,'',this.idpaisseleccionado,''
-          ,this.camposEditar.clase,this.opcionSeleccionada3,'',this.fechaActuacion,this.opcionSeleccionada2,'',
-          this.fechaVenceGestion,'',this.camposEditar.observaciones,this.TipoEstadoSeleccionado,'');
+          let  nueva    : Gestiones2 = new Gestiones2(0,this.Empresa,0,this.camposEditar.expediente,0,'','',this.idpaisseleccionado,'',this.camposEditar.clase,this.opTiposProcesos,
+          this.fechaActuacion, this.opCodActua, this.camposEditar.gestion, this.camposEditar.sitermino,
+          this.fechaVenceGestion, this.camposEditar.pendiente,this.TipoEstadoTramiteSelecctionado, this.camposEditar.um,this.TipoEstadoSeleccionado,'',this.opParalegal,'');
           
           console.log(nueva);
           console.log(this.camposEditar.fechaactuacion);
@@ -522,6 +633,11 @@ export class GestionesComponent {
           this.camposEditar.fechaactuacion=this.fechaActuacion;
           this.camposEditar.idestado= this.TipoEstadoSeleccionado;
 
+          this.camposEditar.idparalegal= this.opParalegal;
+          this.camposEditar.tipoproc= this.opTiposProcesos;
+          this.camposEditar.codactua= this.opCodActua;
+          this.camposEditar.idpais= this.idpaisseleccionado;
+          this.camposEditar.tipogest= this.TipoEstadoTramiteSelecctionado;
           this.servicio.modificar(this.camposEditar)
           .subscribe(resp =>
             {
@@ -581,7 +697,7 @@ export class GestionesComponent {
     return this._ocultarModalTarea;
   }
 
-  abrirModalTarea(Gestiondetalle:Gestiones){
+  abrirModalTarea(Gestiondetalle:Gestiones2){
     
     this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente,0,0,'','');
 
@@ -604,6 +720,18 @@ export class GestionesComponent {
     console.log(tipow);
     this.fechaVenceTarea= tipow;
   }
+
+  cambiarFechavence2(tipow :any)
+  {
+    console.log("FECHA VENCE---------------");
+    console.log(tipow);
+    this.fechavence2= tipow;
+    this.fechavence3= tipow;
+  
+    this.cargar();
+    
+  }
+
 
 
   salvarModalTarea()
@@ -682,7 +810,7 @@ export class GestionesComponent {
     return this._ocultarModalTarea2;
   }
 
-  abrirModalTarea2(Gestiondetalle:Gestiones){
+  abrirModalTarea2(Gestiondetalle:Gestiones2){
     
     let idexpediente = Gestiondetalle.idexpediente;
     let idgestion = Gestiondetalle.id;

@@ -2,9 +2,9 @@ import { Component, HostListener,ElementRef, ViewChild } from '@angular/core';
 
 import { Expedientes } from 'src/app/models/expedientes';
 import { ExpedientesService } from 'src/app/services/expedientes.service';
-import { Gestiones } from 'src/app/models/gestiones';
+import { Gestiones2 } from 'src/app/models/gestiones2';
 import { Marcas } from 'src/app/models/denomi.model';
-import { GestionesService } from 'src/app/services/gestiones.service';
+import { Gestiones2Service } from 'src/app/services/gestiones2.service';
  import { formatDate } from '@angular/common';
 import { TptiposdetalleService } from 'src/app/services/tptiposdetalle.service';
 import { tiposdetalle } from 'src/app/models/tiposdetalle.model';
@@ -29,10 +29,11 @@ export class RegistroComponent {
   public expedientesI: Expedientes[] =[];
   public marcasI: Marcas[] =[];
 
-  public gestionesI: Gestiones[] =[];
+  public gestionesI: Gestiones2[] =[];
 
+  public TipoEstadoTramite: tiposdetalle[]=[];
   
-
+  public totalTipos:number = 0;
  // public empresa: Empresas  =new Empresas("","");
  public EMpresa =  { _id: "", nombre:""};
  public PAis =  { _id: "", nombre:"", codpais:""};
@@ -46,6 +47,7 @@ public TIpoMarca =  { _id: "", nombre:"", codigo:""};
 public APoderado =  { _id: "", nombre:"", apellido:"", identificacion:"",direccion:""};
 public AGente =  { _id: "", nombre:"", identificacion:"",direccion:""};
 public Solicitante =  { _id: "", nombre:"",apellido:"",  identificacion:"",direccion:""};
+
 
 public EStado =  { _id: "", nombre:"", codigo:""};
 
@@ -64,6 +66,9 @@ public TiposProceso: tiposdetalle[]=[];
 public TipoEstado: tiposdetalle[]=[];
 public ClaseActuacion: tiposdetalle[]=[];
 public paises: paisesyciudades[]=[];
+public TipoSolicitud: tiposdetalle[]=[];
+public Naturaleza: tiposdetalle[]=[];
+public TipoSigno: tiposdetalle[]=[];
 
 opcionSeleccionada2: number=0; 
   opcionSeleccionada3: number=0; 
@@ -71,7 +76,16 @@ opcionSeleccionada2: number=0;
   TipoEstadoSeleccionado: number=1; 
   idpaisseleccionado: number=0;  
 
-  
+
+  opPais: string="";
+  opClase: string="";
+  opTipoProceso: string="";
+  opTipoEstadoTramite: string=""; 
+  opTipoSolicitud: string=""; 
+  opNaturaleza: string="";
+  opTipoSigno: string="";
+  mostrarOpcional: boolean = false;  // Inicialmente oculto
+
   get Empresa():number{
     let idempresa=  localStorage.getItem('emp') || '';
     return parseInt(idempresa);
@@ -80,16 +94,21 @@ opcionSeleccionada2: number=0;
   constructor(     
     private expedientesService: ExpedientesService, 
     private tiposdetService: TptiposdetalleService,
-    private gestionesService :GestionesService,
+    private gestiones2Service :Gestiones2Service,
     private paisesyciudadesService: TppaisesyciudadesService,
-    private servicio: GestionesService,
+    private servicio: Gestiones2Service,
     private tareasService: tareasService){
       this.buscar( this.busqueda); 
 
       this.cargarTipoEstado();
-      this.cargarTipoProceso();
-      this.cargarTipoActuacion();
+      // this.cargarTipoProceso();
+      this.cargarEstadoTramite() 
+      this.cargarTipoSolicitud() 
+      this.cargarNaturaleza();
+      this.cargarTipoSigno();
+    //  this.cargarTipoActuacion();
       this.cargarPais();
+      this.cargarClase();
     //  this.cargarGestion() ;
 
   }
@@ -104,18 +123,26 @@ opcionSeleccionada2: number=0;
 
   //FIN minimizar
   ////////////////////
-  public Items1: Gestiones[]=[];
+  public Items1: Gestiones2[]=[];
 
-  
-  cargarGestion(idexpediente : number=0) {
+   combinarAnnoYExpediente(anno: number, expediente: number): string {
+    return `${anno}${expediente}`;
+}
+
+  cargarGestion(anno : number=0, expediente:number =0) {
 
     this.cargando = true;
 
-    this.servicio.cargar(this.desde,this.limite,idexpediente,"" )
+    this.servicio.cargar(this.desde,this.limite,0,this.combinarAnnoYExpediente(anno,expediente),"" )
     .subscribe ( (res1:any) => 
     {
         this.Items1= res1['resultado'];
         
+        this.totalTipos=res1.total;
+        this.paginasTotales= Math.round(this.totalTipos/this.limite);
+        this.paginaActual=  this.desde+1;
+
+        this.cargando = false;  
     });
 
 
@@ -128,7 +155,7 @@ opcionSeleccionada2: number=0;
     this.tiposdetService.cargar(0,-2,1,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+    // console.log(res1);
         this.TipoEstado= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -162,7 +189,7 @@ opcionSeleccionada2: number=0;
     this.tiposdetService.cargar(0,-2,10,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+    // console.log(res1);
         this.TiposActuacion= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -178,7 +205,7 @@ opcionSeleccionada2: number=0;
     this.tiposdetService.cargar(0,-2,3,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+     //console.log(res1);
         this.TiposProceso= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -202,6 +229,95 @@ opcionSeleccionada2: number=0;
 
  
   }
+
+  
+  cargarEstadoTramite() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,8,"" )
+    .subscribe ( (res1:any) => 
+    {
+      //console.log(res1);
+      this.TipoEstadoTramite= res1['tiposdetalle'];
+      
+       this.cargando = false;
+    });
+
+
+  }
+
+  cargarNaturaleza() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,7,"" )
+    .subscribe ( (res1:any) => 
+    {
+      //console.log(res1);
+      this.Naturaleza= res1['tiposdetalle'];
+      
+       this.cargando = false;
+    });
+
+
+  }
+
+  cargarTipoSigno() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,4,"" )
+    .subscribe ( (res1:any) => 
+    {
+      //console.log(res1);
+      this.TipoSigno= res1['tiposdetalle'];
+      
+       this.cargando = false;
+    });
+
+
+  }
+
+
+  cargarTipoSolicitud() {
+
+    this.cargando = true;
+
+    this.tiposdetService.cargar(0,-2,6,"" )
+    .subscribe ( (res1:any) => 
+    {
+      //console.log(res1);
+      this.TipoSolicitud= res1['tiposdetalle'];
+      
+       this.cargando = false;
+    });
+
+
+  }
+
+  opClaseSeleccionadas: string = '';  // Para manejar múltiples selecciones
+  clasesSeleccionadas: string[] = [];   // Para almacenar las clases seleccionadas
+
+  agregarClase() {
+    // Evita duplicados al agregar clases seleccionadas
+    // this.opClaseSeleccionadas.forEach(clase => {
+    //   if (!this.clasesSeleccionadas.includes(clase)) {
+    //     this.clasesSeleccionadas.push(clase);
+    //   }
+    // });
+
+    if (this.opClaseSeleccionadas && !this.clasesSeleccionadas.includes(this.opClaseSeleccionadas)) {
+      this.clasesSeleccionadas.push(this.opClaseSeleccionadas);
+    }
+
+    
+    // console.log (this.clasesSeleccionadas.join(';'));
+
+
+  }
+
+
 
   busqueda : string = "";
   async buscar(termino : string )
@@ -367,7 +483,7 @@ opcionSeleccionada2: number=0;
   filaClickeada(item:  Expedientes)
   {
     this.expediente2=item;
-    this.cargarGestion(item.id);
+    this.cargarGestion(item.anno, item.expediente);
 
   }
 
@@ -495,7 +611,7 @@ manejarTeclado(event: KeyboardEvent) {
     window.open('https://sipi.sic.gov.co/sipi/Extra/IP/TM/Qbe.aspx?sid=638452362591870433', '_blank');
   }
 
-   public camposEditar2 : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+   public camposEditar2 : Gestiones2=new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
 
 
     //////////////////////////////////////////
@@ -503,6 +619,7 @@ manejarTeclado(event: KeyboardEvent) {
   //////////////////////////////////////////
 
   private _ocultarModal: boolean = true;
+  private _ocultarModalNuevo: boolean = true;
   private _ocultarModalgestionP: boolean = true;
 
   private _ocultarModalgestion: boolean = true;
@@ -551,47 +668,55 @@ manejarTeclado(event: KeyboardEvent) {
       // console.log( this.camposEditar);
 
 
-      //   if(this._Crear === true)
-      //   {
-      //     this.personasService.crear(this.camposEditar)
-      //       .subscribe({
-      //         next: (resp: RespuestaBackend) => {
-      //             this.Logs = JSON.stringify(resp);
-      //             console.log(resp);
+        if(this._Crear === true)
+        {
+            this.camposEditar.pais = this.opPais;
+            this.camposEditar.clase = this.clasesSeleccionadas.join('; ');
+            this.camposEditar.tipoproceso = this.opTipoProceso;
+            this.camposEditar.tipoestadotramite= this.opTipoEstadoTramite; 
+            this.camposEditar.tiposolicitud=this.opTipoSolicitud; 
 
-      //             // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
-      //             if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
-      //                 // Si nuevoID es mayor que 0, manejar como éxito
-      //                 Swal.fire(
-      //                   'Crear!',
-      //                   `El item  ${ this.camposEditar.nombre } fue creado con exito.`,
-      //                   'success'
-      //                 );
-      //             } else {
-      //                 // Manejar los casos en los que nuevoID no es mayor que 0
-      //                 let mensajeError = 'Ocurrió un error desconocido.';
-      //                 if (resp && resp.resultado) {
-      //                     mensajeError = resp.resultado.mensaje || mensajeError;
-      //                 }
-      //                 Swal.fire(
-      //                     'Crear',
-      //                     mensajeError,
-      //                     'error'
-      //                 );
-      //             }
-      //         },
-      //         error: (errorResp) => {
-      //             // Manejo de errores de la petición
-      //             console.error('Error en la petición:', errorResp);
-      //             Swal.fire(
-      //                 'Error en la Petición',
-      //                 'Ocurrió un error al realizar la petición al servidor.',
-      //                 'error'
-      //             );
-      //         }
-      //     });
+          this.expedientesService.crear(this.camposEditar)
+            .subscribe({
+              next: (resp) => {
+              //    this.Logs = JSON.stringify(resp);
+                  console.log(resp);
+
+                  // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+//                  if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+                      // Si nuevoID es mayor que 0, manejar como éxito
+                      Swal.fire(
+                        'Crear!',
+                        `El item  ${ this.camposEditar.expediente } fue creado con exito.`,
+                        'success'
+                      );
+
+
+                  // } else {
+                  //     // Manejar los casos en los que nuevoID no es mayor que 0
+                  //     let mensajeError = 'Ocurrió un error desconocido.';
+                  //     if (resp && resp.resultado) {
+                  //         mensajeError = resp.resultado.mensaje || mensajeError;
+                  //     }
+                  //     Swal.fire(
+                  //         'Crear',
+                  //         mensajeError,
+                  //         'error'
+                  //     );
+                  // }
+              },
+              error: (errorResp) => {
+                  // Manejo de errores de la petición
+                  console.error('Error en la petición:', errorResp);
+                  Swal.fire(
+                      'Error en la Petición',
+                      'Ocurrió un error al realizar la petición al servidor.',
+                      'error'
+                  );
+              }
+          });
  
-      //   }
+        }
       //   else
       //   {
                 
@@ -649,15 +774,30 @@ manejarTeclado(event: KeyboardEvent) {
       return this._ocultarModal;
     }
 
+    get ocultarModalNuevo(){
+      return this._ocultarModalNuevo;
+    }
     abrirModal(){
       this._ocultarModal=false;
 
     }
 
+    abrirModalNuevo(){
+      
+      this.camposEditar.fechapb = new Date();
+      this.camposEditar.anno =  this.camposEditar.fechapb.getFullYear();
+      this.opPais = 'COLOMBIA';
+      this.camposEditar.pais= 'COLOMBIA';
+      this._ocultarModalNuevo=false;
+
+    }
+
     cerrarModal(){
       this._ocultarModal=true;
-     
-    
+    }
+
+    cerrarModalNuevo(){
+      this._ocultarModalNuevo=true;
 
     }
 
@@ -1103,7 +1243,7 @@ manejarTeclado(event: KeyboardEvent) {
     return this._ocultarModalTarea;
   }
 
-  abrirModalTarea(Gestiondetalle:Gestiones){
+  abrirModalTarea(Gestiondetalle:Gestiones2){
     
     this.camposEditarTarea =new tareas(0,0,'','','',new Date(),1,'',Gestiondetalle.id,Gestiondetalle.idexpediente,0,0,'','');
 
@@ -1203,7 +1343,7 @@ manejarTeclado(event: KeyboardEvent) {
     return this._ocultarModalTarea2;
   }
 
-  abrirModalTarea2(Gestiondetalle:Gestiones){
+  abrirModalTarea2(Gestiondetalle:Gestiones2){
     
     let idexpediente = Gestiondetalle.idexpediente;
     let idgestion = Gestiondetalle.id;
@@ -1263,12 +1403,12 @@ manejarTeclado(event: KeyboardEvent) {
       this._Crear=true;
       this.SubTitulo="Crear";
       
-      this.camposEditarGestion =new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+      this.camposEditarGestion =new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
       
       this.abrirModalGestion2();
   
   }
-  public camposEditarGestion : Gestiones=new Gestiones(0,0,0,0,0,'',0,'',0,0,'',new Date(),0,'',new Date(),'','',0,'');
+  public camposEditarGestion : Gestiones2=new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
 
   private _ocultarModalGestion: boolean = true;
 

@@ -208,7 +208,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tipo</label>
-                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada2"
+                                        <select class="form-control custom-select" [(ngModel)]="opTipoPersona"
                                         (ngModelChange)="cambiarTipo2($event)">
                                             <option value="{{dato.id}}" *ngFor="let dato of TiposDetalle">
                                                 {{dato.nombre}}
@@ -234,8 +234,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Tipo Identificacion</label>
-                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada3"
-                                        (ngModelChange)="cambiarTipo2($event)">
+                                        <select class="form-control custom-select" [(ngModel)]="opIdIdentificacion"
+                                        (ngModelChange)="cambiarTipo3($event)">
                                             <option value="{{dato.id}}" *ngFor="let dato of TiposIdentificacion">
                                                 {{dato.nombre}}
                                             </option>
@@ -310,8 +310,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group has-success">
                                         <label class="control-label">Ciudad</label>
-                                        <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada4"
-                                        (ngModelChange)="cambiarTipo2($event)">
+                                        <select class="form-control custom-select" [(ngModel)]="opIdCiudad"
+                                        (ngModelChange)="cambiarTipo4($event)">
                                             <option value="{{dato.id}}" *ngFor="let dato of Ciudades">
                                                 {{dato.nombre}}
                                             </option>

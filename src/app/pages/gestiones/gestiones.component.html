@@ -8,6 +8,8 @@
                 <button class="btn btn-sm btn-secondary align-items-center" (click)="toggleMinimizar()">
                     {{ seccionMinimizada ? '+' : '-' }}
                   </button>  
+
+              
             </div>
            
             
@@ -16,16 +18,39 @@
 
             <div [ngClass]="{'minimizado': seccionMinimizada}" >
                 <div class="card-body ">
-                    
-                    BUSCAR
-                    <div >
-                        &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
-                         class ="form-control"
-                         placeholder="Buscar Expediente / Marca"
-                         (keyup)="buscar(txttermino.value)"
-                         #txttermino
-                         style="width: 400px;"/>        
-                     </div>
+                    <div class="row">
+                        BUSCAR
+                        <div >
+                            &nbsp;&nbsp;&nbsp; <input type="text" [(ngModel)]="textoBuscar" 
+                             class ="form-control"
+                             placeholder="Buscar Expediente / Marca / NroInterno"
+                             (keyup)="buscar(txttermino.value)"
+                             #txttermino
+                             style="width: 400px;"/>     
+                             
+                         
+                     
+                             
+                         </div>
+
+                         &nbsp;&nbsp;&nbsp;  BUSCAR POR FECHA VENCIMIENTO 
+                         <div >
+                             &nbsp;&nbsp;&nbsp; 
+                             <input type="checkbox" id="cbox1"/>
+                              <input type="date" id="fechavencimiento2" 
+                              (ngModelChange)="cambiarFechavence2($event)" 
+                              [ngModel]="fechavence2  | date:'yyyy-MM-dd'" placeholder="fecha Vencimiento">
+                      
+                              
+                          </div>
+
+
+                          <select [(ngModel)]="busqueda"  (ngModelChange)="cambiarbusqueda()">
+                            <option  [value]="1">Expediente</option>
+                            <option  [value]="2">Fecha Vencimiento</option>
+                          </select>
+                    </div>
+                  
                     <div class="row">
                       
                         
@@ -83,20 +108,23 @@
                     <thead>
                         <tr>
                           <th class="w80"></th>
-                          <th>Tareas</th>
+                          <!-- <th>Tareas</th> -->
                             <th class="w100">Expediente</th>
+                            <th class="w100">NroInterno</th>
                             <th class="w300">Marca</th>
+                            <th class="w300">Gestion</th>
+                            <th class="w300">Pendiente</th>
                             <th class="w100">Pais</th>
                             <th class="w100">Clase</th>
                             <th class="w100">Tipo Proces</th>
                             <th class="w100">Fecha ACT</th>
                             <th class="w100">Tipo ACT</th>
                             <th class="w100">Vence</th>
-                            <th class="w100">Tipo Gest</th>
+                            <!-- <th class="w100">Tipo Gest</th> -->
                           <!--   <th class="w300">Observaciones</th>
                             -->
                             <th  class="w100">Estado</th>
-                            <th  class="w60">id</th>
+                            <!-- <th  class="w60">id</th> -->
                            
                         </tr>
                     </thead>
@@ -120,7 +148,7 @@
                                 </i> 
                             </a>
                              </td> 
-                             <td>
+                             <!-- <td>
                                 <a (click)="abrirModalTarea(nitem)"
                                 class="cursor"
                                  data-toggle="tooltip" data-original-title="nuevo"> 
@@ -132,24 +160,29 @@
                                  data-toggle="tooltip" data-original-title="ver"> 
                                 <i class="fas fa-eye text-inverse m-r-10">
                                 </i> </a>
-                             </td>
+                             </td> -->
                             <td>
                                 {{ nitem.expediente }} 
                             </td>
+                            <td>
+                                {{ nitem.nrointerno }} 
+                            </td>
                             <td>{{ nitem.marca }}</td>
+                            <td>{{ nitem.gestion }}</td>
+                            <td>{{ nitem.pendiente }}</td>
                             <td>{{ nitem.pais }}</td>
                             <td>{{ nitem.clase }}</td>
-                            <td>{{ nitem.tipoproceso }}</td>
+                            <td>{{ nitem.tipoproc }}</td>
 
                             <td>{{ nitem.fechaactuacion | date:'yyyy-MM-dd' }}</td>
-                            <td>{{ nitem.tipoactuacion }}</td>
+                            <td>{{ nitem.codactua }}</td>
                             <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
-                            <td>{{ nitem.tipogest }}</td>
+                            <!-- <td>{{ nitem.tipogest }}</td> -->
                            <!--
                              <td>{{ nitem.observaciones }}</td>
                            -->
                             <td>{{ nitem.estado }}</td>
-                            <td>{{ nitem.id }}</td>
+                            <!-- <td>{{ nitem.id }}</td> -->
                         </tr>
                      
                     </tbody>
@@ -162,12 +195,7 @@
                         <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button>
                         &nbsp;
                         VER :
-                       <!-- <input type="text" [(ngModel)]="limite" 
-                        placeholder="Limite"
-                        max="200"
-                        style="width: 40px;" 
-                            />
-                    -->        
+               
                             <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
                                 <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
                               </select>
@@ -214,12 +242,17 @@
 
                                 </div>
                                 <div class="col-md-2">
-                                            <select class=" custom-select" [(ngModel)]="opcionSeleccionada2"
-                                        (ngModelChange)="cambiarTipo2($event)"   style="width: 300px;">
-                                            <option value="{{dato.id}}" *ngFor="let dato of TiposActuacion">
+                                        
+                                        
+                                        <select class="form-control w140" name="tipoproc"
+                                        [(ngModel)]="opCodActua"   style="width: 200px;">
+                                            
+                                            <option value="{{dato.codigo}}" *ngFor="let dato of TiposActuacion">
                                                 {{dato.nombre}}
                                             </option>
                                         </select>
+
+
                                 </div>
                                   <!--/span-->
                                   <div class="col-md-2">
@@ -230,7 +263,19 @@
                                     <label class="control-label">Clase</label>
                            </div>        
                            <div class="col-md-2">        
-                                 <input type="text" id="clase"  placeholder="Clase"  [(ngModel)]="camposEditar.clase">
+                               
+
+                                 <select class="form-control w140" name="tipoproc"
+                                 [(ngModel)]="opClaseActua"   style="width: 200px;">
+                                     
+                                     <option value="{{dato.codigo}}" *ngFor="let dato of ClaseActuacion">
+                                         {{dato.nombre}}
+                                     </option>
+                                 </select>
+
+                                 
+
+
                              </div>
                                 <!--/span-->
                             </div>
@@ -239,12 +284,15 @@
                                          <label class="control-label">Tipo Proceso</label>
                                 </div>        
                                 <div class="col-md-2">        
-                                         <select  class="custom-select"   [(ngModel)]="opcionSeleccionada3"
-                                        (ngModelChange)="cambiarTipo2($event)"   style="width: 300px;">
-                                            <option value="{{dato.id}}" *ngFor="let dato of TiposProceso">
-                                                {{dato.nombre}}
+                                      
+                                        <select class="form-control w140" name="tipoproc"
+                                        [(ngModel)]="opTiposProcesos"   style="width: 200px;">
+                                            
+                                            <option value="{{dato.codigo}}" *ngFor="let dato of TiposProceso">
+                                                {{dato.codigo}}
                                             </option>
                                         </select>
+
                                   </div>
                                 <!--/span-->
                                 <div class="col-md-2">
@@ -261,6 +309,37 @@
                                 <!--/span-->
                             </div>
                             <!--/row-->
+
+                            <div class="row">
+
+                                <div class="col-md-2">
+                                    <label class="control-label">Gestion</label>
+                           </div>        
+                           <div class="col-md-2">        
+                                  
+                                   <textarea type="text" id="clase"  placeholder="Clase" cols="40" 
+                                   rows="8" 
+                                   style="width:200px; height:80px;"  [(ngModel)]="camposEditar.gestion">
+                                </textarea>
+                             </div>
+                           <!--/span-->
+                           <div class="col-md-2">
+                               &nbsp;
+                           </div>
+                           <div class="col-md-2">
+                               <label class="control-label">Pendiente</label>
+                           </div>
+                      
+                           <div class="col-md-2">
+                               <textarea  type="text" id="expediente"  cols="40" 
+                               rows="8" 
+                               style="width:200px; height:80px;"  placeholder="codigo"  [(ngModel)]="camposEditar.pendiente">
+                            </textarea>
+
+                              
+                           </div>
+
+                            </div>
                             <div class="row">
                                 <div class="col-md-2">
                                     
@@ -286,7 +365,8 @@
                                 <!--/span-->
                             </div>
                              <!--/row-->
-                            <div class="row">
+
+                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="control-label">Pais</label>
                                 </div>
@@ -305,7 +385,41 @@
 
                                 </div>
                                 <div class="col-md-2">
-                                    <label class="control-label">Estado</label>
+                                    <label class="control-label">Estado Tramite</label>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="form-control w140" name="TipoESTT"
+                                    [(ngModel)]="TipoEstadoTramiteSelecctionado"   (ngModelChange)="onChangeEstadoTramite($event)" 
+                                    style="width: 200px;">
+                                        
+                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstadoTramite">
+                                            {{dato.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!--/span-->
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label class="control-label">Paralegal</label>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <select class="form-control w140" name="TipoEST"
+                                    [(ngModel)]="opParalegal"   style="width: 200px;">
+                                        
+                                        <option value="{{dato.id}}" *ngFor="let dato of Paralegales">
+                                            {{dato.nombre}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <!--/span-->
+                                <div class="col-md-2">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <label class="control-label">Estado Pendiente</label>
                                 </div>
                                 <div class="col-md-2">
                                     <select class="form-control w140" name="TipoEST"
@@ -319,22 +433,7 @@
                                 <!--/span-->
                             </div>
 
-                            <!-- <div class="row">
-
-
-                                <div class="col-md-2">
-                                    <label class="control-label">Pendientes</label>
-                                </div>
-                           
-                                <div class="col-md-2">
-                                    <textarea name="textarea"  cols="20" 
-                                    rows="4" 
-                                    style="width:300px; height:80px;"  id="observaciones"  placeholder="Pendientes"  [(ngModel)]="camposEditar.observaciones">
-                                   </textarea>
-                                   
-                                </div>
-                            </div>
-                             -->
+                         
 
                         </div>
                         <div class="row"> &nbsp;</div>
@@ -368,7 +467,7 @@
     -->
 
 
-
+<!-- 
  <div class="fondo_modal animated fadeIn fast"
     *ngIf="!ocultarModalTarea" >
 
@@ -392,8 +491,7 @@
 
                     <div class="col-md-6">        
 
-                    </div>
-                    <!--/span-->
+                    </div> 
 
                     <div class="row">
                         <div class="col-md-6">
@@ -421,13 +519,7 @@
                             <label class="control-label">Estado</label>
                             </div>
                             <div class="col-md-6">
-                            <!-- <select class="form-control custom-select" data-placeholder="Choose a Category" tabindex="1"  [(ngModel)]="camposEditarTarea.idestado">
-                                    <option value="1">Activo</option>
-                                    <option value="0">inactivo</option>
-                                    <option value="2">Anulado</option>
-                                    <option value="219">Terminado</option>
-                                    <option value="221">Eliminado</option> -->
-                             <!-- </select> -->
+                           
                              <select class="form-control w140" name="TipoEST"
                              [(ngModel)]="TipoEstadoSeleccionado"      style="width: 200px;">
                              
@@ -438,9 +530,7 @@
                             
                              
                             </div>
-    
-                        <!--/span-->
-
+     
                     </div>
 
 
@@ -463,7 +553,7 @@
 
 
 
-</div>
+</div> -->
 
 
    <!--
@@ -475,7 +565,7 @@
     ------------------------------------------------------------
     -->
 
-
+<!-- 
 
 <div class="fondo_modal animated fadeIn fast"
     *ngIf="!ocultarModalTarea2" >
@@ -551,7 +641,7 @@
 
 
 
-</div>
+</div> -->
 
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

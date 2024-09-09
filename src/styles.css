@@ -297,3 +297,16 @@ Estilo para dejar la barra fija de arriba
   width: 100%;
   table-layout: fixed;
 }
+
+
+.semaforo-verde {
+  background-color: #dff0d8; /* Verde claro */
+}
+
+.semaforo-amarillo {
+  background-color: #fcf8e3; /* Amarillo claro */
+}
+
+.semaforo-rojo {
+  background-color: #f2dede; /* Rojo claro */
+}

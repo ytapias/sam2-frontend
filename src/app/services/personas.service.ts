@@ -33,9 +33,9 @@ export class PersonasService {
  //public tiposdetalle:Empresas[]=[];
 
 
-  cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="")
+  cargar(desde: number =0,cuantos: number =10, idtipopersona :Number = 0, nombre :string="")
   {
-    const url = `${ base_url }/PersonasSQL?desde=${desde}&elementos=${cuantos}&idtipopersona=${espais}&nombre=${nombre}`;
+    const url = `${ base_url }/PersonasSQL?desde=${desde}&elementos=${cuantos}&idtipopersona=${idtipopersona}&nombre=${nombre}`;
   //  console.log(url);
 
     return this.http.get(url,this.headers);
