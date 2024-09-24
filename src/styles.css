@@ -310,3 +310,33 @@ Estilo para dejar la barra fija de arriba
 .semaforo-rojo {
   background-color: #f2dede; /* Rojo claro */
 }
+
+.small-table {
+  font-size: 12px; /* Ajusta según lo que necesites */
+}
+
+/* Reducir el padding de las celdas */
+.small-table th, .small-table td {
+  padding: 5px; /* Ajusta el espacio dentro de las celdas */
+}
+
+/* Si necesitas ajustar aún más las columnas, puedes añadir esto */
+.small-table th, .small-table td {
+  width: auto; /* Asegura que las columnas no se expandan más de lo necesario */
+}
+
+
+.small2-table {
+  font-size: 14px; /* Ajusta según lo que necesites */
+  font-family: Arial, sans-serif; /* Establecer Arial como fuente */
+}
+
+/* Reducir el padding de las celdas */
+.small2-table th, .small2-table td {
+  padding: 5px; /* Ajusta el espacio dentro de las celdas */
+}
+
+/* Si necesitas ajustar aún más las columnas, puedes añadir esto */
+.small2-table th, .small2-table td {
+  width: auto; /* Asegura que las columnas no se expandan más de lo necesario */
+}

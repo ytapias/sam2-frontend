@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { Administracion } from 'src/app/models/administracion.model';
 import { Expedientes } from 'src/app/models/expedientes';
 import { Gestiones2 } from 'src/app/models/gestiones2';
@@ -36,7 +37,7 @@ export class DashboardComponent {
   }
 
   constructor(private servicio: AdministracionService,
-              private servicioTareas: Gestiones2Service)
+              private servicioTareas: Gestiones2Service,private router: Router)
   {
     this.cargarTareasGrafica();
     this.cargarTareas();
@@ -106,6 +107,14 @@ export class DashboardComponent {
     });
 
   //  console.log(this.Items);
+  }
+
+
+
+
+  irAGestion(id: number) {
+    // Navegar a la URL con el parámetro de la gestión seleccionada
+    this.router.navigate(['/dashboard/gestiones', id]);
   }
 
 

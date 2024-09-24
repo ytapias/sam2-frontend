@@ -37,7 +37,7 @@ export class ExpedientesService {
 
   cargar(desde: number =0,cuantos: number =10, idmarca :Number = 0, nombre :string="")
   {
-    const url = `${ base_url }/ExpedientesSQL?desde=${desde}&elementos=${cuantos}&idmarca=${idmarca}&nombre=${nombre}`;
+    const url = `${ base_url }/expedientesSQL?desde=${desde}&elementos=${cuantos}&idmarca=${idmarca}&nombre=${nombre}`;
  console.log(url);
 
     return this.http.get(url,this.headers);
@@ -49,7 +49,7 @@ export class ExpedientesService {
       console.log('creando');
       console.log(item);
       
-      return this.http.post(`${ base_url }/ExpedientesSQL/`,item,this.headers);
+      return this.http.post(`${ base_url }/expedientesSQL/`,item,this.headers);
   }
 
   modificar(item : Expedientes)
@@ -59,14 +59,14 @@ export class ExpedientesService {
       
       const {id } =item;
 
-    var respuesta =this.http.put(`${ base_url }/ExpedientesSQL/${id}`,item,this.headers) 
+    var respuesta =this.http.put(`${ base_url }/expedientesSQL/${id}`,item,this.headers) 
     console.log(respuesta);
     return respuesta;
   }
 
   eliminar(item : Expedientes)
   {
-    const url = `${ base_url }/ExpedientesSQL/${item.id}`;
+    const url = `${ base_url }/expedientesSQL/${item.id}`;
     console.log(url);
     return this.http.delete(url,this.headers);
   }

@@ -48,7 +48,10 @@ const routes: Routes =[
        //   {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
           {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
 
+          { path: 'gestiones/:gestion', component: GestionesComponent },  // Ruta con parámetro
           {path: 'gestiones',component:GestionesComponent,data :{titulo :'Gestiones'}},
+          
+
           {path: 'demandas',component:DemandasComponent,data :{titulo :'Demandas'}},
           {path: 'tareas',component:TareasComponent,data :{titulo :'Tareas'}},
           {path: 'marcas',component:MarcasComponent,data :{titulo :'Marcas'}},

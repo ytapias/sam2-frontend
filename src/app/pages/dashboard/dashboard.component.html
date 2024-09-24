@@ -74,7 +74,7 @@
           
 
             <div class="table-responsive">
-                <table class="table  full-color-table full-muted-table hover-table">
+                <table class="table small-table  full-color-table full-muted-table hover-table">
                     <thead>
                         <tr>
                           <!-- <th class="w100">Marca</th> -->
@@ -82,12 +82,13 @@
                           <th>Gestion</th>
                             <th>Pendiente</th>
                             <th>Fecha Vence</th>
+                            <th>Paralegal</th>
                             <!-- <th  class="w100">Estado</th>
                             <th>Vencida</th> -->
                         </tr>
                     </thead>
                     <tbody>
-                        <tr *ngFor="let items of TareasAll" [ngClass]="getRowClass(items.vence)">
+                        <tr *ngFor="let items of TareasAll" [ngClass]="getRowClass(items.vence)"  (click)="irAGestion(items.id)">
                         
                              <!-- <td>
                                 {{ items.marca }} 
@@ -98,6 +99,7 @@
                             <td>{{ items.gestion }}</td>
                             <td>{{ items.pendiente }}</td>
                             <td>{{ items.vence  | date:'yyyy-MM-dd' }}</td>
+                            <td>{{ items.paralegal}}</td>
                             <!-- <td>{{ items.estado }}</td>
                             <td>
                                 <span class="label label-danger" *ngIf="isFechaVencida(items.vence)">

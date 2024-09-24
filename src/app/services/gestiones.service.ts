@@ -37,9 +37,9 @@ export class GestionesService {
  //public tiposdetalle:Empresas[]=[];
 
 
-  cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="")
+  cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="",idgestion :Number = 0)
   {
-    const url = `${ base_url }/GestionesSQL?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente}&expediente=${nombre}`;
+    const url = `${ base_url }/GestionesSQL?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente}&expediente=${nombre}&idgestion=${idgestion}`;
  console.log(url);
 
     return this.http.get(url,this.headers);

@@ -37,13 +37,13 @@ export class Gestiones2Service {
  //public tiposdetalle:Empresas[]=[];
 
 
-  cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="" , fechainicio :string="",fechavence :string="",todas:Number=0  )
+  cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="" , fechainicio :string="",fechavence :string="",todas:Number=0 ,idgestion:number=0 )
   {
 console.log (nombre);
 console.log (fechainicio);
 
 
-    const url = `${ base_url }/GestionesSQL2?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente}&expediente=${nombre}&fechainicio=${fechainicio}&fechavence=${fechavence}&todas=${todas}`; //&fechavence=${fecha2}
+    const url = `${ base_url }/GestionesSQL2?desde=${desde}&elementos=${cuantos}&idexpediente=${idexpediente}&expediente=${nombre}&fechainicio=${fechainicio}&fechavence=${fechavence}&todas=${todas}&idgestion=${idgestion}`; //&fechavence=${fecha2}
  console.log(url);
 
     return this.http.get(url,this.headers);

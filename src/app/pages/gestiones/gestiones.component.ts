@@ -12,6 +12,7 @@ import { tareas } from 'src/app/models/tareas.model';
 import { tareasService } from 'src/app/services/tareas.service';
 import { PersonasService } from 'src/app/services/personas.service';
 import { Personas } from 'src/app/models/personas.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-gestiones',
@@ -86,12 +87,39 @@ export class GestionesComponent {
               private tiposdetService: TptiposdetalleService,
               private paisesyciudadesService: TppaisesyciudadesService,
               private tareasService: tareasService,
-              private personasService: PersonasService)
+              private personasService: PersonasService,
+              private route: ActivatedRoute)
   {
     
   }
+  gestionID: number =0;
 
   ngOnInit(): void {
+
+    // this.gestionID =+(this.route.snapshot.paramMap.get('id')?? 0);
+    // // Aquí puedes cargar más datos relacionados con la gestión si lo necesitas
+    // console.log('Gestion seleccionada:', this.gestionID);
+    // console.log('Gestion seleccionada:', this.route.snapshot.paramMap.get('id'));
+
+
+
+  
+
+
+    this.route.params.subscribe(params => {
+      const gestion = params['gestion'];
+      if (gestion) {
+        // Si hay un 'gestion' en la URL, cargar la gestión específica
+        this.gestionID = +gestion;
+//        this.busquedaNombre =gestion;
+
+      } else {
+        // Si no hay 'gestion' en la URL, cargar la vista genérica de gestiones
+        this.gestionID = 0;  // o alguna lógica por defecto
+      }
+      console.log('Gestion seleccionada:', this.gestionID);
+    });
+
     this.cargar();
     this.cargarClase();
     this.cargarTipoEstado();
@@ -101,6 +129,7 @@ export class GestionesComponent {
 
     this.cargarEstadoTramite();
     this.cargarParalegal();
+
 
   }
  
@@ -157,8 +186,23 @@ export class GestionesComponent {
 
     this.cargando = true;
           
-        
-      if(this.busqueda == 1)
+      if (this.gestionID>0)
+      {
+       // cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="" , fechainicio :string="",fechavence :string="",todas:Number=0  )
+
+        this.servicio.cargar(this.desde,this.limite,0,'','','',0,this.gestionID)
+          .subscribe ( (res1:any) => 
+          {
+          // console.log( res1['resultado']);
+              this.Items= res1['resultado'];
+              this.totalTipos=res1.total;
+              this.paginasTotales= Math.round(this.totalTipos/this.limite);
+              this.paginaActual=  this.desde+1;
+
+              this.cargando = false;
+          });
+      } 
+      else if(this.busqueda == 1)
       {
         //console.log("1");
         
