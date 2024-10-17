@@ -18,8 +18,9 @@ export class SidebarComponent {
   constructor(private sidebarService:SidebarService, 
               private usuarioService : UsuarioService,
               private router : Router){
-    this.menuItems= sidebarService.menu;
-
+    //this.menuItems= sidebarService.menu;
+ // Obtenemos el menú filtrado por rol
+    this.menuItems = this.sidebarService.getMenu();
     //console.log(this.menuItems);
   }
 

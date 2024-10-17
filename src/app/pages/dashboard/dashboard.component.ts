@@ -147,8 +147,8 @@ export class DashboardComponent {
     const fechaVence = new Date(vence);
     const diferenciaDias = Math.floor((fechaVence.getTime() - hoy.getTime()) / (1000 * 3600 * 24));
     
-    console.log("diferenciaDias");
-console.log(diferenciaDias);
+  //  console.log("diferenciaDias");
+//console.log(diferenciaDias);
 
     if (diferenciaDias > 0 ) {
       return 'semaforo-verde'; 

@@ -1,1 +1,217 @@
-<p>analisis works!</p>
+<div class="tabla-container">
+    <b>G A C E T A S</b>
+
+    <!-- Combo para seleccionar País -->
+    <div class="form-group">
+        <label for="paisSelect">Seleccionar País</label>
+        <select class="form-control" id="paisSelect" [(ngModel)]="codigoPaisSeleccionado">
+            <option *ngFor="let pais of paises" [value]="pais.codigo">{{ pais.nombre }}</option>
+        </select>
+    </div>
+
+    <!-- Tabla de Gacetas filtradas por país -->
+    <div class="card" *ngIf="gacetasFiltradas.length > 0">
+        <table class="table color-bordered-table inverse-bordered-table table-hover">
+            <thead>
+                <tr style="color:aliceblue">
+                    <th scope="col">Gaceta</th>
+                    <th scope="col">País Rad</th>
+                    <th scope="col">Fecha Publicación</th>
+                    <th scope="col">Registros</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of gacetasFiltradas">
+                    <td>{{ item.gaceta }}</td>
+                    <td>{{ item.paisrad }}</td>
+                    <td>{{ item.fechapub | date }}</td>
+                    <td>{{ item.registros }}</td>
+                    <td>
+                        <a (click)="abrirDetalle(item)" class="cursor" data-toggle="tooltip" data-original-title="Detalle">
+                            <i class="fas fa-eye text-inverse m-r-10"></i>
+                        </a>
+                  
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="gacetasFiltradas.length === 0">
+        <p>No hay gacetas disponibles para este país.</p>
+    </div>
+</div>
+
+<!-- 
+abrir detalle item
+-->
+
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">Total registros (
+                <!-- {{ totalTipos }} -->
+            )
+                
+            </h4>
+            <div class="row">
+
+                <div class="col-6">
+                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina
+                         <!-- {{paginaActual}} de {{paginasTotales}} -->
+                        
+                        </h6>
+
+                </div>
+                <div class="col-md-6 d-flex justify-content-end">
+                    <div  >
+                        <button class="btn btn-primary" (click)="exportarAExcelTodo()"> Excel All</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="small2-table color-bordered-table inverse-bordered-table table-hover">
+                    <thead class="fixed-header">
+                      <tr>
+                        <th></th>
+                        <th class="w80">
+                          Gaceta
+                          <input type="text" class="form-control" [(ngModel)]="filters.Gaceta" placeholder="Filtrar Gaceta">
+                        </th>
+                        <th class="w120">
+                          Resultado
+                          <input type="text" class="form-control" [(ngModel)]="filters.Resultadoglobal" placeholder="Filtrar Resultado">
+                        </th>
+                        <th class="w80">
+                          idresultado
+                          <input type="text" class="form-control" [(ngModel)]="filters.resultado" placeholder="Filtrar idresultado">
+                        </th>
+                        <th class="w80">
+                          Cadena Marca
+                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena2marca" placeholder="Filtrar Cadena Marca">
+                        </th>
+                        <th class="w80">
+                          Cadena Gaceta
+                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena1gaceta" placeholder="Filtrar Cadena Gaceta">
+                        </th>
+                        <th class="w60">
+                          idempresa
+                          <input type="text" class="form-control" [(ngModel)]="filters.idempresa" placeholder="Filtrar idempresa">
+                        </th>
+                        <th class="w60">
+                          idmarca
+                          <input type="text" class="form-control" [(ngModel)]="filters.idmarca" placeholder="Filtrar idmarca">
+                        </th>
+                        <th class="w60">
+                          idgaceta
+                          <input type="text" class="form-control" [(ngModel)]="filters.idgaceta" placeholder="Filtrar idgaceta">
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let nitem of filteredItems()">
+                        <td>
+                          <a (click)="generateWordDocument(nitem)" class="cursor" data-toggle="tooltip" data-original-title="Editar">
+                            <i class="fas fa-file-word-o text-inverse m-r-10"></i>
+                          </a>
+                        </td>
+                        <td>{{ nitem.Gaceta }}</td>
+                        <td>{{ nitem.Resultadoglobal }}</td>
+                        <td>{{ nitem.resultado }}</td>
+                        <td>{{ nitem.Cadena2marca }}</td>
+                        <td>{{ nitem.Cadena1gaceta }}</td>
+                        <td>{{ nitem.idempresa }}</td>
+                        <td>{{ nitem.idmarca }}</td>
+                        <td>{{ nitem.idgaceta }}</td>
+                      </tr>
+                    </tbody>
+                  </table>  
+                
+                    <div>
+                        <!-- <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
+                        &nbsp;
+                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button> -->
+                        &nbsp;
+                        VER :
+                       <!-- <input type="text" [(ngModel)]="limite" 
+                        placeholder="Limite"
+                        max="200"
+                        style="width: 40px;" 
+                            />
+                    -->        
+                            <!-- <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
+                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
+                              </select> -->
+
+                    </div>
+                
+    
+            </div>
+            <div>
+              <!-- LOG:{{ Logs }} -->
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<style>
+    /* Ajusta el estilo para las celdas de la tabla */
+    table.tablesaw td {
+        padding: 5px; /* Disminuye el relleno; ajusta según sea necesario */
+        line-height: 1.2; /* Disminuye el espaciado entre líneas; ajusta según sea necesario */
+        width: 100%; /* Hace que la tabla ocupe todo el ancho */
+        max-width: none; /* Elimina cualquier restricción de ancho máximo */
+        margin: 0; /* Opcional: elimina márgenes para que la tabla alcance los bordes de la pantalla */
+    }
+
+    /* Opcional: Ajustar el estilo para los encabezados de la tabla, si es necesario */
+    table.tablesaw th {
+        padding: 5px; /* Disminuye el relleno; ajusta según sea necesario */
+        line-height: 1.2; /* Disminuye el espaciado entre líneas; ajusta según sea necesario */
+        width: 100%;
+        max-width: none;
+        padding: 0; /* Elimina el relleno si es necesario */
+    }
+    .table-Alto {
+    max-height: 300px; /* Establece el alto máximo del contenedor */
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical si el contenido excede el alto máximo */
+}
+
+.table-like {
+  width: 100%; /* Ocupa todo el ancho disponible */
+  border-collapse: collapse; /* Para que no haya espacios entre las celdas */
+  
+}
+
+.header-row, .data-row {
+  display: flex;
+}
+
+.header-cell, .data-cell {
+  flex: 1; /* Distribuye el espacio de manera uniforme */
+  border: 1px solid #000; /* Borde negro para cada celda */
+  padding: 8px; /* Espaciado interno para el texto */
+  text-align: left; /* Alinea el texto a la izquierda */
+  background-color: #ddd; /* Fondo gris para las celdas del encabezado */
+  white-space: nowrap; /* Asegura que el texto no se pase a la línea siguiente */
+}
+
+.data-cell {
+  background-color: #fff; /* Fondo blanco para las celdas de datos */
+}
+
+/* Añade estilos adicionales para los bordes, sombras, o lo que necesites */
+.selected {
+  background-color: #e9ecef; /* Cambia el color de fondo de la fila seleccionada */
+}
+</style>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

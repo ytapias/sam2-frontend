@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+import { UsuarioService } from './usuario.service';  // Importa tu servicio de usuario
+
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,44 +13,58 @@ export class SidebarService {
       titulo: 'Dashboard',
       icono:'mdi mdi-gauge',
       submenu: [
-        { titulo:'Main',url:'/'},
-        { titulo:'ProgressBar',url:'progress'},
-        { titulo:'Graficas',url:'grafica1'},
-        { titulo:'Promesas',url:'promesas'},
-        { titulo:'Rxjs',url:'rxjs'},
+        { titulo:'Main',url:'/', roles: [222, 223]},
+        { titulo:'ProgressBar',url:'progress', roles: [222, 223]},
+        { titulo:'Graficas',url:'grafica1', roles: [222, 223]},
+        { titulo:'Promesas',url:'promesas', roles: [222, 223]},
+        { titulo:'Rxjs',url:'rxjs', roles: [222, 223]},
       ]
     },
     {
       titulo: 'Funcional',
       icono:'mdi mdi-folder-lock-open',
       submenu: [
-        { titulo:'Registro',url:'registro'},
-        // { titulo:'Consultas',url:'consultas'},
-        { titulo:'Expedientes',url:'principal'},
-        { titulo:'Gestiones',url:'gestiones'},
-        { titulo:'Demandas',url:'demandas'},
-        { titulo:'Tareas',url:'tareas'},
-        { titulo:'Marcas',url:'marcas'},
-        { titulo:'Personas',url:'personas'},
-        { titulo:'Analizar Gaceta',url:'analisis'},
+        { titulo:'Registro',url:'registro', roles: [222, 223]},
+        // { titulo:'Consultas',url:'consultas'},    
+        { titulo:'Gestiones',url:'gestiones', roles: [222, 223]},
+        { titulo:'Demandas',url:'demandas', roles: [222, 223]},
+        
+        { titulo:'Marcas',url:'marcas', roles: [222, 223]},
+        { titulo:'Personas',url:'personas', roles: [222, 223]},
+        { titulo:'Analizar Gaceta',url:'analisis', roles: [222, 223]},
       ]
     },
     {
       titulo: 'Mantenimientos',
       icono:'mdi mdi-apps',
       submenu: [
-        { titulo:'Configuracion',url:'configuracion'},
-        { titulo:'Paises y Ciudades',url:'paisesyciudades'},
-        { titulo:'Usuarios',url:'usuarios'},
-        { titulo:'Empresas',url:'empresas'},
-       
-        { titulo:'Comparar',url:'comparar'},
-        { titulo:'Cargador Gacetas',url:'cargar'},
-        { titulo:'Analizar Gacetas',url:'gacetas'},
+        { titulo:'Configuracion',url:'configuracion', roles: [222]},
+        { titulo:'Paises y Ciudades',url:'paisesyciudades', roles: [222]},
+        { titulo:'Usuarios',url:'usuarios', roles: [222]},
+        { titulo:'Empresas',url:'empresas', roles: [222]},
+        { titulo:'Expedientes',url:'principal', roles: [222]},
+        { titulo:'Tareas',url:'tareas', roles: [222]},
+        { titulo:'Comparar',url:'comparar', roles: [222]},
+        { titulo:'Cargador Gacetas',url:'cargar', roles: [222]},
+        { titulo:'Analizar Gacetas',url:'gacetas', roles: [222]},
 
       ]
     }
   ];
 
-  constructor() { }
+  constructor(private usuarioService: UsuarioService) { }
+
+  // Método para obtener el menú filtrado por el rol del usuario
+  getMenu() {
+    const userRole = this.usuarioService.role;  // Obtenemos el rol del usuario
+
+    // Filtramos el menú para que solo muestre los items permitidos para ese rol
+    return this.menu.map(section => {
+      return {
+        ...section,
+        submenu: section.submenu.filter((item: { roles: number[]; }) => item.roles.includes(userRole))
+      };
+    }).filter(section => section.submenu.length > 0);  // Eliminamos secciones vacías
+  }
+
 }

@@ -38,7 +38,7 @@ export class Expedientes2Service {
   cargar(desde: number =0,cuantos: number =10, idmarca :Number = 0, nombre :string="")
   {
     const url = `${ base_url }/expedientesSQL2?desde=${desde}&elementos=${cuantos}&idmarca=${idmarca}&nombre=${nombre}`;
- console.log(url);
+    //console.log(url);
 
     return this.http.get(url,this.headers);
   }

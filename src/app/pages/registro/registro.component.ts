@@ -1,7 +1,7 @@
 import { Component, HostListener,ElementRef, ViewChild } from '@angular/core';
 
-import { Expedientes } from 'src/app/models/expedientes';
-import { ExpedientesService } from 'src/app/services/expedientes.service';
+import { Expedientes2 } from 'src/app/models/expedientes2';
+import { Expedientes2Service } from 'src/app/services/expedientes2.service';
 import { Gestiones2 } from 'src/app/models/gestiones2';
 import { Marcas } from 'src/app/models/denomi.model';
 import { Gestiones2Service } from 'src/app/services/gestiones2.service';
@@ -14,6 +14,10 @@ import { tareasService } from 'src/app/services/tareas.service';
 import { tareas } from 'src/app/models/tareas.model';
 
 import Swal from 'sweetalert2';
+import { Personas } from 'src/app/models/personas.model';
+import { PersonasService } from 'src/app/services/personas.service';
+
+
 
 
 @Component({
@@ -26,7 +30,7 @@ export class RegistroComponent {
   public Titulo:string="Expedientes  ";
   public SubTitulo:string="Expedientes registrados  ";
 
-  public expedientesI: Expedientes[] =[];
+  public expedientesI: Expedientes2[] =[];
   public marcasI: Marcas[] =[];
 
   public gestionesI: Gestiones2[] =[];
@@ -54,13 +58,14 @@ public EStado =  { _id: "", nombre:"", codigo:""};
 
   public fecha: Date = new Date();
 
-  public expediente2: Expedientes =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
-  "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
+  public expediente2: Expedientes2 =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
+    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"");
 
 public elementos :number = 12;
 
 
 
+public Paralegales: Personas[]=[];
 public TiposActuacion: tiposdetalle[]=[];
 public TiposProceso: tiposdetalle[]=[];
 public TipoEstado: tiposdetalle[]=[];
@@ -92,23 +97,27 @@ opcionSeleccionada2: number=0;
   } 
 
   constructor(     
-    private expedientesService: ExpedientesService, 
+    private expedientesService: Expedientes2Service, 
     private tiposdetService: TptiposdetalleService,
     private gestiones2Service :Gestiones2Service,
     private paisesyciudadesService: TppaisesyciudadesService,
     private servicio: Gestiones2Service,
-    private tareasService: tareasService){
+    private tareasService: tareasService,
+    private personasService: PersonasService
+
+  ){
       this.buscar( this.busqueda); 
 
       this.cargarTipoEstado();
-      // this.cargarTipoProceso();
+       this.cargarTipoProceso();
       this.cargarEstadoTramite() 
       this.cargarTipoSolicitud() 
       this.cargarNaturaleza();
       this.cargarTipoSigno();
-    //  this.cargarTipoActuacion();
+     this.cargarTipoActuacion();
       this.cargarPais();
       this.cargarClase();
+      this.cargarParalegal();
     //  this.cargarGestion() ;
 
   }
@@ -129,11 +138,12 @@ opcionSeleccionada2: number=0;
     return `${anno}${expediente}`;
 }
 
-  cargarGestion(anno : number=0, expediente:number =0) {
+  cargarGestion(anno : number=0, expediente:string ="") {
 
     this.cargando = true;
 
-    this.servicio.cargar(this.desde,this.limite,0,this.combinarAnnoYExpediente(anno,expediente),"" )
+    //this.servicio.cargar(this.desde,this.limite,0,this.combinarAnnoYExpediente(anno,expediente),"" )
+    this.servicio.cargar(this.desde,this.limite,0,expediente,"" )
     .subscribe ( (res1:any) => 
     {
         this.Items1= res1['resultado'];
@@ -148,6 +158,19 @@ opcionSeleccionada2: number=0;
 
   }
 
+  cargarParalegal()
+  {
+    this.cargando = true;
+
+    this.personasService.cargar(0,100,240,'')
+    .subscribe ( (res1:any) => 
+    {
+   //  console.log(res1);
+        this.Paralegales= res1['resultado'];
+        this.cargando = false;
+    });
+
+  }
   cargarTipoEstado() {
 
     this.cargando = true;
@@ -173,7 +196,7 @@ opcionSeleccionada2: number=0;
     this.tiposdetService.cargar(0,-2,10,"" )
     .subscribe ( (res1:any) => 
     {
-     console.log(res1);
+    // console.log(res1);
         this.ClaseActuacion= res1['tiposdetalle'];
       
         this.cargando = false;
@@ -373,7 +396,7 @@ opcionSeleccionada2: number=0;
    // this.abrirModalBuscar();
   }
 
-  abrir(expediente:Expedientes)
+  abrir(expediente:Expedientes2)
     {
      // this.cargando =true;
       this.expediente2.expediente= expediente.expediente;
@@ -394,12 +417,11 @@ opcionSeleccionada2: number=0;
 
       this.expediente2.fechaconb=  expediente.fechaconb;
       this.expediente2.fechapb=  expediente.fechapb;
-      this.expediente2.fechapub=  expediente.fechapub;
-      this.expediente2.fecharesb=  expediente.fecharesb;
+      this.expediente2.fechapublicacion=  expediente.fechapublicacion;
+      this.expediente2.fecharesolucionb=  expediente.fecharesolucionb;
       this.expediente2.fechainac=  expediente.fechainac;
-      this.expediente2.fecharesb=  expediente.fechapri;
 
-      this.expediente2.vencimb=  expediente.vencimb;
+      this.expediente2.vigenuso=  expediente.vigenuso;
       this.expediente2.certif=  expediente.certif;
 
       this.expediente2.gaceta=  expediente.gaceta;
@@ -407,6 +429,7 @@ opcionSeleccionada2: number=0;
       this.expediente2.tipoprod=  expediente.tipoprod;
       this.expediente2.tiporesolucion=  expediente.tiporesolucion;
 
+      console.log(expediente);
 
 
       //this.MArca = expediente.marca;
@@ -480,10 +503,20 @@ opcionSeleccionada2: number=0;
 
 //click en la tabla 
 
-  filaClickeada(item:  Expedientes)
+  filaClickeada(item:  Expedientes2)
   {
     this.expediente2=item;
+
+    //this.expediente2.vigenuso = new Date(this.expediente2.vigenuso);}
+    //this.expediente2.vigenuso = new Date(new Date(this.expediente2.vigenuso).toUTCString());
+
+   // this.expediente2.vigenuso = format(new Date(this.expediente2.vigenuso), 'yyyy/MM/dd', { timeZone: 'UTC' });
+
+
     this.cargarGestion(item.anno, item.expediente);
+    
+    console.log(this.expediente2);
+
 
   }
 
@@ -626,8 +659,9 @@ manejarTeclado(event: KeyboardEvent) {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Expedientes=new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
-   "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
+   public camposEditar : Expedientes2=new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
+    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"");
+
  
       
     
@@ -636,13 +670,14 @@ manejarTeclado(event: KeyboardEvent) {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new Expedientes(0,"","",0,"",0,0,"",0,"",0,"",0,"",0,"",0,"",0,"","",0,"",this.fecha,"","",this.fecha,"",this.fecha,this.fecha,
-        "","","","","",this.fecha,0,this.fecha,"","","",this.fecha,"",this.fecha,"",this.fecha,0,0,"",0,0,"",this.fecha,"",0,"",0);
+        this.camposEditar =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
+          0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"");
+      
       
         this.abrirModal();
     }
 
-    abrirModificar(dtiposdetalle:Expedientes){
+    abrirModificar(dtiposdetalle:Expedientes2){
       this._Crear=false;
 
       this.SubTitulo="Modificar";
@@ -654,6 +689,42 @@ manejarTeclado(event: KeyboardEvent) {
 
       this.abrirModal();
     }
+
+
+     
+
+    abrirModificarGestion(dtiposdetalle:Gestiones2){
+      this._Crear=false;
+
+      this.SubTitulo="Modificar";
+
+      this.camposEditar2 = dtiposdetalle;
+
+      this.idpaisseleccionado= dtiposdetalle.idpais;
+ 
+      this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
+  
+      this.fechaVenceGestion=dtiposdetalle.vence;
+      this.fechaActuacion= dtiposdetalle.fechaactuacion;
+
+      this.camposEditar2.fechaactuacion= dtiposdetalle.fechaactuacion;
+      this.camposEditar2.vence=dtiposdetalle.vence;
+      this.camposEditar2.pendiente=dtiposdetalle.pendiente;
+      this.camposEditar2.gestion=dtiposdetalle.gestion;
+      // this.TipoEstadoTramiteSelecctionado=dtiposdetalle.tipogest;
+      
+      // this.opParalegal=dtiposdetalle.idparalegal;
+      // this.opCodActua=  dtiposdetalle.codactua ;
+      // this.opTiposProcesos=  dtiposdetalle.tipoproc ;
+
+  
+      //  this.opClaseActua= dtiposdetalle.clase;
+      
+
+      this.abrirModalGestion2();
+    }
+
+
     salvarModal()
     {
       
@@ -673,18 +744,16 @@ manejarTeclado(event: KeyboardEvent) {
             this.camposEditar.pais = this.opPais;
             this.camposEditar.clase = this.clasesSeleccionadas.join('; ');
             this.camposEditar.tipoproceso = this.opTipoProceso;
-            this.camposEditar.tipoestadotramite= this.opTipoEstadoTramite; 
-            this.camposEditar.tiposolicitud=this.opTipoSolicitud; 
+            this.camposEditar.estado_tramite= this.opTipoEstadoTramite; 
+            this.camposEditar.tiposol=this.opTipoSolicitud; 
 
+
+            console.log(this.camposEditar);
           this.expedientesService.crear(this.camposEditar)
             .subscribe({
               next: (resp) => {
-              //    this.Logs = JSON.stringify(resp);
                   console.log(resp);
 
-                  // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
-//                  if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
-                      // Si nuevoID es mayor que 0, manejar como éxito
                       Swal.fire(
                         'Crear!',
                         `El item  ${ this.camposEditar.expediente } fue creado con exito.`,
@@ -692,21 +761,8 @@ manejarTeclado(event: KeyboardEvent) {
                       );
 
 
-                  // } else {
-                  //     // Manejar los casos en los que nuevoID no es mayor que 0
-                  //     let mensajeError = 'Ocurrió un error desconocido.';
-                  //     if (resp && resp.resultado) {
-                  //         mensajeError = resp.resultado.mensaje || mensajeError;
-                  //     }
-                  //     Swal.fire(
-                  //         'Crear',
-                  //         mensajeError,
-                  //         'error'
-                  //     );
-                  // }
               },
               error: (errorResp) => {
-                  // Manejo de errores de la petición
                   console.error('Error en la petición:', errorResp);
                   Swal.fire(
                       'Error en la Petición',
@@ -716,6 +772,49 @@ manejarTeclado(event: KeyboardEvent) {
               }
           });
  
+
+//           this.expedientesService.crear(this.camposEditar)
+//           .subscribe({
+//             next: (resp) => {
+//             //    this.Logs = JSON.stringify(resp);
+//                 console.log(resp);
+
+//                 // Comprobamos si 'resp' tiene la propiedad 'resultado' y luego 'nuevoID'
+// //                  if (resp && resp.resultado && resp.resultado.nuevoID > 0) {
+//                     // Si nuevoID es mayor que 0, manejar como éxito
+//                     Swal.fire(
+//                       'Crear!',
+//                       `El item  ${ this.camposEditar.expediente } fue creado con exito.`,
+//                       'success'
+//                     );
+
+
+//                 // } else {
+//                 //     // Manejar los casos en los que nuevoID no es mayor que 0
+//                 //     let mensajeError = 'Ocurrió un error desconocido.';
+//                 //     if (resp && resp.resultado) {
+//                 //         mensajeError = resp.resultado.mensaje || mensajeError;
+//                 //     }
+//                 //     Swal.fire(
+//                 //         'Crear',
+//                 //         mensajeError,
+//                 //         'error'
+//                 //     );
+//                 // }
+//             },
+//             error: (errorResp) => {
+//                 // Manejo de errores de la petición
+//                 console.error('Error en la petición:', errorResp);
+//                 Swal.fire(
+//                     'Error en la Petición',
+//                     'Ocurrió un error al realizar la petición al servidor.',
+//                     'error'
+//                 );
+//             }
+//         });
+
+
+          
         }
       //   else
       //   {
@@ -783,13 +882,12 @@ manejarTeclado(event: KeyboardEvent) {
     }
 
     abrirModalNuevo(){
-      
+      this._Crear=true;
       this.camposEditar.fechapb = new Date();
       this.camposEditar.anno =  this.camposEditar.fechapb.getFullYear();
       this.opPais = 'COLOMBIA';
       this.camposEditar.pais= 'COLOMBIA';
       this._ocultarModalNuevo=false;
-
     }
 
     cerrarModal(){
@@ -826,16 +924,16 @@ manejarTeclado(event: KeyboardEvent) {
 
 
               // Buscar y procesar "Referencia del solicitante"
-              if (linea.includes('Referencia del solicitante')) {
-              this.camposEditar.agente = linea.split('\t')[1].trim();
-              }
+              // if (linea.includes('Referencia del solicitante')) {
+              // this.camposEditar..agente = linea.split('\t')[1].trim();
+              // }
 
               //------------------------------------
               //------------------------------------
               // Buscar y procesar "Estado"
               if (linea.includes('Estado')) {
               // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              this.camposEditar.tiposolicitud= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
+              this.camposEditar.tiposol= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
               }
 
               // if (linea.includes('Fecha de orden de publicación')) {
@@ -856,7 +954,7 @@ manejarTeclado(event: KeyboardEvent) {
               // Buscar y procesar "Estado"
               if (linea.includes('Estado')) {
               // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              this.camposEditar.tipoestadotramite= linea.split('Estado')[1].split('Fecha de radicación')[0].trim();
+              this.camposEditar.estado_tramite= linea.split('Estado')[1].split('Fecha de radicación')[0].trim();
               }
 
               if (linea.includes('Fecha de radicación')) {
@@ -887,7 +985,7 @@ manejarTeclado(event: KeyboardEvent) {
               // Buscar y procesar "Estado"
               if (linea.includes('Tipo de solicitud')) {
               // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              this.camposEditar.tiposolicitud= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
+              this.camposEditar.tiposol= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
               }
 
               if (linea.includes('Fecha de orden de publicación')) {
@@ -898,7 +996,7 @@ manejarTeclado(event: KeyboardEvent) {
 
               if(variable !== null)
               {
-              this.camposEditar.fechapub= this.procesarFecha(variable);
+              this.camposEditar.fechapublicacion= this.procesarFecha(variable);
               }
               variable ="";
               }
@@ -979,7 +1077,8 @@ manejarTeclado(event: KeyboardEvent) {
               this.Solicitante.nombre= Nombres2;
               this.Solicitante.apellido= "";
               this.Solicitante.direccion= Direccion2;
-              this.camposEditar.solicitante=  this.Solicitante.nombre;
+              //this.camposEditar.solicitante=  this.Solicitante.nombre;
+              //this.camposEditar.solicitante=  this.Solicitante.nombre;
 
               console.log(this.Solicitante);
               }
@@ -1045,7 +1144,7 @@ manejarTeclado(event: KeyboardEvent) {
               // console.log(reinvindicaciones);
 
 
-              this.camposEditar.fechapri=  this.procesarFecha(fechaprioridad);
+              this.camposEditar.fechaprioridad=  this.procesarFecha(fechaprioridad);
               Operacion=0;
               }
 
@@ -1062,10 +1161,10 @@ manejarTeclado(event: KeyboardEvent) {
 
 
 
-              if (linea.includes('Versión de la Clasificación de Niza')) {
-              // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              this.camposEditar.vcniza=  parseInt(linea.split('Versión de la Clasificación de Niza')[1].split('\t')[1].trim());
-              }
+              // if (linea.includes('Versión de la Clasificación de Niza')) {
+              // // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+              // this.camposEditar.vcniza=  parseInt(linea.split('Versión de la Clasificación de Niza')[1].split('\t')[1].trim());
+              // }
 
 
               if (linea.includes('Tipo de Signo Distintivo')) {

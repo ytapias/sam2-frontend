@@ -9,7 +9,11 @@ export class Analisis {
       public cadena1: string,  
       public cadena2: string,
       public Resultadoglobal: string,
-      public resultado: number,    
+      public resultado: number, 
+      public clase: string,
+      public solicitant: string,
+      public plazopo: Date,
+      public expedi: string,
       ) 
   { }
 }

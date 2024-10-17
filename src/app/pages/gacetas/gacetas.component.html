@@ -106,7 +106,7 @@
             </div>
 
             <div class="table-responsive">
-                <table class="table color-bordered-table inverse-bordered-table table-hover ">
+                <!-- <table class="table color-bordered-table inverse-bordered-table table-hover ">
 
 
                     <thead>
@@ -117,8 +117,7 @@
                           <th class="w80">idresultado</th>
                             <th class="w80">Cadena Marca</th>
                             <th class="w80">Cadena Gaceta</th>
-                            <!-- <th class="w80">Cadena1</th>
-                            <th class="w80">Cadena2</th> -->
+                          
                             <th class="w60">idempresa</th>                       
                             <th class="w60">idmarca</th>
                             <th class="w60">idgaceta</th>                           
@@ -140,16 +139,7 @@
                          
 
 
-                                     <!-- 
-                                        
-                                        
-                            
-                                <a (click)="eliminarTiposdetalle(nitem)"
-                                class="cursor"
-                                 data-toggle="tooltip" data-original-title="Borrar"> 
-                                <i class="fa fa-close text-danger">
-                                </i> 
-                            </a> </td>   -->
+                              
                              
                              <td>{{ nitem.Gaceta }}</td>                            
                              <td>{{ nitem.Resultadoglobal }}</td>
@@ -159,8 +149,7 @@
                             <td>{{ nitem.Cadena2marca}}</td>
                             <td>{{ nitem.Cadena1gaceta }}</td>
 
-                            <!-- <td>{{ nitem.cadena2 }}</td>
-                            <td>{{ nitem.cadena1 }}</td> -->
+                         
                             <td>
                                 {{ nitem.idempresa }} 
                             </td>
@@ -170,8 +159,65 @@
                         </tr>
                      
                     </tbody>
-                </table>
+                </table> -->
 
+
+                <table class="table color-bordered-table inverse-bordered-table table-hover">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th class="w80">
+                          Gaceta
+                          <input type="text" class="form-control" [(ngModel)]="filters.Gaceta" placeholder="Filtrar Gaceta">
+                        </th>
+                        <th class="w120">
+                          Resultado
+                          <input type="text" class="form-control" [(ngModel)]="filters.Resultadoglobal" placeholder="Filtrar Resultado">
+                        </th>
+                        <th class="w80">
+                          idresultado
+                          <input type="text" class="form-control" [(ngModel)]="filters.resultado" placeholder="Filtrar idresultado">
+                        </th>
+                        <th class="w80">
+                          Cadena Marca
+                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena2marca" placeholder="Filtrar Cadena Marca">
+                        </th>
+                        <th class="w80">
+                          Cadena Gaceta
+                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena1gaceta" placeholder="Filtrar Cadena Gaceta">
+                        </th>
+                        <th class="w60">
+                          idempresa
+                          <input type="text" class="form-control" [(ngModel)]="filters.idempresa" placeholder="Filtrar idempresa">
+                        </th>
+                        <th class="w60">
+                          idmarca
+                          <input type="text" class="form-control" [(ngModel)]="filters.idmarca" placeholder="Filtrar idmarca">
+                        </th>
+                        <th class="w60">
+                          idgaceta
+                          <input type="text" class="form-control" [(ngModel)]="filters.idgaceta" placeholder="Filtrar idgaceta">
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let nitem of filteredItems()">
+                        <td>
+                          <a (click)="generateWordDocument(nitem)" class="cursor" data-toggle="tooltip" data-original-title="Editar">
+                            <i class="fas fa-file-word-o text-inverse m-r-10"></i>
+                          </a>
+                        </td>
+                        <td>{{ nitem.Gaceta }}</td>
+                        <td>{{ nitem.Resultadoglobal }}</td>
+                        <td>{{ nitem.resultado }}</td>
+                        <td>{{ nitem.Cadena2marca }}</td>
+                        <td>{{ nitem.Cadena1gaceta }}</td>
+                        <td>{{ nitem.idempresa }}</td>
+                        <td>{{ nitem.idmarca }}</td>
+                        <td>{{ nitem.idgaceta }}</td>
+                      </tr>
+                    </tbody>
+                  </table>  
                 
                     <div>
                         <!-- <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>

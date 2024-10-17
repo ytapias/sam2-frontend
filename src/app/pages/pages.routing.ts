@@ -9,6 +9,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { authGuard } from '../guards/auth.guard';
+import { roleGuard } from '../guards/role.guard';
+
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 import { ConsultasComponent } from './consultas/consultas.component';
 import { ConfiguracionComponent } from './mantenimientos/configuracion/configuracion.component';
@@ -33,40 +35,33 @@ const routes: Routes =[
         component:PagesComponent,
         canActivate:[authGuard],
         children:[
-          {path: '',component:DashboardComponent,data :{titulo :'Dashboard'} },
-          {path: 'grafica1',component:Grafica1Component,data :{titulo :'Grafica 1'}},
-          {path: 'progress',component:ProgressComponent,data :{titulo :'Progress'}},
-          {path: 'account-settings',component:AccountSettingsComponent,data :{titulo :'Ajustes'}},
-          {path: 'myprofile',component:MyprofileComponent,data :{titulo :'Ajustes'}},
-          {path: 'promesas',component:PromesasComponent,data :{titulo :'Promesas'}},
-          {path: 'rxjs',component:RxjsComponent,data :{titulo :'Rxjs'}},
-
-       //   {path: '',redirectTo:'/dashboard',pathMatch:'full'},
-          
-       //principal
-       {path: 'registro',component:RegistroComponent,data :{titulo :'Registro'}},
-       //   {path: 'consultas',component:ConsultasComponent,data :{titulo :'Consultas'}},
-          {path: 'principal',component:PrincipalformComponent,data :{titulo :'Principal'}},
-
-          { path: 'gestiones/:gestion', component: GestionesComponent },  // Ruta con parámetro
-          {path: 'gestiones',component:GestionesComponent,data :{titulo :'Gestiones'}},
-          
-
-          {path: 'demandas',component:DemandasComponent,data :{titulo :'Demandas'}},
-          {path: 'tareas',component:TareasComponent,data :{titulo :'Tareas'}},
-          {path: 'marcas',component:MarcasComponent,data :{titulo :'Marcas'}},
-          {path: 'personas',component:PersonasComponent,data :{titulo :'Personas'}},
-          {path: 'analisis',component:AnalisisComponent,data :{titulo :'Analizar Gaceta'}},
+          {path: '',component:DashboardComponent, canActivate: [roleGuard],data :{titulo :'Dashboard', roles: [222,223]} },
+          {path: 'grafica1',component:Grafica1Component, canActivate: [roleGuard],data :{titulo :'Grafica 1', roles: [222,223]}},
+          {path: 'progress',component:ProgressComponent, canActivate: [roleGuard],data :{titulo :'Progress', roles: [222,223]}},
+          {path: 'account-settings',component:AccountSettingsComponent, canActivate: [roleGuard],data :{titulo :'Ajustes', roles: [222,223]}},
+          {path: 'myprofile',component:MyprofileComponent, canActivate: [roleGuard],data :{titulo :'Ajustes', roles: [222,223] }},
+          {path: 'promesas',component:PromesasComponent, canActivate: [roleGuard],data :{titulo :'Promesas', roles: [222,223] }},
+          {path: 'rxjs',component:RxjsComponent, canActivate: [roleGuard],data :{titulo :'Rxjs', roles: [222,223] }},
+          {path: 'registro',component:RegistroComponent, canActivate: [roleGuard],data :{titulo :'Registro', roles: [222,223]}},
+          {path: 'gestiones/:gestion', component: GestionesComponent },  // Ruta con parámetro
+          {path: 'gestiones',component:GestionesComponent, canActivate: [roleGuard],data :{titulo :'Gestiones', roles: [222,223]}},
+          {path: 'demandas',component:DemandasComponent, canActivate: [roleGuard],data :{titulo :'Demandas', roles: [222,223]}},
+          {path: 'marcas',component:MarcasComponent, canActivate: [roleGuard],data :{titulo :'Marcas', roles: [222,223]}},
+          {path: 'personas',component:PersonasComponent, canActivate: [roleGuard],data :{titulo :'Personas', roles: [222,223]}},
+          {path: 'analisis',component:AnalisisComponent, canActivate: [roleGuard],data :{titulo :'Analizar Gaceta', roles: [222,223]}},
           
 
           //mantenimientos
-          {path: 'usuarios',component:UsuariosComponent,data :{titulo :'Usuario de aplicacion'}},
-          {path: 'configuracion',component:ConfiguracionComponent,data :{titulo :'Configurar'}},
-          {path: 'paisesyciudades',component:PaisesyciudadesComponent,data :{titulo :'Paises Y Ciudades'}},
-          {path: 'empresas',component:EmpresasComponent,data :{titulo :'Empresas'}},
-          {path: 'cargar',component:CargarComponent,data :{titulo :'Cargador'}},
-          {path: 'comparar',component:CompararComponent,data :{titulo :'Comparar'}},
-          {path: 'gacetas',component:GacetasComponent,data :{titulo :'Gacetas Realizadas'}},
+          {path: 'principal',component:PrincipalformComponent, canActivate: [roleGuard],data :{titulo :'Principal', roles: [222]}},
+          {path: 'tareas',component:TareasComponent, canActivate: [roleGuard],data :{titulo :'Tareas', roles: [222]}},
+
+          {path: 'usuarios',component:UsuariosComponent, canActivate: [roleGuard],data :{titulo :'Usuario de aplicacion', roles: [222]}},
+          {path: 'configuracion',component:ConfiguracionComponent, canActivate: [roleGuard],data :{titulo :'Configurar', roles: [222]}},
+          {path: 'paisesyciudades',component:PaisesyciudadesComponent, canActivate: [roleGuard],data :{titulo :'Paises Y Ciudades', roles: [222]}},
+          {path: 'empresas',component:EmpresasComponent, canActivate: [roleGuard],data :{titulo :'Empresas', roles: [222]}},
+          {path: 'cargar',component:CargarComponent, canActivate: [roleGuard],data :{titulo :'Cargador', roles: [222]}},
+          {path: 'comparar',component:CompararComponent, canActivate: [roleGuard],data :{titulo :'Comparar', roles: [222]}},
+          {path: 'gacetas',component:GacetasComponent, canActivate: [roleGuard],data :{titulo :'Gacetas Realizadas', roles: [222]}},
         ]
       },
     

@@ -36,6 +36,12 @@ export class UsuarioService {
  
   }
 
+
+    // Obtiene el rol del usuario
+    get role(): number {
+      return this.usuario.idrole || 0;
+    }
+    
   get token():string{
     return localStorage.getItem('token') || '';
   }
@@ -100,18 +106,6 @@ export class UsuarioService {
                                                     ,email,idrole,role,idpersona,idtipoidentificacion,identificacion
                                                     ,nombre,idestado,estado,'');
 
-                         //  console.log(this.usuario);
-                          //                           const token1=resp.token;
-//                           const login1=resp.nom;
-//                           const login = resp.decode.nom;
-// 
-/*
-                          
-                          localStorage.setItem('nom',login); 
-                          localStorage.setItem('login',login); 
-                          localStorage.setItem('email',login); 
-                          localStorage.setItem('emp',resp.decode.emp); 
-*/
                   
                   }),
                   map( resp =>   true
@@ -152,36 +146,14 @@ export class UsuarioService {
   }
 
   
-
-
-/*
-  cargar(desde: number =0,cuantos: number =5)
-  {
-  
-      const url = `${ base_url }/usuarios?desde=${desde}&elementos=${cuantos}`;
-      return this.http.get<{usuarios:Usuario[],total: number}>(url,this.headers  );
-                      //.pipe(                        delay(5000));
-  }*/
+ 
 
   cargar(desde: number =0,cuantos: number =10, espais :Number = 0, nombre :string="",uid: number=0)
   {
     const url = `${ base_url }/usuariosSQL?desde=${desde}&elementos=${cuantos}&espais=${espais}&nombre=${nombre}`;
     return this.http.get<{usuarios:Usuario[],total: number}>(url,this.headers  );
   }
-/*
-  crearUsuario(formData : RegisterForm)
-  {
-      //console.log('creando usuario');
-      return this.http.post(`${ base_url }/usuariosSQL`,formData)
-                      .pipe(
-                        tap( (resp:any) =>{
-                              localStorage.setItem('token',resp.token) 
-
-                        })
-                      );
-  }
-*/
-  
+ 
   crear(item : Usuario)
   {
       //console.log('creando');

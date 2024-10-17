@@ -3,6 +3,7 @@ export class Expedientes2 {
   constructor( 
     public id:number,
     public idempresa:number,
+    public empresa:string,
     public expediente:string,
     public idpais:number,
     public pais:string,
@@ -21,16 +22,20 @@ export class Expedientes2 {
     public fecharesolucionb:Date,
     public fechavencimientob:Date,
     public gaceta:string,
+    public fechapublicacion:Date,
     public tipoprod:string,
     public observaciones:string,
     public propia:string,
     public coddenomi:number,
     public idmarca:number,
+    public marca:string,
     public codapoderado:number,
     public idapoderado:number,
+    public apoderado:string,
     public descprod:string,
     public nrointerno:string,
     public estad:string,
+    public estado_tramite:string,
     public prioridad:string,
     public fechaprioridad:Date,
     public expedienteprioridad:string,
@@ -38,7 +43,6 @@ export class Expedientes2 {
     public yourref:string,
     public aviso:string,
     public licenuso:string,
-    public fechapublicacion:Date,
     public fechainac:Date,
     public imagen:string,
     public clases:string,
@@ -49,7 +53,8 @@ export class Expedientes2 {
     public tiposol:string,
     public vigenuso:Date,
     public frrenova:Date,
-    public idestado:number    
+    public idestado:number, 
+    public estado:string   
       ) 
   { }
 }
