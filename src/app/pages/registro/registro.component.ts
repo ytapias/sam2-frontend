@@ -59,7 +59,7 @@ public EStado =  { _id: "", nombre:"", codigo:""};
   public fecha: Date = new Date();
 
   public expediente2: Expedientes2 =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
-    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"");
+    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
 
 public elementos :number = 12;
 
@@ -660,7 +660,7 @@ manejarTeclado(event: KeyboardEvent) {
   private _Uid: string = "";
 
    public camposEditar : Expedientes2=new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
-    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"");
+    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
 
  
       
@@ -671,7 +671,7 @@ manejarTeclado(event: KeyboardEvent) {
         this.SubTitulo="Crear";
         
         this.camposEditar =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
-          0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"");
+          0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
       
       
         this.abrirModal();

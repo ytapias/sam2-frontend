@@ -14,10 +14,6 @@ export class SidebarService {
       icono:'mdi mdi-gauge',
       submenu: [
         { titulo:'Main',url:'/', roles: [222, 223]},
-        { titulo:'ProgressBar',url:'progress', roles: [222, 223]},
-        { titulo:'Graficas',url:'grafica1', roles: [222, 223]},
-        { titulo:'Promesas',url:'promesas', roles: [222, 223]},
-        { titulo:'Rxjs',url:'rxjs', roles: [222, 223]},
       ]
     },
     {
@@ -41,12 +37,23 @@ export class SidebarService {
         { titulo:'Configuracion',url:'configuracion', roles: [222]},
         { titulo:'Paises y Ciudades',url:'paisesyciudades', roles: [222]},
         { titulo:'Usuarios',url:'usuarios', roles: [222]},
-        { titulo:'Empresas',url:'empresas', roles: [222]},
-        { titulo:'Expedientes',url:'principal', roles: [222]},
         { titulo:'Tareas',url:'tareas', roles: [222]},
         { titulo:'Comparar',url:'comparar', roles: [222]},
         { titulo:'Cargador Gacetas',url:'cargar', roles: [222]},
         { titulo:'Analizar Gacetas',url:'gacetas', roles: [222]},
+
+      ]
+    },
+    {
+      titulo: 'Otros',
+      icono:'mdi mdi-apps',
+      submenu: [
+        { titulo:'Empresas',url:'empresas', roles: [222]},
+        { titulo:'Expedientes',url:'principal', roles: [222]},
+        { titulo:'ProgressBar',url:'progress', roles: [222]},
+        { titulo:'Graficas',url:'grafica1', roles: [222]},
+        { titulo:'Promesas',url:'promesas', roles: [222]},
+        { titulo:'Rxjs',url:'rxjs', roles: [222]},
 
       ]
     }

@@ -54,7 +54,9 @@ export class Expedientes2 {
     public vigenuso:Date,
     public frrenova:Date,
     public idestado:number, 
-    public estado:string   
+    public estado:string,   
+    public idsolicitante:number, 
+    public solicitante:string  
       ) 
   { }
 }

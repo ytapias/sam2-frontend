@@ -14,6 +14,8 @@ export class Analisis {
       public solicitant: string,
       public plazopo: Date,
       public expedi: string,
+      public duenomarca: string,
+      public idduenomarca:number,
       ) 
   { }
 }

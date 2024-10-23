@@ -57,6 +57,9 @@
                 <div class="col-lg-4 col-xlg-3 col-md-5">
                     <h6 ><b>Estado Tramite :</b> </h6> <h6  class="data-display"> {{expediente2.estado_tramite}} </h6>
                 </div>
+                <div class="col-lg-4 col-xlg-3 col-md-5">
+                    <h6 ><b>Solicitante :</b> </h6> <h6> {{expediente2.solicitante}} </h6>
+                </div>
                 
             </div>
             <div [ngClass]="{'minimizado': seccionMinimizada}" >
@@ -136,7 +139,8 @@
                     <th>Año</th>
                     <th>Clase</th>
                     <th>No. Interno</th>
-                    <th>Certificado</th>                    
+                    <th>Certificado</th>     
+                    <th class="w100">Solicitante</th>                 
                 </tr>
             </thead>
             <tbody>
@@ -149,6 +153,7 @@
                     <td>{{ item.clase }}</td>
                     <td>{{ item.nrointerno }}</td>
                     <td>{{ item.certif }}</td>
+                    <td>{{ item.solicitante }}</td>
                 </tr>
             </tbody>
         </table>
@@ -194,6 +199,7 @@
                             <th class="w100">Tipo ACT</th>
                             <th class="w100">Vence</th>
                               <th class="w100">Paralegal</th>  
+                              
                           <!--   <th class="w300">Observaciones</th>
                             -->
                             <th  class="w100">Estado</th>
@@ -261,6 +267,7 @@
                             <td>{{ nitem.codactua }}</td>
                             <td>{{ nitem.vence | date:'yyyy-MM-dd'}}</td>
                              <td>{{ nitem.paralegal }}</td> 
+                             
                            <!--
                              <td>{{ nitem.observaciones }}</td>
                            -->

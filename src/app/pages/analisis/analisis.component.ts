@@ -134,7 +134,7 @@ export class AnalisisComponent {
                   
                 }),
                 new TextRun({
-                  text: `[Nombre del titular de la marca]`,
+                  text: `${item.duenomarca}`,
                   size: 24,
                   bold: true,
                   font: 'Arial',
@@ -240,7 +240,7 @@ export class AnalisisComponent {
                       children: [new Paragraph('Titular')],
                     }),
                     new TableCell({
-                      children: [new Paragraph('Titular')],
+                      children: [new Paragraph(item.duenomarca)],
                     }),
                   ],
                 }),
