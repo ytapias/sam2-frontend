@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 import { tareas } from 'src/app/models/tareas.model';
 import { GestionesDemandasService } from 'src/app/services/gestiones_demandas.service';
 import { Gestiones_Demandas } from 'src/app/models/gestiones_demandas';
+import { Gestiones2 } from 'src/app/models/gestiones2';
 
 @Component({
   selector: 'app-demandas',
@@ -736,6 +737,16 @@ abrirModificarTarea(nitem2:tareas)
 
 }
 
+abrirModificarGestion(nitem2:Gestiones_Demandas)
+{
+  // this._ocultarModalTarea2=true;
+  // this.camposEditarTarea =new tareas(nitem2.id,nitem2.idempresa,'','',nitem2.tarea,nitem2.fechavence,nitem2.idestado,nitem2.estado,nitem2.idgestion,nitem2.idexpediente,0,0,'','');
+  // this.editarTareas=1;
+  // this._ocultarModalTarea=false;
+  this._ocultarModalTarea=false;
+
+
+}
 
 ///////////////////////////////////////
 //    FIN MODAL

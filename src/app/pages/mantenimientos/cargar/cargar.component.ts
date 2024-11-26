@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CargarService } from 'src/app/services/cargar.service';
 
+ 
 
 import Swal from 'sweetalert2';
 import * as XLSX from 'xlsx';
@@ -102,21 +103,47 @@ export class CargarComponent {
 
   }
 
-  uploadData(data: string) 
-  {
-    // Servicio HTTP para enviar los datos al backend
-  //  console.log (data);
-  this.servicio.cargar("gacetas",data )
-  .subscribe(resp =>
-    {
-      this.Logs = JSON.stringify(resp);
-//this.cargar();
-      Swal.fire(
-        'Cargado!',
-        `El cargue   fue Exitoso .`,
-        'success'
-      );
+//   uploadData(data: string) 
+//   {
+//     // Servicio HTTP para enviar los datos al backend
+//   //  console.log (data);
+//   this.servicio.cargar("gacetas",data )
+//   .subscribe(resp =>
+//     {
+//       this.Logs = JSON.stringify(resp);
+// //this.cargar();
+//       Swal.fire(
+//         'Cargado!',
+//         `El cargue   fue Exitoso .`,
+//         'success'
+//       );
 
-    });
-  }
+//     });
+
+
+    
+//   }
+
+uploadData(data: string): void {
+  // Llamas a la función del servicio, la cual devuelve un Observable
+  this.servicio.cargar("gacetas", data)
+    .subscribe(
+      resp => {
+        this.Logs = JSON.stringify(resp);
+        Swal.fire(
+          'Cargado!',
+          'El cargue fue Exitoso.',
+          'success'
+        );
+      },
+      error => {
+        console.error('Error al cargar los datos:', error);
+        Swal.fire(
+          'Error',
+          'Ocurrió un error al cargar los datos.',
+          'error'
+        );
+      }
+    );
+}
 }

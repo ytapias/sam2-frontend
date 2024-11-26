@@ -43,7 +43,7 @@
                     <h6 ><b>Vigencia :</b> </h6>
                      <h6 class="data-display">
                          <!-- {{expediente2.vigenuso}}  -->
-                        {{ expediente2.vigenuso | date:'yyyy/MM/dd':'UTC' }}
+                        {{ expediente2.fechavencimientob | date:'yyyy/MM/dd':'UTC' }}
 
 
                      </h6>
@@ -328,8 +328,8 @@
     <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(1)">Siguiente</button>
     <button class="btn waves-effect waves-light btn-warning"  (click)="cambiarPagina(99)">Ultima</button>
     &nbsp;&nbsp;&nbsp;
-    <button class="btn btn-success"  (click)="abrirModal()" >Nuevo</button>
-    <button class="btn btn-success" (click)="abrirModalNuevo()" >Editar Actual</button>
+    <button class="btn btn-success"  (click)="abrirModalNuevo()" >Nuevo</button>
+    <button class="btn btn-success" (click)="abrirModal()" >Editar Actual</button>
     &nbsp;&nbsp;&nbsp;
     <button (click)="abrirUrl()">Ir a la S.I.C.</button>
 
@@ -393,185 +393,6 @@
 </style>
 
 
-
-<!---------------
-        MODAL
--->
-
-
-<!-- 
-<div class="modal animated fadeIn fast" *ngIf="!ocultarModal" >
-
- 
-       
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">{{Titulo}}</h4>
-                    <button type="button" 
-                    class="close" 
-                    data-dismiss="modal" 
-                    aria-hidden="true"
-                    (click)="cerrarModal()">×</button>
-                </div>
-               
-                <div class="modal-body">
-                    <div class="card-body">
-                    
-                        <div class="form-body" > 
-                      
-
-
-                                <div class="row">
-                            
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Expediente :</b>  </h6> 
-                                        <input type="text" id="lastName"  placeholder="Expediente" [(ngModel)]="camposEditar.expediente">
-                                    </div>
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Marca :</b>  </h6>  
-                                        <input type="text" id="marca"  placeholder="Marca" [(ngModel)]="camposEditar.marca">
-                                    </div>                                    
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Pais Radicacion:</b>  </h6>
-                                        <input type="text" id="fecha"  placeholder="Pais Radicacion" [(ngModel)]="camposEditar.pais">
-                                    </div>                                    
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Fecha :</b> </h6> 
-                                        <input type="date" id="fecha"  placeholder="Fecha Publicacion" [ngModel]="camposEditar.fechapb| date:'yyyy/MM/dd':'GMT+0'">
-                                    </div>       
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Año :</b> </h6> 
-                                        <input type="text" id="anno"  placeholder="Año" [(ngModel)]="camposEditar.anno">
-                                    </div> 
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Clase :</b> </h6> 
-                                        <input type="text" id="clase"  placeholder="clase" [(ngModel)]="camposEditar.clase">
-                                    </div> 
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Gaceta :</b> </h6>
-                                        <input type="text" id="tipoproceso"  placeholder="Gaceta" [(ngModel)]="camposEditar.gaceta">
-                                   </div>  
-                                    
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Dominio :</b> </h6> 
-                                        <input type="text" id="dominio"  placeholder="Dominio" [(ngModel)]="camposEditar.dominio">
-                                    </div> 
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Pais :</b> </h6> 
-                                        <input type="text" id="marca" placeholder="Pais" [(ngModel)]="camposEditar.idpais">
-                                    </div> 
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Tipo Proceso :</b> </h6>
-                                        <input type="text" id="tipoproceso" placeholder="Tipo proceso" [(ngModel)]="camposEditar.tipoproceso">
-                                    </div>  
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Tipo Solicitud :</b> </h6> 
-                                        <input type="text" id="marca" placeholder="Tipo Solicitud" [(ngModel)]="camposEditar.tiposol">
-                                    </div>  
-                                </div>
-                            <hr>
-                                <div class="row">
-                                   
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Apoderado :</b>  </h6> 
-                                        <input type="text" id="marca" placeholder="Apoderado" [(ngModel)]="camposEditar.apoderado">
-                                    </div>
-                                                              
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Estado Tramite:</b>  </h6> 
-                                        <input type="text" id="marca"  placeholder="Estado Tramite" [(ngModel)]="camposEditar.estado_tramite">
-
-                                    </div>                                    
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Nrointerno :</b> </h6> 
-                                        <input type="text" id="marca"  placeholder="Numero Interno" [(ngModel)]="camposEditar.nrointerno">
-
-                                    </div>                                    
-                                
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Prioridad :</b> </h6> 
-                                        <input type="text" id="marca" placeholder="Prioridad" [(ngModel)]="camposEditar.prioridad">
-
-                                    </div> 
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Fecha Prioridad :</b> </h6>
-                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.fechaprioridad | date:'yyyy-MM-dd':'GMT+0'">
-                                    </div> 
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>expedipri :</b> </h6> 
-                                        <input type="date" id="marca" placeholder="Estado Tramite" [ngModel]="camposEditar.expedienteprioridad | date:'yyyy-MM-dd':'GMT+0'">
-                                    </div>  
-                                    <div class="col-lg-4 col-xlg-3 col-md-5">
-                                        <h6 ><b>Yourref :</b> </h6> 
-                                        <input type="text" id="marca" placeholder="yourref" [(ngModel)]="camposEditar.yourref">
-                                    </div>  
-                                </div>
-                            <hr>
-                    
-                            <div class="row">
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>Licenuso :</b> </h6> 
-                                    <input type="text" id="marca" placeholder="yourref" [(ngModel)]="camposEditar.licenuso">
-                                 </div>
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>pagcert :</b> </h6> 
-                                    <input type="text" id="pagcert" placeholder="pagcert" [(ngModel)]="camposEditar.pag">
-                             </div>                                    
-                                    
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>fechapub:</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechapublicacion | date:'yyyy-MM-dd':'GMT+0'">
-                                    </div>                                    
-                                                    
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>ts :</b> </h6> 
-                                    <input type="text" id="marca"  placeholder="yourref" [(ngModel)]="camposEditar.ts">
-                                 </div>
-                              
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>fechainac:</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.fechainac | date:'yyyy-MM-dd':'GMT+0'">
-                                    </div>                                    
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>vcniza :</b> </h6> 
-                                    <input type="text" id="pagcert"  placeholder="pagcert" [(ngModel)]="camposEditar.vcniza">
-                                </div>                                    
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>rvidicac :</b> </h6> 
-                                    <input type="text" id="marca"  placeholder="yourref" [(ngModel)]="camposEditar.rvidicac">
-                                 </div>
-                               
-                                    
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>frrenova :</b> </h6> 
-                                        <input type="date" id="marca"  placeholder="Estado Tramite" [ngModel]="camposEditar.frrenova | date:'yyyy-MM-dd':'GMT+0'">
-                                    </div>                                    
-                                <div class="col-lg-4 col-xlg-3 col-md-5">
-                                    <h6 ><b>observaciones :</b> </h6> 
-                                    <input type="text" id="pagcert" class="" placeholder="pagcert" [(ngModel)]="camposEditar.observaciones">
-                                </div>              
-                            </div>
-                        </div>
- 
-                        <div class="modal-footer">
-                            PEGAR COPIA SIC<input type="text" (paste)="onPaste($event)" style="color: #000;background-color: #000;">
-                            <button type="button" 
-                                class="btn btn-default waves-effect" 
-                                data-dismiss="modal"
-                                (click)="cerrarModal()"
-                            >Cerrar</button>
-                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
-                        </div>
-
-                    </div>
-                </div>
-                     
-            </div>
-       
-     
-
-</div>
- -->
 
 <!--
 ------------------------------------------------------------
@@ -982,13 +803,13 @@ NUEVO INGRESO EXPEDIENTES
                                   <div class="col-md-2">
                                     &nbsp; 
                                 </div>
-
+<!-- 
                                 <div class="col-md-2">
                                     <label class="control-label">Clase</label>
                            </div>        
                            <div class="col-md-2">        
                                
-                            <!-- [(ngModel)]="opClaseActua" -->
+                            
                                   <select class="form-control w140" name="tipoproc"
                                     style="width: 200px;">
                                      
@@ -1000,15 +821,14 @@ NUEVO INGRESO EXPEDIENTES
                                  
 
 
-                             </div>
+                             </div> -->
                                 <!--/span-->
                             </div>
                             <div class="row">
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                          <label class="control-label">Tipo Proceso</label>
                                 </div>        
                                 <div class="col-md-2">        
-                                    <!-- [(ngModel)]="opTiposProcesos" -->
                                          <select class="form-control w140" name="tipoproc"
                                            style="width: 200px;">
                                             
@@ -1017,11 +837,11 @@ NUEVO INGRESO EXPEDIENTES
                                             </option>
                                         </select> 
 
-                                  </div>
+                                  </div> -->
                                 <!--/span-->
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     &nbsp;
-                                </div>
+                                </div> -->
                                 <div class="col-md-2">
                                     <label class="control-label">Expediente</label>
                                 </div>
@@ -1084,7 +904,7 @@ NUEVO INGRESO EXPEDIENTES
 
                                 </div>
                                 <div class="col-md-2">
-                                        <label class="control-label">Fecha Vencimiento</label>
+                                        <label class="control-label">Fecha Tarea</label>
                                  </div>
                                 <div class="col-md-2">
                                        <!-- <input type="date" [(ngModel)]="camposEditar.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> -->
@@ -1098,7 +918,7 @@ NUEVO INGRESO EXPEDIENTES
                              <!--/row-->
 
                              <div class="row">
-                                <div class="col-md-2">
+                                <!-- <div class="col-md-2">
                                     <label class="control-label">Pais</label>
                                 </div>
                                 <div class="col-md-2">
@@ -1111,10 +931,9 @@ NUEVO INGRESO EXPEDIENTES
                                         </select>
                                     
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-2">
 
-                                </div>
+                                </div> -->
                                 <div class="col-md-2">
                                     <label class="control-label">Estado Tramite</label>
                                 </div>
@@ -1130,6 +949,7 @@ NUEVO INGRESO EXPEDIENTES
                                         </option>
                                     </select>  
                                 <!--/span-->
+                            </div>
                             </div>
 
                             <div class="row">
@@ -1178,9 +998,9 @@ NUEVO INGRESO EXPEDIENTES
                                 (click)="cerrarModalGestion2()"
                             >Cerrar</button>
                             <button type="button" class="btn btn-danger waves-effect waves-light" 
-
+                            (click)="salvarModalGestion()" 
                              >Salvar cambios</button>
-                                                          <!-- (click)="salvarModalGestion()" -->
+                                                           
                         </div>
 
                  </div>
@@ -1240,7 +1060,7 @@ NUEVO INGRESO EXPEDIENTES
                       
                         <div class="col-md-6">
 
-                        <label class="control-label">Fecha Vencimiento</label>
+                        <label class="control-label">Fecha Tarea</label>
                         </div>
                         <div class="col-md-6">
                         <input type="date" id="fechavencimiento" 
@@ -1333,7 +1153,7 @@ NUEVO INGRESO EXPEDIENTES
                                 <tr>
                                     <th></th>
                                     <th class="w200">Tarea</th>
-                                    <th class="w100">Vencimiento</th>
+                                    <th class="w100">Fecha Tarea</th>
                                     <th  class="w100">Estado</th>
                                     <th  class="w60">id</th>
                                    

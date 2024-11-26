@@ -674,7 +674,8 @@ manejarTeclado(event: KeyboardEvent) {
           0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
       
       
-        this.abrirModal();
+          this.abrirModalGestion2();
+
     }
 
     abrirModificar(dtiposdetalle:Expedientes2){
@@ -1543,6 +1544,80 @@ manejarTeclado(event: KeyboardEvent) {
  
     console.log(tipow);
      
+ }
+
+
+ salvarModalGestion()
+ {
+
+     if(this._Crear === true)
+     {
+
+       
+        let  nueva    : Gestiones2 = new Gestiones2(0,this.Empresa,0,this.camposEditar.expediente,0,'','',this.idpaisseleccionado,'',this.camposEditar.clase, '' //this.opTiposProcesos,
+        ,this.fechaActuacion,'' // this.opCodActua
+        , this.camposEditarGestion.gestion, this.camposEditarGestion.sitermino,
+        this.fechaVenceGestion, this.camposEditarGestion.pendiente,1 //this.TipoEstadoTramiteSelecctionado
+        , this.camposEditarGestion.um,this.TipoEstadoSeleccionado,'',
+        1 //this.opParalegal
+        ,'');
+       
+       console.log(nueva);
+       console.log(this.camposEditarGestion.fechaactuacion);
+
+       this.servicio.crear(nueva)
+       .subscribe(resp =>
+         {
+          // this.Logs = JSON.stringify(resp);
+           
+           console.log(resp);
+           Swal.fire(
+             'Crear!',
+             `El item  ${ this.camposEditar.id } fue creado con exito.`,
+             'success'
+           );
+
+         });
+       
+
+     }
+     else
+     {
+       this.camposEditarGestion.vence= this.fechaVenceGestion;
+       this.camposEditarGestion.fechaactuacion=this.fechaActuacion;
+       this.camposEditarGestion.idestado= this.TipoEstadoSeleccionado;
+
+      //  this.camposEditarGestion.idparalegal= this.opParalegal;
+      //  this.camposEditarGestion.tipoproc= this.opTiposProcesos;
+      //  this.camposEditarGestion.codactua= this.opCodActua;
+      //  this.camposEditarGestion.idpais= this.idpaisseleccionado;
+      //  this.camposEditarGestion.tipogest= this.TipoEstadoTramiteSelecctionado;
+       this.servicio.modificar(this.camposEditarGestion)
+       .subscribe(resp =>
+         {
+          // this.Logs = JSON.stringify(resp);
+           //var variable: RespuestaBackend = resp;
+           
+           console.log(resp);
+           Swal.fire(
+             'Modificar!',
+             `El item  ${ this.camposEditar.id }   fue modificado  con exito.`,
+             'success'
+           );
+
+         });
+
+       //  this.cargar();
+   
+
+     }
+
+    // console.log(ciudadPais);
+     
+   
+   
+     
+     this.cerrarModalGestion();
  }
 
   ///////////////////////////////////////

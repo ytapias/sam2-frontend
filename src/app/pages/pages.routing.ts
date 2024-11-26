@@ -45,7 +45,7 @@ const routes: Routes =[
           {path: 'registro',component:RegistroComponent, canActivate: [roleGuard],data :{titulo :'Registro', roles: [222,223]}},
           {path: 'gestiones/:gestion', component: GestionesComponent },  // Ruta con parámetro
           {path: 'gestiones',component:GestionesComponent, canActivate: [roleGuard],data :{titulo :'Gestiones', roles: [222,223]}},
-          {path: 'demandas',component:DemandasComponent, canActivate: [roleGuard],data :{titulo :'Demandas', roles: [222,223]}},
+          {path: 'demandas',component:DemandasComponent, canActivate: [roleGuard],data :{titulo :'Opociciones', roles: [222,223]}},
           {path: 'marcas',component:MarcasComponent, canActivate: [roleGuard],data :{titulo :'Marcas', roles: [222,223]}},
           {path: 'personas',component:PersonasComponent, canActivate: [roleGuard],data :{titulo :'Personas', roles: [222,223]}},
           {path: 'analisis',component:AnalisisComponent, canActivate: [roleGuard],data :{titulo :'Analizar Gaceta', roles: [222,223]}},
