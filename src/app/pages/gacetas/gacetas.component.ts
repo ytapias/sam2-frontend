@@ -87,7 +87,7 @@ export class GacetasComponent {
     {
         console.log(item.gaceta);
         
-        this.servicioAnalisis.cargar(0,10,item.gaceta)
+        this.servicioAnalisis.cargar(item.gaceta)
         .subscribe ( (res1:any) => 
         {
             console.log(res1);

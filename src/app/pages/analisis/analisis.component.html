@@ -1,167 +1,156 @@
 <div class="tabla-container">
     <b>G A C E T A S</b>
 
-    <!-- Combo para seleccionar País -->
-    <div class="form-group">
-        <label for="paisSelect">Seleccionar País</label>
-        <select class="form-control" id="paisSelect" [(ngModel)]="codigoPaisSeleccionado">
-            <option *ngFor="let pais of paises" [value]="pais.codigo">{{ pais.nombre }}</option>
-        </select>
-    </div>
-
-    <!-- Tabla de Gacetas filtradas por país -->
-    <div class="card" *ngIf="gacetasFiltradas.length > 0">
-        <table class="table color-bordered-table inverse-bordered-table table-hover">
-            <thead>
-                <tr style="color:aliceblue">
-                    <th scope="col">Gaceta</th>
-                    <th scope="col">País Rad</th>
-                    <th scope="col">Fecha Publicación</th>
-                    <th scope="col">Registros</th>
-                    <th scope="col">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of gacetasFiltradas">
-                    <td>{{ item.gaceta }}</td>
-                    <td>{{ item.paisrad }}</td>
-                    <td>{{ item.fechapub | date }}</td>
-                    <td>{{ item.registros }}</td>
-                    <td>
-                        <a (click)="abrirDetalle(item)" class="cursor" data-toggle="tooltip" data-original-title="Detalle">
-                            <i class="fas fa-eye text-inverse m-r-10"></i>
-                        </a>
-                  
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <div *ngIf="gacetasFiltradas.length === 0">
-        <p>No hay gacetas disponibles para este país.</p>
-    </div>
-</div>
-
-<!-- 
-abrir detalle item
--->
-
-
-
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Total registros (
-                <!-- {{ totalTipos }} -->
-            )
-                
-            </h4>
-            <div class="row">
-
-                <div class="col-6">
-                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina
-                         <!-- {{paginaActual}} de {{paginasTotales}} -->
-                        
-                        </h6>
-
-                </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    <div  >
-                        <button class="btn btn-primary" (click)="exportarAExcelTodo()"> Excel All</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-container">
-                <table class="small2-table color-bordered-table inverse-bordered-table table-hover">
-                    <thead class="fixed-header">
-                      <tr>
-                        <th></th>
-                        <th class="w80">
-                          Gaceta
-                          <input type="text" class="form-control" [(ngModel)]="filters.Gaceta" placeholder="Filtrar Gaceta">
-                        </th>
-                        <th class="w120">
-                          Resultado
-                          <input type="text" class="form-control" [(ngModel)]="filters.Resultadoglobal" placeholder="Filtrar Resultado">
-                        </th>
-                        <th class="w80">
-                          idresultado
-                          <input type="text" class="form-control" [(ngModel)]="filters.resultado" placeholder="Filtrar idresultado">
-                        </th>
-                        <th class="w80">
-                          Cadena Marca
-                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena2marca" placeholder="Filtrar Cadena Marca">
-                        </th>
-                        <th class="w80">
-                          Cadena Gaceta
-                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena1gaceta" placeholder="Filtrar Cadena Gaceta">
-                        </th>
-                        <th class="w60">
-                          idempresa
-                          <input type="text" class="form-control" [(ngModel)]="filters.idempresa" placeholder="Filtrar idempresa">
-                        </th>
-                        <th class="w60">
-                          idmarca
-                          <input type="text" class="form-control" [(ngModel)]="filters.idmarca" placeholder="Filtrar idmarca">
-                        </th>
-                        <th class="w60">
-                          idgaceta
-                          <input type="text" class="form-control" [(ngModel)]="filters.idgaceta" placeholder="Filtrar idgaceta">
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let nitem of filteredItems()">
-                        <td>
-                          <a (click)="generateWordDocument(nitem)" class="cursor" data-toggle="tooltip" data-original-title="Editar">
-                            <i class="fas fa-file-word-o text-inverse m-r-10"></i>
+    <div class="tabla-container">
+      <!-- Selector de País -->
+      <div class="form-group" *ngIf="!paisSeleccionado">
+          <label for="paisSelect">Seleccionar País</label>
+          <select class="form-control" id="paisSelect" [(ngModel)]="codigoPaisSeleccionado" (change)="seleccionarPais()">
+              <option *ngFor="let pais of paises" [value]="pais.codigo">{{ pais.nombre }}</option>
+          </select>
+      </div>
+  
+      <!-- Tabla de Gacetas -->
+      <div class="card" *ngIf="paisSeleccionado && !gacetaSeleccionada">
+          <table class="table table-hover   table-bordered">
+            <thead  class="table-dark sticky-header" >
+                  <tr>
+                      <th scope="col">Gaceta</th>
+                      <th scope="col">País Rad</th>
+                      <th scope="col">Fecha Publicación</th>
+                      <th scope="col">Registros</th>
+                      <th scope="col">Acciones</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of gacetasFiltradas">
+                      <td>{{ item.gaceta }}</td>
+                      <td>{{ item.paisrad }}</td>
+                      <td>{{ item.fechapub | date }}</td>
+                      <td>{{ item.registros }}</td>
+                      <td>
+                          <a (click)="abrirDetalle(item.gaceta)" class="cursor" data-toggle="tooltip" data-original-title="Detalle">
+                              <i class="fas fa-eye text-inverse"></i>
                           </a>
-                        </td>
-                        <td>{{ nitem.Gaceta }}</td>
-                        <td>{{ nitem.Resultadoglobal }}</td>
-                        <td>{{ nitem.resultado }}</td>
-                        <td>{{ nitem.Cadena2marca }}</td>
-                        <td>{{ nitem.Cadena1gaceta }}</td>
-                        <td>{{ nitem.idempresa }}</td>
-                        <td>{{ nitem.idmarca }}</td>
-                        <td>{{ nitem.idgaceta }}</td>
-                      </tr>
-                    </tbody>
-                  </table>  
-                
-                    <div>
-                        <!-- <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
-                        &nbsp;
-                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button> -->
-                        &nbsp;
-                        VER :
-                       <!-- <input type="text" [(ngModel)]="limite" 
-                        placeholder="Limite"
-                        max="200"
-                        style="width: 40px;" 
-                            />
-                    -->        
-                            <!-- <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
-                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
-                              </select> -->
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  
+      <!-- Detalle de Gaceta Seleccionada -->
+      <div *ngIf="gacetaSeleccionada">
+          <h3>{{ gacetaSeleccionada }}</h3>
+          <div class="row">
+              <!-- Lista de Marcas de la Gaceta -->
+              <div class="col-md-4">
+                  <h5>Marcas en la Gaceta </h5>
+            
+                  <div class="marca-list-container">
+                    <table class="table table-striped table-bordered">
+                        <thead class="table-dark sticky-header">
+                            <tr>
+                                <th>Marca</th>
+                                <th>Clase</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let marca of marcasEnGaceta" class="cursor-pointer"
+                                (click)="seleccionarMarca(marca)"
+                                [class.selected-row]="marcaSeleccionada === marca">
+                                <td>{{ marca.nombre }}</td>
+                                <td>{{ marca.clase }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+              </div>
+  
+              <!-- Comparación de Marcas -->
+              <div class="col-md-8" *ngIf="marcaSeleccionada">
+                  <h5>Marcas Similares a "{{ marcaSeleccionada.nombre }}"</h5>
+                  <div class="marca-list-container">
+                      <table class="table table-bordered">
+                          <thead  class="table-dark sticky-header" >
+                              <tr>
+                                <th></th>
+                                  <th>Marca Similar</th>
+                                  <th>Resultado</th>
+                                  <th>Solicitante</th>
+                                  <th>Expediente</th>
+                                  <th>IDMarca</th>
+                                  <th>Clases</th>
+                                  <th>Titular</th>
+                                  <th></th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let similar of marcasSimilares">
+                                <td>
+                                  <a (click)="generateWordDocument(similar)" class="cursor" data-toggle="tooltip" data-original-title="Editar">
+                                    <i class="fas fa-file-word-o text-inverse m-r-10"></i>
+                                  </a>
+                                </td>  
+                                <td>{{ similar.Cadena2marca }}</td>
+                                  <td>{{ similar.Resultadoglobal }}</td>
+                                  <td>{{ similar.solicitant }}</td>
+                                  <td>{{ similar.expedi }}</td>
+                                  <td>{{ similar.idmarca }}</td>
+                                  <td>{{ similar.marca_clase }}</td>
+                                  <td>{{ similar.duenomarca }}</td>
+                                  <td>
+                                    ck
+                                    <input type="checkbox" (change)="toggleSeleccion(similar, $event)">
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                       <!-- ✅ Botón para procesar las marcas seleccionadas -->
+                        <button class="btn btn-primary mt-2" (click)="procesarSeleccionados()">
+                          Procesar Seleccionados
+                      </button>
 
                     </div>
-                
-    
-            </div>
-            <div>
-              <!-- LOG:{{ Logs }} -->
-            </div>
-        </div>
-    </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
-
 
 
 
 <style>
+td input[type="checkbox"] {
+    border: 2px solid red !important; /* Para ver si el checkbox está ahí */
+    background: yellow !important;
+}
+
+.selected-row {
+    background-color: #007bff !important; /* Azul resalte */
+    color: white !important; /* Texto en blanco para contraste */
+    font-weight: bold;
+}
+
+.marca-list-container {
+    max-height: 400px; /* Altura máxima para la lista */
+    overflow-y: auto;  /* Agrega barra de desplazamiento vertical */
+    border: 1px solid #ccc; /* Bordes ligeros */
+    padding: 5px; /* Espaciado interno */
+    background: #fff; /* Fondo blanco */
+}
+.sticky-header {
+    position: sticky;
+    top: 0;
+    background-color: #343a40; /* Color de fondo del encabezado */
+    color: white; /* Color del texto */
+    z-index: 100; /* Asegura que el encabezado esté por encima */
+}
+
+
+.marca-list-container table {
+    width: 100%; /* Asegura que la tabla use todo el espacio disponible */
+}
+
     /* Ajusta el estilo para las celdas de la tabla */
     table.tablesaw td {
         padding: 5px; /* Disminuye el relleno; ajusta según sea necesario */
@@ -211,6 +200,8 @@ abrir detalle item
 .selected {
   background-color: #e9ecef; /* Cambia el color de fondo de la fila seleccionada */
 }
+
+
 </style>
 
 

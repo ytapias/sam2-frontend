@@ -8,18 +8,14 @@ export class Gestiones2 {
       public marca: string,
       public nrointerno: string,
       public idpais:number,
-      public pais: string,
-      
+      public pais: string,   
       public clase: string,
-
       public tipoproc: string,
-
-      public fechaactuacion: Date,
+      public fechaactuacion: Date | null,
       public codactua: string,
       public gestion: string,
       public sitermino: string,
-
-      public vence: Date,
+      public vence: Date | null,
       public pendiente: string,
       public tipogest: number,
       public um: string,
@@ -27,8 +23,6 @@ export class Gestiones2 {
       public estado: string,
       public idparalegal: number,
       public paralegal: string
-
-      
       ) 
   { }
 }

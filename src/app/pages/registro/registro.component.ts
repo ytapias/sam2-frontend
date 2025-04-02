@@ -1,4 +1,4 @@
-import { Component, HostListener,ElementRef, ViewChild } from '@angular/core';
+import { Component, HostListener,ElementRef, ViewChild, Renderer2 } from '@angular/core';
 
 import { Expedientes2 } from 'src/app/models/expedientes2';
 import { Expedientes2Service } from 'src/app/services/expedientes2.service';
@@ -39,27 +39,27 @@ export class RegistroComponent {
   
   public totalTipos:number = 0;
  // public empresa: Empresas  =new Empresas("","");
- public EMpresa =  { _id: "", nombre:""};
- public PAis =  { _id: "", nombre:"", codpais:""};
- public MArca =  { _id: "", marca:""};
+ public EMpresa     =  { _id: "", nombre:""};
+ public PAis        =  { _id: "", nombre:"", codpais:""};
+ public MArca       =  { _id: "", marca:""};
 
- public TIpo =  { _id: "", nombre:"", codigo:""};
- public PErsona =  { _id: "", nombre:"", identificacion:""};
+ public TIpo        =  { _id: "", nombre:"", codigo:""};
+ public PErsona     =  { _id: "", nombre:"", identificacion:""};
 
-public TIpoProceso =  { _id: "", nombre:"", codigo:""};
-public TIpoMarca =  { _id: "", nombre:"", codigo:""};
-public APoderado =  { _id: "", nombre:"", apellido:"", identificacion:"",direccion:""};
-public AGente =  { _id: "", nombre:"", identificacion:"",direccion:""};
-public Solicitante =  { _id: "", nombre:"",apellido:"",  identificacion:"",direccion:""};
+public TIpoProceso  =  { _id: "", nombre:"", codigo:""};
+public TIpoMarca    =  { _id: "", nombre:"", codigo:""};
+public APoderado    =  { _id: "", nombre:"", apellido:"", identificacion:"",direccion:""};
+public AGente       =  { _id: "", nombre:"", identificacion:"",direccion:""};
+public Solicitante  =  { _id: "", nombre:"",apellido:"",  identificacion:"",direccion:""};
 
 
 public EStado =  { _id: "", nombre:"", codigo:""};
 
 
-  public fecha: Date = new Date();
+public fecha: Date = new Date();
 
-  public expediente2: Expedientes2 =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
-    0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
+public expediente2: Expedientes2 =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
+  0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
 
 public elementos :number = 12;
 
@@ -103,8 +103,8 @@ opcionSeleccionada2: number=0;
     private paisesyciudadesService: TppaisesyciudadesService,
     private servicio: Gestiones2Service,
     private tareasService: tareasService,
-    private personasService: PersonasService
-
+    private personasService: PersonasService,
+    private renderer: Renderer2
   ){
       this.buscar( this.busqueda); 
 
@@ -706,7 +706,7 @@ manejarTeclado(event: KeyboardEvent) {
       this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
   
       this.fechaVenceGestion=dtiposdetalle.vence;
-      this.fechaActuacion= dtiposdetalle.fechaactuacion;
+      this.fechaActuacion= dtiposdetalle.fechaactuacion ;
 
       this.camposEditar2.fechaactuacion= dtiposdetalle.fechaactuacion;
       this.camposEditar2.vence=dtiposdetalle.vence;
@@ -884,6 +884,10 @@ manejarTeclado(event: KeyboardEvent) {
 
     abrirModalNuevo(){
       this._Crear=true;
+
+      this.camposEditar =new Expedientes2(0,0,"","",0,"","",0,"",0,this.fecha,0,"","","", this.fecha,"","",this.fecha,this.fecha,"",this.fecha,"","","",0,
+        0,"",0,0,"","","","","","",this.fecha,"","","","","",this.fecha,"","",this.fecha,"","","","",this.fecha,this.fecha,0,"",0,"");
+        
       this.camposEditar.fechapb = new Date();
       this.camposEditar.anno =  this.camposEditar.fechapb.getFullYear();
       this.opPais = 'COLOMBIA';
@@ -903,10 +907,44 @@ manejarTeclado(event: KeyboardEvent) {
 
     miVariable: string | undefined; // Esta es la variable que llenarás con el texto pegado
 
-    onPaste(event: ClipboardEvent) {
-      // Usa el objeto ClipboardEvent para acceder al texto pegado
-      if (event.clipboardData) {
-        const pastedText = event.clipboardData.getData('text');
+
+
+    // @ViewChild('divPaste') divPaste!: ElementRef;
+
+    // //constructor(private renderer: Renderer2) {}
+  
+    // ngAfterViewInit(): void {
+    //   // Escucha el evento paste en el div
+    //   this.renderer.listen(this.divPaste.nativeElement, 'paste', (event: ClipboardEvent) => {
+    //     this.onPaste(event);
+    //   });
+    // }
+
+    
+    // onPaste2(event: ClipboardEvent) {
+    //   event.preventDefault();
+    //   const pastedText = event.clipboardData?.getData('text') || '';
+    //   console.log('Texto pegado:', pastedText);
+  
+    //   // Aquí llamas tu lógica de procesamiento
+    //   this.procesarTextoPegado(pastedText);
+    // }
+  
+    pegarDesdeClipboard() {
+      navigator.clipboard.readText().then(texto => {
+       // console.log('Texto pegado:', texto);
+        this.procesarTextoPegado(texto);
+      }).catch(err => {
+        console.error('No se pudo acceder al portapapeles:', err);
+        alert('No se pudo acceder al contenido del portapapeles. Asegúrate de permitir acceso.');
+        
+      });
+    }
+
+    procesarTextoPegado(pastedText: string) {
+      // tu lógica actual para extraer datos de la página y llenar campos
+      console.log("pegar");
+    
         this.miVariable = pastedText;
 
 
@@ -914,7 +952,10 @@ manejarTeclado(event: KeyboardEvent) {
         let variable :string ="";
         let Operacion = 0;
 
-
+        let capturandoClase = false;
+        let claseNumero = '';
+        let claseDescripcion = '';
+        
         
         const lineas = this.miVariable.split('\n');
         lineas.forEach(linea => {
@@ -932,50 +973,75 @@ manejarTeclado(event: KeyboardEvent) {
               //------------------------------------
               //------------------------------------
               // Buscar y procesar "Estado"
-              if (linea.includes('Estado')) {
-              // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              this.camposEditar.tiposol= linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
-              }
 
-              // if (linea.includes('Fecha de orden de publicación')) {
-              //   // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              //   variable= linea.split('Fecha de orden de publicación')[1].split('\t')[1].trim();
-              //   console.log(variable);
-              //   console.log( this.procesarFecha(variable));
+              if (linea.includes('Número de Solicitud	')) {
+                // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+                this.camposEditar.expediente= linea.split('Número de Solicitud	')[1].split('Fecha de Presentación')[0].trim();
+                }
 
-              //   if(variable !== null)
-              //   {
-              //     this.camposEditar.fechapub= this.procesarFecha(variable);
-              //   }
-              //   variable ="";
-              // }
+                if (linea.includes('Certificado de Registro N°')) {
+                  // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+                  this.camposEditar.certif= linea.split('Certificado de Registro N°')[1].split('Registrado / Protegido en')[0].trim();
+                  }
 
+                
+
+                  if (linea.includes('Tipo de solicitud')) {
+                    const tipoTexto = linea.split('Tipo de solicitud')[1].split('Fecha de orden de publicación')[0].trim();
+                  
+                    const tipoNormalizado = tipoTexto.replace(/\s+/g, ' ').toLowerCase(); // quita doble espacio, tabs, etc.
+                  
+                    const match = this.TipoSolicitud.find(item => 
+                      item.nombre.replace(/\s+/g, ' ').toLowerCase() === tipoNormalizado
+                    );
+                  
+                    if (match) {
+                      this.opTipoSolicitud = match.nombre;
+                    } else {
+                      console.warn("No se encontró tipo de solicitud:", tipoTexto);
+                    }
+                  }
+
+         
               //------------------------------------
               //------------------------------------
               // Buscar y procesar "Estado"
               if (linea.includes('Estado')) {
-              // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              this.camposEditar.estado_tramite= linea.split('Estado')[1].split('Fecha de radicación')[0].trim();
+                const estadoTexto = linea.split('Estado')[1].split('Fecha de radicación')[0].trim();
+                const estadoNormalizado = estadoTexto.replace(/\s+/g, ' ').toLowerCase();
+              
+                const match = this.TipoEstadoTramite.find(item =>
+                  item.nombre.replace(/\s+/g, ' ').toLowerCase() === estadoNormalizado
+                );
+              
+                if (match) {
+                  this.opTipoEstadoTramite = match.nombre;
+                } else {
+                  console.warn("No se encontró estado de trámite:", estadoTexto);
+                }
               }
 
-              if (linea.includes('Fecha de radicación')) {
-              // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              variable= linea.split('Fecha de radicación')[1].split('\t')[1].trim();
-              console.log(variable);
-              console.log( this.procesarFecha(variable));
-
-              if(variable !== null)
+              if (linea.includes('Fecha de radicación')) 
               {
-              this.camposEditar.fechapb= this.procesarFecha(variable);
-              let [dia, mes, anno] = variable.split(' ');
+                  // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
+                  variable= linea.split('Fecha de radicación')[1].split('\t')[1].trim();
+                  console.log(variable);
+                  console.log( this.procesarFecha(variable));
 
-              // console.log("año");
-              // console.log(anno);
-              // console.log(variable);
+                  if(variable !== null)
+                  {
+                    this.camposEditar.fechapb= this.procesarFecha(variable);
+                    // Normaliza la fecha eliminando el punto (ej: 'ago.' → 'ago')
+                    const fechaLimpia = variable.replace('.', '');
+                    const partes = fechaLimpia.split(' ');
 
-              this.camposEditar.anno=parseInt(anno);
-              }
-              variable ="";
+                    if (partes.length === 3) {
+                      const anno = partes[2];
+                      console.log("Año extraído:", anno);
+                      this.camposEditar.anno = parseInt(anno);
+                    }
+                  }
+                  variable ="";
               }
               //------------------------------------
               //------------------------------------
@@ -1058,15 +1124,6 @@ manejarTeclado(event: KeyboardEvent) {
               if(Operacion==22)
               {
               let [identificacion2,otro2,Nombres2, Direccion2,otro] = linea.split('\t');
-
-              // console.log(identificacion2);
-              // console.log(otro2);
-              // console.log(Nombres2);
-
-              // console.log(Direccion2);
-              // console.log(otro);
-
-
 
               Direccion2 = Direccion2.replace('Dirección Física', '');
               Direccion2 = Direccion2.replace(' : ', '');
@@ -1167,10 +1224,24 @@ manejarTeclado(event: KeyboardEvent) {
               // this.camposEditar.vcniza=  parseInt(linea.split('Versión de la Clasificación de Niza')[1].split('\t')[1].trim());
               // }
 
-
               if (linea.includes('Tipo de Signo Distintivo')) {
-              // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              let tipoSIgno= linea.split('Tipo de Signo Distintivo')[1].split('\t')[1].trim();
+                let tipoSignoTexto = linea.split('Tipo de Signo Distintivo')[1].split('\t')[1].trim();
+                let tipoNormalizado = tipoSignoTexto.replace(/\s+/g, ' ').toLowerCase();
+              
+                // Manejo de casos especiales
+                if (tipoNormalizado === 'marca') {
+                  tipoNormalizado = 'marca comercial';
+                }
+              
+                const match = this.TipoSigno.find(item =>
+                  item.nombre.replace(/\s+/g, ' ').toLowerCase() === tipoNormalizado
+                );
+              
+                if (match) {
+                  this.opTipoSigno = match.nombre;
+                } else {
+                  console.warn("No se encontró Tipo de Signo Distintivo:", tipoSignoTexto);
+                }
               }
 
               if (linea.includes('Denominación del Signo')) {
@@ -1178,10 +1249,19 @@ manejarTeclado(event: KeyboardEvent) {
               this.camposEditar.marca= linea.split('Denominación del Signo')[1].split('\t')[1].trim();
               }
 
-
               if (linea.includes('Naturaleza')) {
-              // Asumiendo que "Fecha de radicación" siempre sigue a "Estado"
-              let naturaleza=  linea.split('Naturaleza')[1].split('\t')[1].trim();
+                let naturalezaTexto = linea.split('Naturaleza')[1].split('\t')[1].trim();
+                const naturalezaNormalizada = naturalezaTexto.replace(/\s+/g, ' ').toLowerCase();
+              
+                const match = this.Naturaleza.find(item =>
+                  item.nombre.replace(/\s+/g, ' ').toLowerCase() === naturalezaNormalizada
+                );
+              
+                if (match) {
+                  this.opNaturaleza = match.nombre;
+                } else {
+                  console.warn("No se encontró Naturaleza:", naturalezaTexto);
+                }
               }
 
 
@@ -1191,9 +1271,34 @@ manejarTeclado(event: KeyboardEvent) {
               }
 
 
+              if (linea.includes('Descripción de productos y/o servicios')) {
+                capturandoClase = true;
+                return;
+              }
+
+              if (linea.includes('Versión de la Clasificación de Niza')) {
+                this.camposEditar.vcniza= linea.split('Versión de la Clasificación de Niza')[1].split('\t')[1].trim();
 
 
-          
+                capturandoClase = false;
+                return;
+              }
+            
+              if (capturandoClase) {
+                if (linea === '' || linea.startsWith('Clase(s)')) return;
+            
+                const match = linea.match(/^(\d+)\s+(.*)/);
+                if (match) {
+                  // Si es la línea con la clase y el comienzo de la descripción
+                  claseNumero = match[1];
+                  claseDescripcion += match[2] + ' ';
+                } else {
+                  // Continuación de la descripción
+                  claseDescripcion += linea + ' ';
+                }
+
+                this.expediente2.descprod=claseDescripcion;
+              }
           
           
           }catch(error)
@@ -1212,9 +1317,7 @@ manejarTeclado(event: KeyboardEvent) {
        // console.log(this.miVariable);
       
 
-      } else {
-        // Manejar la situación cuando clipboardData es null, si es necesario
-      }
+     
     }
 
   procesarFecha(fechaTexto: string): Date  {
@@ -1308,6 +1411,18 @@ manejarTeclado(event: KeyboardEvent) {
       this.TituloBoton ="Gestiones";
     }
   }
+
+
+  actualizarFechaActuacion(event: any) {
+    const valor = event.target.value;
+    this.camposEditar2.fechaactuacion = valor ? new Date(valor) : null;
+  }
+  actualizarFechaVence(event: any) {
+    const valor = event.target.value;
+    this.camposEditar2.vence = valor ? new Date(valor) : null;
+  }
+
+
 
    /////////////////////////////////////////
   //   mODAL 2
@@ -1431,7 +1546,7 @@ manejarTeclado(event: KeyboardEvent) {
 
 
 
-///////////////////////////////////////
+  ///////////////////////////////////////
   //     MODAL  TAREA
   ////////////////////////////////////// 
 
@@ -1458,16 +1573,14 @@ manejarTeclado(event: KeyboardEvent) {
 
   cerrarModalTarea2(){
     this._ocultarModalTarea2=true;
-   
-  
-
   }
 
   public ItemsTareas: tareas[]=[];
   public editarTareas:number=0;
 
 
-  cargarTarea(idexpediente :number=0,idgestion :number=0) {
+  cargarTarea(idexpediente :number=0,idgestion :number=0) 
+  {
 
     // this.cargando = true;
 
@@ -1524,8 +1637,10 @@ manejarTeclado(event: KeyboardEvent) {
   get ocultarModalGestion(){
     return this._ocultarModalGestion;
   }
-  fechaVenceGestion:Date=new Date();
-  fechaActuacion:Date=new Date();
+
+  fechaVenceGestion: Date | null = null;
+  fechaActuacion: Date | null = null;
+  
   cambiarFechaActuacion(tipow :any)
   {
     console.log("TIPO---------------");

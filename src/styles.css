@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
+.ancho-select {
+  width: 100%; /* Hace que el select ocupe todo el ancho disponible */
+  min-width: 300px; /* Define un ancho mínimo */
+  max-width: 600px; /* Define un ancho máximo */
+  font-size: 16px; /* Aumenta el tamaño del texto */
+}
+
+.textarea-large {
+  width: 100%;
+  min-height: 150px; /* Asegura que los textarea sean suficientemente grandes */
+  resize: vertical; /* Permite ajustar manualmente el tamaño */
+}
+
 
 .fast{
     -webkit-animation-duration:0.3s;
@@ -205,22 +218,89 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+/* .modal-content { */
+  /* background-color: #fefefe; */
+  /* margin: auto; */
+  /* padding: 20px; */
+  /* border: 1px solid #888; */
+  /* width: 80%; */
+  /* max-height: 80%; */
+  /* overflow: auto; */
+/* } */
+
+/*----configuracion------------*/
+
+
+.custom-modal {
+    margin: 0 !important;  /* Elimina la margen del modal */
+    padding: 0 !important; /* Elimina el padding interno */
+    max-width: 100%;       /* Asegura que ocupe todo el ancho */
+}
+
 .modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-  max-height: 80%;
-  overflow: auto;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none;          /* Elimina el borde si hay uno */
 }
 
 
+.form-container {
+    width: 100%;
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 8px;
+}
+
+/* Alternar colores entre filas */
+.fila-alterna {
+    background-color: #f9f9f9; /* Gris muy claro */
+    border-radius: 5px;
+}
+
+/* Etiquetas alineadas a la izquierda */
+.col-form-label {
+    font-weight: bold;
+    text-align: right;
+    padding-right: 10px;
+}
+
+/* Ajusta el tamaño del combo para que sea más ancho */
+.form-input-wide {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Ajuste del tamaño de los textarea */
+.form-textarea {
+    width: 100%;
+    min-height: 120px;
+    resize: vertical;
+    padding: 8px;
+    border-radius: 5px;
+}
+/*-------------------*/
+/* .form-control { */
+  /* width: 100px; */
+  /* /* Otras propiedades existentes... */ */
+/* } */
+/* Evita que todos los input se achiquen, pero mantiene la personalización global */
 
 .form-control {
-  width: 100px;
-  /* Otras propiedades existentes... */
+  width: auto; /* Restauramos su ancho natural */
+  min-width: 100px;
+  max-width: 100%;
 }
+
+/* Solo afecta al modal */
+.custom-modal .form-control {
+  width: 100% !important;
+}
+
 
 .custom-select2 {
   display: inline-block;

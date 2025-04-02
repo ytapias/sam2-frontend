@@ -195,6 +195,125 @@
 -->
 
 
+<!--------------- MODAL GESTIÓN --------------->
+
+<div class="fondo_modal animated fadeIn fast" *ngIf="!ocultarModal">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content m-0 p-0">
+            <div class="modal-header sidebar-nav text-white">
+                <h4 class="modal-title">&nbsp;{{Titulo}}&nbsp;&nbsp;|&nbsp;&nbsp;{{SubTitulo}}</h4>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">&nbsp;&nbsp;×&nbsp;&nbsp;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-container">
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Tipo Actuación</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada2" (ngModelChange)="cambiarTipo2($event)">
+                                <option *ngFor="let dato of TiposActuacion" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Tipo Proceso</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="opcionSeleccionada3" (ngModelChange)="cambiarTipo2($event)">
+                                <option *ngFor="let dato of TiposProceso" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Expediente</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Código" [(ngModel)]="camposEditar.expediente">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Numero Interno</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="NroInterno" [(ngModel)]="camposEditar.nrointerno">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Marca</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Marca" [(ngModel)]="camposEditar.marca">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Cliente</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Cliente" [(ngModel)]="camposEditar.cliente">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Marca Demandada</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Marca Demandada" [(ngModel)]="camposEditar.marcademandada">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Observaciones</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Observaciones" [(ngModel)]="camposEditar.observaciones">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Gaceta</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Gaceta" [(ngModel)]="camposEditar.gaceta">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Fecha Demanda</label>
+                        <div class="col-md-9">
+                            <input type="date" class="form-control" [(ngModel)]="camposEditar.fechademanda">
+                        </div>
+                    </div>
+
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">País</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="idpaisseleccionado">
+                                <option *ngFor="let dato of paises" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Estado</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="TipoEstadoSeleccionado">
+                                <option *ngFor="let dato of TipoEstado" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div> 
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="salvarModal()">Guardar cambios</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- 
 
 <div class="modal animated fadeIn fast"
 *ngIf="!ocultarModal" >
@@ -227,18 +346,11 @@
                                             </option>
                                         </select>
                                 </div>
-                                  <!--/span-->
                                   <div class="col-md-2">
                                     &nbsp; 
                                 </div>
 
-                                <!-- <div class="col-md-2">
-                                    <label class="control-label">Clase</label>
-                           </div>        
-                           <div class="col-md-2">        
-                                 <input type="text" id="clase"  placeholder="Clase"  [(ngModel)]="camposEditar.clase">
-                             </div> -->
-                                <!--/span-->
+                              
                             </div>
                             <div class="row">
                                 <div class="col-md-2">
@@ -252,7 +364,6 @@
                                             </option>
                                         </select>
                                   </div>
-                                <!--/span-->
                                 <div class="col-md-2">
                                     &nbsp;
                                 </div>
@@ -264,9 +375,7 @@
                                     <input type="text" id="expediente"  placeholder="codigo"  [(ngModel)]="camposEditar.expediente">
                                    
                                 </div>
-                                <!--/span-->
                             </div>
-                            <!--/row-->
                             <div class="row">
                                 <div class="col-md-2">
                                     
@@ -276,22 +385,11 @@
                                     <input type="date" id="fechademanda" (ngModelChange)="cambiarFechaActuacion($event)" 
                                      [ngModel]="camposEditar.fechademanda| date:'yyyy-MM-dd'" placeholder="fecha Demanda">
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-2">
 
                                 </div>
-                                <!-- <div class="col-md-2">
-                                        <label class="control-label">Fecha Vencimiento</label>
-                                 </div>
-                                <div class="col-md-2">
-                                        <input type="date" [(ngModel)]="camposEditar.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> 
-                                       <input type="date" id="vence" (ngModelChange)="cambiarFechaVenceGestion($event)" 
-                                       placeholder="Vence" [ngModel]="camposEditar.vence | date:'yyyy-MM-dd'">
-
-                                </div> -->
-                                <!--/span-->
+                            
                             </div>
-                             <!--/row-->
                             <div class="row">
                                 <div class="col-md-2">
                                     <label class="control-label">Pais</label>
@@ -306,7 +404,6 @@
                                         </select>
                                     
                                 </div>
-                                <!--/span-->
                                 <div class="col-md-2">
 
                                 </div>
@@ -322,25 +419,9 @@
                                         </option>
                                     </select>
                                 </div>
-                                <!--/span-->
                             </div>
 
-                            <!-- <div class="row">
-
-
-                                <div class="col-md-2">
-                                    <label class="control-label">Pendientes</label>
-                                </div>
-                           
-                                <div class="col-md-2">
-                                    <textarea name="textarea"  cols="20" 
-                                    rows="4" 
-                                    style="width:300px; height:80px;"  id="observaciones"  placeholder="Pendientes"  [(ngModel)]="camposEditar.observaciones">
-                                   </textarea>
-                                   
-                                </div>
-                            </div>
-                             -->
+                      
 
                         </div>
                         <div class="row"> &nbsp;</div>
@@ -360,7 +441,7 @@
        
      
 
-</div>
+</div> -->
 
 
 
@@ -473,7 +554,88 @@
     ------------------------------------------------------------
     -->
 
- 
+
+<!--------------- MODAL GESTIONES --------------->
+
+<div class="fondo_modal animated fadeIn fast" *ngIf="!ocultarModalTarea">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content m-0 p-0">
+            <div class="modal-header sidebar-nav text-white">
+                <h4 class="modal-title">&nbsp;Gestiones&nbsp;&nbsp;|&nbsp;&nbsp;{{SubTitulo}}</h4>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true" (click)="cerrarModalTarea()">&nbsp;&nbsp;×&nbsp;&nbsp;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-container">
+
+                    <!-- Título -->
+                    <div class="form-group row text-center">
+                        <label class="col-md-12 col-form-label"><strong>Ingrese la Nueva Gestión</strong></label>
+                    </div>
+
+                    <!-- Fecha de Actuación -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Fecha Actuación</label>
+                        <div class="col-md-9">
+                            <input type="date" class="form-control" [(ngModel)]="camposEditarTarea.termino">
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Descripción</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" placeholder="Descripción" [(ngModel)]="camposEditarTarea.descripcion" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Fecha Vencimiento Tarea -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Fecha Vencimiento</label>
+                        <div class="col-md-9">
+                            <input type="date" class="form-control" [(ngModel)]="camposEditarTarea.termino">
+                        </div>
+                    </div>
+
+                    <!-- Observaciones -->
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Observaciones</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" placeholder="Observaciones" [(ngModel)]="camposEditarTarea.observaciones" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Tipo Actuación -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Tipo Actuación</label>
+                        <div class="col-md-9">
+                            <select class="form-control w140" name="TipoEST"
+                                
+                                    style="width: 200px;">
+                                
+                                    <option value="dato.id" *ngFor="let dato of TipoEstado">
+                                        {{dato.nombre}}
+                                    </option>
+                                </select>
+                        </div>
+                    </div>
+
+                </div> <!-- Cierre de form-container -->
+
+                <!-- Botones -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" (click)="cerrarModalTarea()">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="salvarModalTarea()">Guardar cambios</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!--  
 
     <div class="fondo_modal animated fadeIn fast"
     *ngIf="!ocultarModalTarea" >
@@ -512,7 +674,6 @@
                         <input type="date" id="fechavencimiento" 
 
                         [ngModel]="camposEditarTarea.termino  | date:'yyyy-MM-dd'" placeholder="fecha Vencimiento">
-                                                <!-- (ngModelChange)="cambiarFechavence($event)"  -->
                         </div>
                       
                         <div class="col-md-6">
@@ -542,7 +703,6 @@
                         <input type="date" id="fechavencimiento" 
 
                         [ngModel]="camposEditarTarea.termino  | date:'yyyy-MM-dd'" placeholder="fecha Vencimiento">
-                                                <!-- (ngModelChange)="cambiarFechavence($event)"  -->
                         </div>
                     </div> 
                         
@@ -571,7 +731,6 @@
                                         {{dato.nombre}}
                                     </option>
                                 </select>
-                                <!-- [(ngModel)]="TipoEstadoSeleccionado"    -->
                              
                             </div>
                         
@@ -603,5 +762,9 @@
 
 
 
-</div>  
+</div>   -->
+
+
+
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

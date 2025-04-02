@@ -315,7 +315,7 @@ export class ConfiguracionComponent implements OnInit {
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : tiposdetalle=new tiposdetalle('','','',1,'',0,0,'');
+   public camposEditar : tiposdetalle=new tiposdetalle('','','',1,'',0,0,'','');
       
     Titulo: string="Configuracion";
     SubTitulo: string="ingrese los datos de Configuracion";
@@ -325,7 +325,7 @@ export class ConfiguracionComponent implements OnInit {
         this._Crear=true;
         this.SubTitulo="Crear";
         
-        this.camposEditar =new tiposdetalle('','','',1,'',0,0,'');
+        this.camposEditar =new tiposdetalle('','','',1,'',0,0,'','');
         
         this.abrirModal();
     }
@@ -351,7 +351,7 @@ export class ConfiguracionComponent implements OnInit {
       }
       
      // console.log( this.camposEditar);
-
+     //console.log( this.camposEditar);
 
         if(this._Crear === true)
         {
@@ -397,7 +397,7 @@ export class ConfiguracionComponent implements OnInit {
         
       
       
-        
+       //this.cargarTiposDetalle();
         this.cerrarModal();
     }
 

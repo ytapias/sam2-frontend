@@ -142,22 +142,31 @@ export class DashboardComponent {
   }
 
 
-  getRowClass(vence: Date): string {
-    const hoy = new Date();
-    const fechaVence = new Date(vence);
-    const diferenciaDias = Math.floor((fechaVence.getTime() - hoy.getTime()) / (1000 * 3600 * 24));
+//   getRowClass(vence: Date): string {
+//     const hoy = new Date();
+//     const fechaVence = new Date(vence);
+//     const diferenciaDias = Math.floor((fechaVence.getTime() - hoy.getTime()) / (1000 * 3600 * 24));
     
-  //  console.log("diferenciaDias");
-//console.log(diferenciaDias);
+//   //  console.log("diferenciaDias");
+// //console.log(diferenciaDias);
 
-    if (diferenciaDias > 0 ) {
-      return 'semaforo-verde'; 
-    } else if (diferenciaDias <= -1 && diferenciaDias >= -7) {
-      return 'semaforo-amarillo';
-    } else {
-      return 'semaforo-rojo';
-    }
-  }
+//     if (diferenciaDias > 0 ) {
+//       return 'semaforo-verde'; 
+//     } else if (diferenciaDias <= -1 && diferenciaDias >= -7) {
+//       return 'semaforo-amarillo';
+//     } else {
+//       return 'semaforo-rojo';
+//     }
+//   }
+
+getRowClass(fecha: Date | null): string {
+  if (!fecha) return ''; // Sin clase si no hay fecha
+
+  const hoy = new Date();
+  const fechaComparar = new Date(fecha);
+
+  return fechaComparar < hoy ? 'bg-danger text-white' : ''; // Aplica estilos si está vencido
+}
 
 
 }

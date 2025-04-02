@@ -27,7 +27,7 @@ EMPRESA :string ='';
   // Leer el emp
    emp = localStorage.getItem('emp');
 
-   public camposEditar : Usuario=new Usuario(0,0,"","","","",0,"",0,0,"","",0,"","");
+   public camposEditar : Usuario=new Usuario(this.uid,0,"",this.login,"",this.email,0,"",0,0,"",this.nombre,1,"","");
       
     Titulo: string="Usuarios";
     SubTitulo: string="ingrese los datos de Usuarios";

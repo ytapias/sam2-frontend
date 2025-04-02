@@ -149,19 +149,7 @@
                                 </i> 
                             </a>
                              </td> 
-                             <!-- <td>
-                                <a (click)="abrirModalTarea(nitem)"
-                                class="cursor"
-                                 data-toggle="tooltip" data-original-title="nuevo"> 
-                                <i class="fas fa-plus text-inverse m-r-10">
-                                </i> </a>
-
-                                <a (click)="abrirModalTarea2(nitem)"
-                                class="cursor"
-                                 data-toggle="tooltip" data-original-title="ver"> 
-                                <i class="fas fa-eye text-inverse m-r-10">
-                                </i> </a>
-                             </td> -->
+                  
                             <td>
                                 {{ nitem.expediente }} 
                             </td>
@@ -219,242 +207,123 @@
 -->
 
 
+<!--------------- MODAL GESTIÓN --------------->
 
-<div class="modal animated fadeIn fast"
-*ngIf="!ocultarModal" >
-
-        
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">{{Titulo}}</h4>
-                    <button type="button" 
-                    class="close" 
-                    data-dismiss="modal" 
-                    aria-hidden="true"
-                    (click)="cerrarModal()">×</button>
-                </div>
-               
-                <div class="modal-body">
-                     
-                        <div class="form-body" > 
-                            <h3 class="card-title">{{SubTitulo}}</h3>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label">Tipo Actuacion</label>
-
-                                </div>
-                                <div class="col-md-2">
-                                        
-                                        
-                                        <select class="form-control w140" name="tipoproc"
-                                        [(ngModel)]="opCodActua"   style="width: 200px;">
-                                            
-                                            <option value="{{dato.codigo}}" *ngFor="let dato of TiposActuacion">
-                                                {{dato.nombre}}
-                                            </option>
-                                        </select>
-
-
-                                </div>
-                                  <!--/span-->
-                                  <div class="col-md-2">
-                                    &nbsp; 
-                                </div>
-
-                                <!-- <div class="col-md-2">
-                                    <label class="control-label">Clase</label>
-                           </div>        
-                           <div class="col-md-2">        
-                               
-
-                                 <select class="form-control w140" name="tipoproc"
-                                 [(ngModel)]="opClaseActua"   style="width: 200px;">
-                                     
-                                     <option value="{{dato.codigo}}" *ngFor="let dato of ClaseActuacion">
-                                         {{dato.nombre}}
-                                     </option>
-                                 </select>
-
-                                 
-
-
-                             </div> -->
-                                <!--/span-->
-                            </div>
-                            <div class="row">
-                                <!-- <div class="col-md-2">
-                                         <label class="control-label">Tipo Proceso</label>
-                                </div>        
-                                <div class="col-md-2">        
-                                      
-                                        <select class="form-control w140" name="tipoproc"
-                                        [(ngModel)]="opTiposProcesos"   style="width: 200px;">
-                                            
-                                            <option value="{{dato.codigo}}" *ngFor="let dato of TiposProceso">
-                                                {{dato.codigo}}
-                                            </option>
-                                        </select>
-
-                                  </div> -->
-                                <!--/span-->
-                                <div class="col-md-2">
-                                    &nbsp;
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">Expediente</label>
-                                </div>
-                           
-                                <div class="col-md-2">
-                                    <input type="text" id="expediente"  placeholder="codigo"  [(ngModel)]="camposEditar.expediente">
-                                   
-                                </div>
-                                <!--/span-->
-                            </div>
-                            <!--/row-->
-
-                            <div class="row">
-
-                                <div class="col-md-2">
-                                    <label class="control-label">Gestion</label>
-                           </div>        
-                           <div class="col-md-2">        
-                                  
-                                   <!-- <textarea type="text" id="clase"  placeholder="Clase" cols="40" 
-                                   rows="8" 
-                                   style="width:200px; height:80px;"  [(ngModel)]="camposEditar.gestion">
-                                </textarea> -->
-                             </div>
-                           <!--/span-->
-                           <div class="col-md-2">
-                               &nbsp;
-                           </div>
-                           <div class="col-md-2">
-                               <label class="control-label">Pendiente</label>
-                           </div>
-                      
-                           <div class="col-md-2">
-                               <textarea  type="text" id="expediente"  cols="40" 
-                               rows="8" 
-                               style="width:200px; height:80px;"  placeholder="codigo"  [(ngModel)]="camposEditar.pendiente">
-                            </textarea>
-
-                              
-                           </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="col-md-2">
-                                    
-                                        <label class="control-label">Fecha Actuacion</label>
-                                 </div>
-                                <div class="col-md-2">
-                                    <input type="date" id="fechaactuacion" (ngModelChange)="cambiarFechaActuacion($event)" 
-                                     [ngModel]="camposEditar.fechaactuacion  | date:'yyyy-MM-dd'" placeholder="fecha Actuacion">
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-2">
-
-                                </div>
-                                <div class="col-md-2">
-                                        <label class="control-label">Fecha Vencimiento</label>
-                                 </div>
-                                <div class="col-md-2">
-                                       <!-- <input type="date" [(ngModel)]="camposEditar.vence | date:'yyyy-MM-dd'"  placeholder="yyyy/mm/dd"> -->
-                                       <input type="date" id="vence" (ngModelChange)="cambiarFechaVenceGestion($event)" 
-                                       placeholder="Vence" [ngModel]="camposEditar.vence | date:'yyyy-MM-dd'">
-
-                                </div>
-                                <!--/span-->
-                            </div>
-                             <!--/row-->
-
-                             <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label">Pais</label>
-                                </div>
-                                <div class="col-md-2">
-                                        <select class="w140" name="idpais"
-                                        [(ngModel)]="idpaisseleccionado">
-                                         
-                                            <option value="{{dato.id}}" *ngFor="let dato of paises">
-                                                {{dato.nombre}}
-                                            </option>
-                                        </select>
-                                    
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-2">
-
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">Estado Tramite</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control w140" name="TipoESTT"
-                                    [(ngModel)]="TipoEstadoTramiteSelecctionado"   (ngModelChange)="onChangeEstadoTramite($event)" 
-                                    style="width: 200px;">
-                                        
-                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstadoTramite">
-                                            {{dato.nombre}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <!--/span-->
-                            </div>
-
-                            <div class="row">
-                                <div class="col-md-2">
-                                    <label class="control-label">Paralegal</label>
-                                </div>
-
-                                <div class="col-md-2">
-                                    <select class="form-control w140" name="TipoEST"
-                                    [(ngModel)]="opParalegal"   style="width: 200px;">
-                                        
-                                        <option value="{{dato.id}}" *ngFor="let dato of Paralegales">
-                                            {{dato.nombre}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <!--/span-->
-                                <div class="col-md-2">
-
-                                </div>
-                                <div class="col-md-2">
-                                    <label class="control-label">Estado Pendiente</label>
-                                </div>
-                                <div class="col-md-2">
-                                    <select class="form-control w140" name="TipoEST"
-                                    [(ngModel)]="TipoEstadoSeleccionado"   style="width: 200px;">
-                                        
-                                        <option value="{{dato.id}}" *ngFor="let dato of TipoEstado">
-                                            {{dato.nombre}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <!--/span-->
-                            </div>
-
-                         
-
-                        </div>
-                        <div class="row"> &nbsp;</div>
-
-                        <div class="modal-footer">
-                            <button type="button" 
-                                class="btn btn-default waves-effect" 
-                                data-dismiss="modal"
-                                (click)="cerrarModal()"
-                            >Cerrar</button>
-                            <button type="button" class="btn btn-danger waves-effect waves-light"  (click)="salvarModal()">Salvar cambios</button>
-                        </div>
-
-                 </div>
-                     
+<div class="fondo_modal animated fadeIn fast" *ngIf="!ocultarModal">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+        <div class="modal-content m-0 p-0">
+            <div class="modal-header sidebar-nav text-white">
+                <h4 class="modal-title">&nbsp;{{Titulo}}&nbsp;&nbsp;|&nbsp;&nbsp;{{SubTitulo}}</h4>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal()">&nbsp;&nbsp;×&nbsp;&nbsp;</button>
             </div>
-       
-     
 
+            <div class="modal-body">
+                <div class="form-container">
+
+                    <!-- Tipo Actuación -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Tipo Actuación</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="opCodActua">
+                                <option *ngFor="let dato of TiposActuacion" [value]="dato.codigo">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Expediente -->
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Expediente</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" placeholder="Código" [(ngModel)]="camposEditar.expediente">
+                        </div>
+                    </div>
+
+                    <!-- Gestión y Pendiente -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Gestión</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" placeholder="Ingrese la gestión" [(ngModel)]="camposEditar.gestion" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Pendiente</label>
+                        <div class="col-md-9">
+                            <textarea class="form-control" placeholder="Ingrese pendiente" [(ngModel)]="camposEditar.pendiente" rows="4"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Fecha Actuación y Fecha Vencimiento -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Fecha Actuación</label>
+                        <div class="col-md-9">
+                            <!-- <input type="date" class="form-control" [(ngModel)]="camposEditar.fechaactuacion"> -->
+
+                            <input type="date" class="form-control"
+                                [value]="camposEditar.fechaactuacion ? (camposEditar.fechaactuacion | date:'yyyy-MM-dd') : ''"
+                                (change)="actualizarFechaActuacion($event)">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Fecha Vencimiento</label>
+                        <div class="col-md-9">
+                           <input type="date" class="form-control"
+                                [value]="camposEditar.vence ? (camposEditar.vence | date:'yyyy-MM-dd') : ''"
+                                (change)="actualizarFechaVence($event)">
+                        </div>
+                    </div>
+
+                    <!-- País y Estado del Trámite -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">País</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="idpaisseleccionado">
+                                <option *ngFor="let dato of paises" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Estado Trámite</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="TipoEstadoTramiteSelecctionado" (ngModelChange)="onChangeEstadoTramite($event)">
+                                <option *ngFor="let dato of TipoEstadoTramite" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Paralegal y Estado Pendiente -->
+                    <div class="form-group row fila-alterna">
+                        <label class="col-md-3 col-form-label">Paralegal</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="opParalegal">
+                                <option *ngFor="let dato of Paralegales" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label class="col-md-3 col-form-label">Estado Pendiente</label>
+                        <div class="col-md-9">
+                            <select class="form-control custom-select" [(ngModel)]="TipoEstadoSeleccionado">
+                                <option *ngFor="let dato of TipoEstado" [value]="dato.id">{{dato.nombre}}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                </div> <!-- Cierre de form-container -->
+
+                <!-- Botones -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" (click)="cerrarModal()">Cerrar</button>
+                    <button type="button" class="btn btn-danger waves-effect waves-light" (click)="salvarModal()">Guardar cambios</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
 </div>
 
 

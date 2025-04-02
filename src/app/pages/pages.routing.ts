@@ -49,6 +49,7 @@ const routes: Routes =[
           {path: 'marcas',component:MarcasComponent, canActivate: [roleGuard],data :{titulo :'Marcas', roles: [222,223]}},
           {path: 'personas',component:PersonasComponent, canActivate: [roleGuard],data :{titulo :'Personas', roles: [222,223]}},
           {path: 'analisis',component:AnalisisComponent, canActivate: [roleGuard],data :{titulo :'Analizar Gaceta', roles: [222,223]}},
+          {path: 'consultas',component:ConsultasComponent, canActivate: [roleGuard],data :{titulo :'Reportes', roles: [222,223]}},
           
 
           //mantenimientos

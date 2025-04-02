@@ -175,8 +175,8 @@ export class UsuarioService {
 
     modificar(item : Usuario)
     {
-        //console.log('modificar');
-       // console.log(item);
+        console.log('modificar');
+        console.log(item);
         
         const {id } =item;
   

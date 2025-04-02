@@ -390,33 +390,35 @@ export class PersonasComponent {
     }
  
  
-    salvarModal()
-    {
-      
-     // console.log(this.opcionSeleccionada2);
-
-      // if(this.opcionSeleccionada2>0)
-      // {
-      //   this.camposEditar.id = this.opcionSeleccionada2 ; 
-      // }
-      // else{
-      //   this.camposEditar.id = 1;
-      // }
-      
-
-
+    salvarModal() {
       this.camposEditar.idempresa = this.Empresa;
       this.camposEditar.idtipopersona = this.opTipoPersona;
-      this.camposEditar.idtipoidentificacion =this.opIdIdentificacion;
-      this.camposEditar.idciudad =this.opIdCiudad;
-
+      this.camposEditar.idtipoidentificacion = this.opIdIdentificacion;
+      this.camposEditar.idciudad = this.opIdCiudad;
+    
+      // ✅ Validación de campos obligatorios
+      if (!this.opTipoPersona || !this.camposEditar.nombre || !this.opIdCiudad || this.camposEditar.idestado === null || this.camposEditar.idestado === undefined) {
+        Swal.fire(
+          'Campos requeridos',
+          'Por favor complete los campos obligatorios: Tipo, Nombre, Ciudad y Estado.',
+          'warning'
+        );
+        return;
+      }
+    
+      // ✅ Asignar campos opcionales por defecto si vienen vacíos
+      this.camposEditar.nombres = this.camposEditar.nombres || '';
+      this.camposEditar.apellidos = this.camposEditar.apellidos || '';
+      this.camposEditar.direccion = this.camposEditar.direccion || '';
+      this.camposEditar.identificacion = this.camposEditar.identificacion || 0;
+    
       console.log("Personas");
-      console.log( this.camposEditar);
+      console.log(this.camposEditar);
 
         if(this._Crear === true)
         {
           this.personasService.crear(this.camposEditar)
-            .subscribe({
+            .subscribe({ 
               next: (resp: RespuestaBackend) => {
                   this.Logs = JSON.stringify(resp);
                   console.log(resp);
@@ -499,10 +501,6 @@ export class PersonasComponent {
 
         }
 
-       // console.log(ciudadPais);
-        
-      
-      
         
         this.cerrarModal();
     }

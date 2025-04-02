@@ -41,6 +41,9 @@ export class TptiposdetalleService {
   cargar(desde: number =0,cuantos: number =10, idtipos :Number = 0, nombre :string="")
   {
     const url = `${ base_url }/tiposdetalleSQL?desde=${desde}&elementos=${cuantos}&idtipos=${idtipos}&nombre=${nombre}`;
+
+    console.log(url);
+    
     return this.http.get(url,this.headers);
   }
 

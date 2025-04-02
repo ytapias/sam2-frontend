@@ -395,8 +395,10 @@ export class UsuariosComponent implements OnInit {
 
       this.SubTitulo="Modificar";
 
+//console.log(dtiposdetalle);
+
       this.camposEditar = dtiposdetalle;
-   //console.log(this.camposEditar.idrole);
+  // console.log(this.camposEditar);
       this.TipoUsuarioSeleccionado = this.camposEditar.idrole;
       
       this.TipoIdentificacionSeleccionado= this.camposEditar.idtipoidentificacion;
@@ -415,10 +417,11 @@ export class UsuariosComponent implements OnInit {
       this.camposEditar.idestado=this.TipoEstadoSeleccionado;
       this.camposEditar.idtipoidentificacion=this.TipoIdentificacionSeleccionado;
       this.camposEditar.idrole=this.TipoUsuarioSeleccionado;
-      this.camposEditar.idpersona=0;
+      
         if(this._Crear === true)
         {
            // console.log( this.camposEditar);
+           this.camposEditar.idpersona=0;
           this.camposEditar.password=this.camposEditar.identificacion;
 
           this.servicio.crear(this.camposEditar)
@@ -426,7 +429,7 @@ export class UsuariosComponent implements OnInit {
             {
               this.Logs = JSON.stringify(resp);
               
-              console.log(resp);
+           //   console.log(resp);
               Swal.fire(
                 'Crear!',
                 `El item  ${ this.camposEditar.nombre } fue creado con exito. recuerde el password inicial es el numero de documento`,
@@ -439,6 +442,8 @@ export class UsuariosComponent implements OnInit {
         }
         else
         {
+          this.camposEditar.password='';
+       //   console.log(this.camposEditar);
           this.servicio.modificar(this.camposEditar)
           .subscribe(resp =>
             {

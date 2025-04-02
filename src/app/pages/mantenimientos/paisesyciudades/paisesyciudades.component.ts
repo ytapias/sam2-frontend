@@ -38,6 +38,8 @@ export class PaisesyciudadesComponent {
   public busquedaNombre : string="";
   Logs : string="";
 
+  Titulo: string="Paises y Ciudades";
+  SubTitulo: string="ingrese los datos de Paises";
 
 
   seccionMinimizada: boolean = false;
@@ -224,7 +226,7 @@ export class PaisesyciudadesComponent {
     
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'datos.csv');
+    link.setAttribute('download', 'paisesyciudades.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -240,8 +242,8 @@ export class PaisesyciudadesComponent {
     const datosExcel = this.convertirAFormatoExcel(this.Items);
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-    XLSX.writeFile(wb, 'datos.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'Paisesyciudades');
+    XLSX.writeFile(wb, 'paisesyciudades.xlsx');
   }
 
 
@@ -256,8 +258,8 @@ export class PaisesyciudadesComponent {
           const datosExcel =  this.convertirAFormatoExcel( this.ItemsALL);
           const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
           const wb: XLSX.WorkBook = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-          XLSX.writeFile(wb, 'datos.xlsx');
+          XLSX.utils.book_append_sheet(wb, ws, 'Paisesyciudades');
+          XLSX.writeFile(wb, 'paisesyciudadesAll.xlsx');
       });
      
 
@@ -312,8 +314,7 @@ export class PaisesyciudadesComponent {
 
    public camposEditar : paisesyciudades=new paisesyciudades(0,'','',0,'',new Date(),'',1,'',1);
       
-    Titulo: string="Configuracion";
-    SubTitulo: string="ingrese los datos de Configuracion";
+ 
 
     abrirCrear(){
         //console.log(this.modalFormularioServices.ocultarModal);

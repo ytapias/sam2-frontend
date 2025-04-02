@@ -28,6 +28,7 @@ export class SidebarService {
         { titulo:'Marcas',url:'marcas', roles: [222, 223]},
         { titulo:'Personas',url:'personas', roles: [222, 223]},
         { titulo:'Analizar Gaceta',url:'analisis', roles: [222, 223]},
+        { titulo:'Reportes',url:'consultas', roles: [222, 223]},
       ]
     },
     {

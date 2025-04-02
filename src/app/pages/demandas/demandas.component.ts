@@ -73,11 +73,12 @@ export class DemandasComponent {
 
 ngOnInit(): void {
   this.cargar();
-// this.cargarClase();
-// this.cargarTipoEstado();
-// this.cargarTipoProceso();
-// this.cargarTipoActuacion();
-// this.cargarPais();
+ this.cargarClase();
+ this.cargarTipoEstado();
+
+ this.cargarTipoProceso();
+ this.cargarTipoActuacion();
+ this.cargarPais();
 
 }
 

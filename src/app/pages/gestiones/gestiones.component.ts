@@ -52,9 +52,7 @@ export class GestionesComponent {
   Fechaactuacion: Date= new Date();
   
   public busqueda = 1
- // public TiposDetalleTEMP: tiposdetalle[]=[];
-
-  // public res1 : any;
+  
  
   public desde : number=0;
   public paginaActual : number=0;
@@ -69,11 +67,9 @@ export class GestionesComponent {
   public fechavence3 : string=this.fechavence2.toISOString().split('T')[0];
   
   seccionMinimizada: boolean = false;
-  //opcionSeleccionada: number=0; 
-  opCodActua: string="";
+   opCodActua: string="";
   opTiposProcesos: string="";
-  //opcionSeleccionada4: number=0; 
-  TipoEstadoSeleccionado: number=0; 
+   TipoEstadoSeleccionado: number=0; 
   idpaisseleccionado: number=0;  
   opParalegal:number=0;
   TipoEstadoTramiteSelecctionado: number=0;  
@@ -96,14 +92,7 @@ export class GestionesComponent {
 
   ngOnInit(): void {
 
-    // this.gestionID =+(this.route.snapshot.paramMap.get('id')?? 0);
-    // // Aquí puedes cargar más datos relacionados con la gestión si lo necesitas
-    // console.log('Gestion seleccionada:', this.gestionID);
-    // console.log('Gestion seleccionada:', this.route.snapshot.paramMap.get('id'));
-
-
-
-  
+   
 
 
     this.route.params.subscribe(params => {
@@ -161,20 +150,7 @@ export class GestionesComponent {
   toggleMinimizar() {
     this.seccionMinimizada = !this.seccionMinimizada;
   }
-
-
-
-  // cambiarTipo(tipow :any){
  
-  //  // console.log(tipow);
-  //     this.desde =0;
-  //     this.filtro =this.opcionSeleccionada;
-  //     this.textoBuscar ='';
-  //     this.busquedaNombre='';
-  //     this.cargar(); 
-  //     this.Logs="";
-      
-  // }
 
   cambiarTipo2(tipow :any){
  
@@ -188,8 +164,7 @@ export class GestionesComponent {
           
       if (this.gestionID>0)
       {
-       // cargar(desde: number =0,cuantos: number =10, idexpediente :Number = 0, nombre :string="" , fechainicio :string="",fechavence :string="",todas:Number=0  )
-
+ 
         this.servicio.cargar(this.desde,this.limite,0,'','','',0,this.gestionID)
           .subscribe ( (res1:any) => 
           {
@@ -379,26 +354,11 @@ export class GestionesComponent {
     this.Logs="Cambiando pagina "+ this.desde;
   }
 
-  fechaVenceGestion:Date=new Date();
-  fechaActuacion:Date=new Date();
+  fechaVenceGestion: Date | null = null;
+  fechaActuacion: Date | null = null;
 
 
-  cambiarFechaActuacion(tipow :any)
-  {
-    console.log("TIPO---------------");
-    console.log(tipow);
-    this.fechaActuacion= tipow;
-  }
-  
-  
-
-  cambiarFechaVenceGestion(tipow :any)
-  {
-    console.log("TIPO---------------");
-    console.log(tipow);
-    this.fechaVenceGestion= tipow;
-  }
-
+ 
 
   buscar(termino : string )
   {
@@ -441,8 +401,6 @@ export class GestionesComponent {
                                 );
 
                               });
-        
-
       }
     })
 
@@ -459,7 +417,7 @@ export class GestionesComponent {
     
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'datos.csv');
+    link.setAttribute('download', 'Gestiones.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -475,8 +433,8 @@ export class GestionesComponent {
     const datosExcel = this.convertirAFormatoExcel(this.Items);
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
     const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-    XLSX.writeFile(wb, 'datos.xlsx');
+    XLSX.utils.book_append_sheet(wb, ws, 'Gestiones');
+    XLSX.writeFile(wb, 'Gestiones.xlsx');
   }
 
 
@@ -491,8 +449,8 @@ export class GestionesComponent {
           const datosExcel =  this.convertirAFormatoExcel( this.ItemsALL);
           const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(datosExcel);
           const wb: XLSX.WorkBook = XLSX.utils.book_new();
-          XLSX.utils.book_append_sheet(wb, ws, 'Datos');
-          XLSX.writeFile(wb, 'datos.xlsx');
+          XLSX.utils.book_append_sheet(wb, ws, 'Gestiones');
+          XLSX.writeFile(wb, 'GestionesAll.xlsx');
       });
      
 
@@ -507,21 +465,18 @@ export class GestionesComponent {
    convertirAFormatoExcel(datos: any[]): any[] {
     // Asegúrate de que tus datos estén en un formato aceptable por la librería XLSX
     return datos.map(dato => ({
-      idtipoempresa: dato.idtipoempresa,
-      tipoempresa: dato.tipoempresa,
-      Idtipoidentificacion: dato.idtipoidentificacion,
-      Identificacion: dato.identificacion,
-      Dv: dato.dv,
-      Nombre: dato.nombre,
-      Telefono1: dato.telefono1,
-      Telefono2: dato.telefono2,
-      Celular: dato.celular,
-      IdPais: dato.idpais,
+      Expediente: dato.expediente,
+      NmroInterno: dato.nrointerno,
+      Marca: dato.marca,
+      Gestion: dato.gestion,
+      Pendiente: dato.pendiente,
       Pais: dato.pais,
-      IdCiudad: dato.idciudad,
-      Ciudad: dato.ciudad,
-      Direccion: dato.direccion,
-      Correo: dato.correo,
+      Clase: dato.clase,
+      TipoProceso: dato.tipoproc,
+      FechaAct: dato.fechaactuacion ? new Date(dato.fechaactuacion).toISOString().split('T')[0] : '',
+      TipoAct: dato.TipoAct, 
+      FechaVencimiento: dato.vence ? new Date(dato.vence).toISOString().split('T')[0] : '',
+      Paralegal: dato.paralegal,
       IdEstado: dato.idestado,
       Estado: dato.estado,
       Id: dato.id
@@ -553,18 +508,16 @@ export class GestionesComponent {
   */
  
   private _ocultarModal: boolean = true;
-  
-  
+    
   private _Crear: boolean = true;
   private _Uid: string = "";
 
-   public camposEditar : Gestiones2=new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
-   
+  public camposEditar : Gestiones2=new Gestiones2(0,0,0,'',0,'','',0,'','','',new Date(),'','','',new Date(),'',0,'',0,'',0,'');
       
-    Titulo: string="Gestiones";
-    SubTitulo: string="ingrese los datos de Gestion";
+  Titulo: string="Gestiones";
+  SubTitulo: string="ingrese los datos de Gestion";
 
-    abrirCrear(){
+  abrirCrear(){
         //console.log(this.modalFormularioServices.ocultarModal);
         this._Crear=true;
         this.SubTitulo="Crear";
@@ -597,118 +550,107 @@ export class GestionesComponent {
   }
 
   
-    abrirModificar(dtiposdetalle:Gestiones2){
-      this._Crear=false;
-
-      this.SubTitulo="Modificar";
-
-      this.camposEditar = dtiposdetalle;
-
-      this.idpaisseleccionado= dtiposdetalle.idpais;
- 
-      this.TipoEstadoSeleccionado= dtiposdetalle.idestado;
+  abrirModificar(dtiposdetalle: Gestiones2) 
+  {
+    this._Crear = false;
+    this.SubTitulo = "Modificar";
+    this.camposEditar = { ...dtiposdetalle }; // Clonar el objeto para evitar efectos colaterales
   
-      this.fechaVenceGestion=dtiposdetalle.vence;
-      this.fechaActuacion= dtiposdetalle.fechaactuacion;
-
-      this.camposEditar.fechaactuacion= dtiposdetalle.fechaactuacion;
-      this.camposEditar.vence=dtiposdetalle.vence;
-      this.camposEditar.pendiente=dtiposdetalle.pendiente;
-      this.camposEditar.gestion=dtiposdetalle.gestion;
-      this.TipoEstadoTramiteSelecctionado=dtiposdetalle.tipogest;
-      
-      this.opParalegal=dtiposdetalle.idparalegal;
-      this.opCodActua=  dtiposdetalle.codactua ;
-      this.opTiposProcesos=  dtiposdetalle.tipoproc ;
-
-      // this.opCodActua= this.buscarIdPorCodigo(  this.TiposActuacion  ,dtiposdetalle.codactua);
-      //  this.opTiposProcesos= this.buscarIdPorCodigo(  this.TiposProceso  ,dtiposdetalle.tipoproc);
-
-
-       //this.opClaseActua= this.buscarIdPorCodigo(  this.ClaseActuacion  ,dtiposdetalle.clase);
-       this.opClaseActua= dtiposdetalle.clase;
-       //   console.log( this.TipoEstadoTramite );
-      // console.log(this.TipoEstadoTramite);
-      // console.log(dtiposdetalle.tipogest);
-
-      this.abrirModal();
-    }
- 
-    // cambiarEstado(tipow2 :any)
-    // {
-    //   console.log("ESTADO ---------------");
-    //   console.log(tipow2);
-    //   this.TipoEstadoSeleccionado= tipow2;
-    // } 
+    // console.log(dtiposdetalle);
+    // console.log("Actuación:", typeof dtiposdetalle.fechaactuacion, dtiposdetalle.fechaactuacion);
+    // console.log("Vence:", typeof dtiposdetalle.vence, dtiposdetalle.vence);
+    this.camposEditar.fechaactuacion = dtiposdetalle.fechaactuacion ? new Date(dtiposdetalle.fechaactuacion) : null;
+    this.camposEditar.vence = dtiposdetalle.vence ? new Date(dtiposdetalle.vence) : null;
+    this.idpaisseleccionado = dtiposdetalle.idpais;
+    this.TipoEstadoSeleccionado = dtiposdetalle.idestado;
+    this.TipoEstadoTramiteSelecctionado = dtiposdetalle.tipogest;
+    this.opParalegal = dtiposdetalle.idparalegal;
+    this.opCodActua = dtiposdetalle.codactua;
+    this.opTiposProcesos = dtiposdetalle.tipoproc;
+    this.opClaseActua = dtiposdetalle.clase;
   
-    salvarModal()
-    {
+    this.abrirModal();
+  }
+  
 
-        if(this._Crear === true)
-        {
- 
-          
-          let  nueva    : Gestiones2 = new Gestiones2(0,this.Empresa,0,this.camposEditar.expediente,0,'','',this.idpaisseleccionado,'',this.camposEditar.clase,this.opTiposProcesos,
-          this.fechaActuacion, this.opCodActua, this.camposEditar.gestion, this.camposEditar.sitermino,
-          this.fechaVenceGestion, this.camposEditar.pendiente,this.TipoEstadoTramiteSelecctionado, this.camposEditar.um,this.TipoEstadoSeleccionado,'',this.opParalegal,'');
-          
-          console.log(nueva);
-          console.log(this.camposEditar.fechaactuacion);
+  actualizarFechaActuacion(event: any) {
+    const valor = event.target.value;
+    this.camposEditar.fechaactuacion = valor ? new Date(valor) : null;
+  }
+  actualizarFechaVence(event: any) {
+    const valor = event.target.value;
+    this.camposEditar.vence = valor ? new Date(valor) : null;
+  }
 
-          this.servicio.crear(nueva)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              
-              console.log(resp);
-              Swal.fire(
-                'Crear!',
-                `El item  ${ this.camposEditar.id } fue creado con exito.`,
-                'success'
-              );
 
-            });
-          
- 
-        }
-        else
-        {
-          this.camposEditar.vence= this.fechaVenceGestion;
-          this.camposEditar.fechaactuacion=this.fechaActuacion;
-          this.camposEditar.idestado= this.TipoEstadoSeleccionado;
+  salvarModal()
+  {
 
-          this.camposEditar.idparalegal= this.opParalegal;
-          this.camposEditar.tipoproc= this.opTiposProcesos;
-          this.camposEditar.codactua= this.opCodActua;
-          this.camposEditar.idpais= this.idpaisseleccionado;
-          this.camposEditar.tipogest= this.TipoEstadoTramiteSelecctionado;
-          this.servicio.modificar(this.camposEditar)
-          .subscribe(resp =>
-            {
-              this.Logs = JSON.stringify(resp);
-              //var variable: RespuestaBackend = resp;
-              
-              console.log(resp);
-              Swal.fire(
-                'Modificar!',
-                `El item  ${ this.camposEditar.id }   fue modificado  con exito.`,
-                'success'
-              );
+      if(this._Crear === true)
+      {
 
-            });
-
-            this.cargar();
-      
-
-        }
-
-       // console.log(ciudadPais);
         
-      
-      
+        let  nueva    : Gestiones2 = new Gestiones2(0,this.Empresa,0,this.camposEditar.expediente,0,'','',this.idpaisseleccionado,'',this.camposEditar.clase,this.opTiposProcesos,
+        this.fechaActuacion, this.opCodActua, this.camposEditar.gestion, this.camposEditar.sitermino,
+        this.fechaVenceGestion, this.camposEditar.pendiente,this.TipoEstadoTramiteSelecctionado, this.camposEditar.um,this.TipoEstadoSeleccionado,'',this.opParalegal,'');
         
-        this.cerrarModal();
-    }
+        console.log(nueva);
+        console.log(this.camposEditar.fechaactuacion);
+
+        this.servicio.crear(nueva)
+        .subscribe(resp =>
+          {
+            this.Logs = JSON.stringify(resp);
+            
+            console.log(resp);
+            Swal.fire(
+              'Crear!',
+              `El item  ${ this.camposEditar.id } fue creado con exito.`,
+              'success'
+            );
+
+          });
+        
+
+      }
+      else
+      {
+        this.camposEditar.vence= this.fechaVenceGestion;
+        this.camposEditar.fechaactuacion=this.fechaActuacion;
+        this.camposEditar.idestado= this.TipoEstadoSeleccionado;
+
+        this.camposEditar.idparalegal= this.opParalegal;
+        this.camposEditar.tipoproc= this.opTiposProcesos;
+        this.camposEditar.codactua= this.opCodActua;
+        this.camposEditar.idpais= this.idpaisseleccionado;
+        this.camposEditar.tipogest= this.TipoEstadoTramiteSelecctionado;
+        this.servicio.modificar(this.camposEditar)
+        .subscribe(resp =>
+          {
+            this.Logs = JSON.stringify(resp);
+            //var variable: RespuestaBackend = resp;
+            
+            console.log(resp);
+            Swal.fire(
+              'Modificar!',
+              `El item  ${ this.camposEditar.id }   fue modificado  con exito.`,
+              'success'
+            );
+
+          });
+
+          this.cargar();
+    
+
+      }
+
+      // console.log(ciudadPais);
+      
+    
+    
+      
+      this.cerrarModal();
+  }
 
     get ocultarModal(){
       return this._ocultarModal;

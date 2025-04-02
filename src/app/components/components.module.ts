@@ -7,19 +7,19 @@ import { ReactiveFormsModule,FormsModule } from "@angular/forms";
 
 
 import { DonutComponent } from './donut/donut.component';
-import { ModalFormularioComponent } from './modal-formulario/modal-formulario.component';
+//import { ModalFormularioComponent } from './modal-formulario/modal-formulario.component';
 
 
 @NgModule({
   declarations: [
     IncrementadorComponent,
     DonutComponent,
-    ModalFormularioComponent
+//    ModalFormularioComponent
   ],
   exports: [
     IncrementadorComponent,
     DonutComponent,
-    ModalFormularioComponent
+  //  ModalFormularioComponent
   ],
   imports: [
     CommonModule,

@@ -8,6 +8,7 @@ export class tiposdetalle {
         public id: number,
         public idtipo: number,
         public tipo: string,
+        public filtros: string,
         ) 
     { }
 }

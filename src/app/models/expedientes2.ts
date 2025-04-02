@@ -50,6 +50,7 @@ export class Expedientes2 {
     public ts:string,
     public vcniza:string,
     public rvidicac:string,
+    
     public tiposol:string,
     public vigenuso:Date,
     public frrenova:Date,

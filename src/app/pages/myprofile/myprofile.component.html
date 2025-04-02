@@ -33,87 +33,54 @@
     </div>
 </div>
 
- 
-<!--
-------------------------------------------------------
-MODAL 2 cambio de password 
-------------------------------------------------------4
--->
-
-
-<div class="fondo_modal animated fadeIn fast"
-[class.oculto]="ocultarModal2" >
-
-<div class="modal-dialog  modal-lg  modal-dialog-scrollable">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">{{Titulo}}</h4>
-            <button type="button" 
-            class="close" 
-            data-dismiss="modal" 
-            aria-hidden="true"
-            (click)="cerrarModal2()">×</button>
+ <!-- MODAL CAMBIO DE PASSWORD -->
+<div class="fondo_modal animated fadeIn fast" [class.oculto]="ocultarModal2">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content m-0 p-0">
+        <div class="modal-header sidebar-nav text-white">
+          <h4 class="modal-title">&nbsp;{{Titulo}}&nbsp;&nbsp;|&nbsp;&nbsp;{{SubTitulo}}</h4>
+          <button type="button" class="close text-white" data-dismiss="modal" aria-hidden="true" (click)="cerrarModal2()">&nbsp;&nbsp;×&nbsp;&nbsp;</button>
         </div>
-       
+  
         <div class="modal-body">
-            <div class="card-body">
-            
-                <div class="form-body" > 
-                    <h3 class="card-title">{{SubTitulo}}</h3>
-                    <hr>
-                    <div class="row">
-                     
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group">
-                               
-                                    <label class="control-label">Va a cambiar la contraseña parar el usuario {{camposEditar.nombre}} </label>
-                                 
-                            </div>
-                        </div>
-                        <!--/span-->
-                    </div>
-          
-                   
-                   
-                    <div class="row p-t-20">
-                   
-                        <!--/span-->
-                        <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Nuevo Password</label>
-                                <input type="password" id="password" class="form-control form-control-danger" 
-                                            placeholder="password" [(ngModel)]="psw1">
-                                <small class="form-control-feedback"> Digite password </small> </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group ">
-                                <label class="control-label">Repita Nuevo Password</label>
-                                <input type="password" id="password" class="form-control form-control-danger" 
-                                            placeholder="password" [(ngModel)]="psw2">
-                                <small class="form-control-feedback"> Digite password </small> </div>
-                        </div>
-                        <!--/span    has-danger al lado de class="form-group "  -->
-                    </div>
-
-                   
-
-                <div class="modal-footer">
-                    <button type="button" 
-                        class="btn btn-default waves-effect" 
-                        data-dismiss="modal"
-                        (click)="cerrarModal2()"
-                    >Cerrar</button>
-                    <button type="button" class="btn btn-danger waves-effect waves-light"  
-                                (click)="salvarModal2()">Salvar cambios</button>
-                </div>
-
+          <div class="form-container">
+  
+            <!-- Usuario -->
+            <div class="form-group row fila-alterna">
+              <label class="col-md-3 col-form-label">Usuario</label>
+              <div class="col-md-9">
+                <input type="text" class="form-control" [value]="camposEditar.nombre" disabled>
+              </div>
             </div>
+  
+            <!-- Nuevo Password -->
+            <div class="form-group row">
+              <label class="col-md-3 col-form-label">Nuevo Password</label>
+              <div class="col-md-9">
+                <input type="password" class="form-control form-control-danger" placeholder="Ingrese nueva contraseña" [(ngModel)]="psw1">
+                <small class="form-control-feedback">Digite el nuevo password</small>
+              </div>
+            </div>
+  
+            <!-- Repetir Nuevo Password -->
+            <div class="form-group row fila-alterna">
+              <label class="col-md-3 col-form-label">Repita Password</label>
+              <div class="col-md-9">
+                <input type="password" class="form-control form-control-danger" placeholder="Repita la nueva contraseña" [(ngModel)]="psw2">
+                <small class="form-control-feedback">Confirme el password</small>
+              </div>
+            </div>
+  
+            <!-- Botones -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default waves-effect" data-dismiss="modal" (click)="cerrarModal2()">Cerrar</button>
+              <button type="button" class="btn btn-danger waves-effect waves-light" (click)="salvarModal2()">Guardar cambios</button>
+            </div>
+  
+          </div>
         </div>
-             
+      </div>
     </div>
-</div>
-
-
-</div>
+  </div>
+  
 <script src="../assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>

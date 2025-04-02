@@ -35,12 +35,18 @@ export class AnalisisService {
  //public tiposdetalle:Empresas[]=[];
 
 
-  cargar(desde: number =0,cuantos: number =10, gaceta :Number = 0)
+  cargar( gaceta :Number = 0)
   {
-    const url = `${ base_url }/analisisSQL?desde=${desde}&elementos=${cuantos}&gaceta=${gaceta}`;
+    const url = `${ base_url }/analisisSQL?gaceta=${gaceta}&tipo=0`;
     return this.http.get(url,this.headers);
   }
 
+
+  cargarMarcasSimilares(gacetaId: number, marca: string) {
+    const url = `${base_url}/analisisSQL?gaceta=${gacetaId}&marca=${marca}&tipo=1`;
+    console.log (url);
+    return this.http.get(url, this.headers);
+  }
 
   analisis(gaceta : gacetas)
   {

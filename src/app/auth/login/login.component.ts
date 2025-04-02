@@ -60,10 +60,14 @@ export class LoginComponent {
                               this.router.navigateByUrl('/');
                           }, error:(err) =>  {
                             console.log("error 99");
-
                             console.log(err);
-                            Swal.fire('Error',err.error.msg,'error');
-                          } 
+                          
+                            // 🔐 Limpiar campo password
+                            this.loginForm.get('password')?.reset();
+                          
+                            Swal.fire('Error', err.error.msg, 'error');
+                          }
+                          
                         } );
         
       
