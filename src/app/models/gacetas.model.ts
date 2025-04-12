@@ -4,6 +4,8 @@ export class gacetas {
         public paisrad: string,
         public fechapub: Date,
         public registros: number,
+        
+        public estado: string = 'Pendiente' // 👈 propiedad agregada con valor por defecto
 
         ) 
     { }

@@ -1,23 +1,22 @@
 import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { catchError } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
-const base_url =environment.base_url;
+const base_url = environment.base_url;
 
 interface DataItem {
   paisrad: string;
   dominio: string;
-  anno: string; // Asegúrate de que los tipos coincidan con lo que esperas en tu objeto
+  anno: string;
   expedi: string;
-  año: string;
   fechapb: string;
   estado: string;
   ts: string;
-  
-natural: string;
+  natural: string;
   denomi: string;
   civersion: string;
   clase: string;
@@ -27,13 +26,12 @@ natural: string;
   paisapod: string;
   solicitant: string;
   direcsol: string;
-  
-   emailsol: string;
+  emailsol: string;
   nomciu: string;
   depto: string;
   pais: string;
- codpais: string;
-   contacto: string;
+  codpais: string;
+  contacto: string;
   dircont: string;
   emailcont: string;
   ciudcont: string;
@@ -55,6 +53,7 @@ natural: string;
   codciud: string;
   direccion: string;
   clasesig: string;
+  nro_publicacion: string;
 }
 
 @Injectable({
@@ -64,141 +63,138 @@ export class CargarService {
 
   constructor(private http: HttpClient) { }
 
-  get token():string{
+  get token(): string {
     return localStorage.getItem('token') || '';
   }
 
-  get headers(){
+  get headers() {
     return {
-      headers:
-      {
-        'x-token':this.token
-          }
-
-      };
+      headers: {
+        'x-token': this.token
+      }
+    };
   }
 
-  nuevoArreglo: any[]=[];
+  nuevoArreglo: any[] = [];
 
-
-
-   excelDateToJSDate(excelDate: string): Date {
-    // Convertir el string a número
-    const excelNumber = parseFloat(excelDate);
-    // Calcular la fecha
-    const date = new Date((excelNumber - 25569) * 86400 * 1000);
-    return date;
+  excelDateToJSDate(excelDate: any): string {
+    if (!excelDate || isNaN(+excelDate)) return '';
+    const date = new Date((+excelDate - 25569) * 86400 * 1000);
+    return date.toISOString().split('T')[0];
   }
 
-  
-
-
- // public totalUsuarios :number =0;
- //public tiposdetalle:Empresas[]=[];
-  cargar(Tipo: string ="",Data :string )
-  {
-    //const url = `${ base_url }/CargarSQL?tipo=${Tipo}&elementos=${cuantos}&espais=${espais}&nombre=${nombre}`;
-    //return this.http.get(url,this.headers);
+  cargar(Tipo: string = '', Data: string) {
     console.log('creando');
-    const parsedData = JSON.parse(Data); 
+    const parsedData = JSON.parse(Data);
+    const sheetName = Object.keys(parsedData).find(name => name.trim().toLowerCase() === 'colombia general');
 
-    console.log("parsedData");
-    console.log(parsedData);
-//?tipo=${Tipo}
-
-const data = Object.values(parsedData)[0]; // Obtiene el primer valor del objeto, que debería ser el array de datos
-  console.log(data);
-  if (Array.isArray(data)) {
-
-      console.log('Primer objeto del arreglo:', data[0]); // Muestra el primer objeto
-      console.log('Primer objeto del arreglo..:', data[0][0]); // Muestra el primer objeto
-      console.log('Primer objeto del arreglo..:', data[0]['paisrad ']); // Muestra el primer objeto
-
-
-
-      this.nuevoArreglo = data.map((item: DataItem) => ({
-        
-        paisrad: item.paisrad,
-        dominio: item.dominio,
-
-        anno: item.anno,
-        expedi: item.expedi,
-        fechapb: item.fechapb,
-        estado: item.estado,
-        ts: item.ts,
-
-        natural: item.natural,
-        denomi: item.denomi,
-        civersion: item.civersion,
-        clase: item.clase,
-        apoderado: item.apoderado,
-        dirapo: item.dirapo,
-        emailapode: item.emailapode,
-        paisapod: item.paisapod,
-        solicitant: item.solicitant,
-        direcsol: item.direcsol,
-
-        emailsol: item.emailsol,
-        nomciu: item.nomciu,
-        depto: item.depto,
-        pais: item.pais,
-        codpais: item.codpais,
-        contacto: item.contacto,
-        dircont: item.dircont,
-        emailcont: item.emailcont,
-        ciudcont: item.ciudcont,
-        paiscont: item.paiscont,
-        tipomarc: item.tipomarc,
-        tipoproc: item.tipoproc,
-        gaceta: item.gaceta,
-        expedinu: item.expedinu,
-        plazopo: item.plazopo,
-
-        clases: item.clases,
-        fechapub:item.fechapub,
-        tiposol: item.tiposol,
-        expedio: item.expedio,
-        numpub: item.numpub,
-        prioridad: item.prioridad,
-        fechapri: item.fechapri,
-        regint: item.regint,
-        fregint: item.fregint,
-        codciud: item.codciud,
-        direccion: item.direccion,
-        clasesig: item.clasesig,
-        // ... y así sucesivamente para el resto de las propiedades
-      })
-  
-    );
-
-      console.log(this.nuevoArreglo);
-
-     // return this.http.post(`${ base_url }/cargarSQL`,this.nuevoArreglo,this.headers);
-      return this.http.post(`${base_url}/cargarSQL`, this.nuevoArreglo, this.headers).pipe(
-        catchError(err => {
-          console.error('Error al hacer el POST:', err);
-          return of(null);  // En caso de error, retornas un Observable con `null`
-        })
-      );
-        
-    } else {
-      console.error('Error: El formato de los datos no es correcto.');
-      return of(null);  // Si la validación falla, retornamos un Observable con `null`
-
+    if (!sheetName) {
+      setTimeout(() => {
+        Swal.fire('Error', 'No se encontró la hoja llamada "COLOMBIA GENERAL".', 'error');
+      }, 0);
+      return of(null);
     }
 
+    const data = parsedData[sheetName];
+    if (!Array.isArray(data)) {
+      setTimeout(() => {
+        Swal.fire('Error', 'El formato de los datos no es correcto.', 'error');
+      }, 0);
+      return of(null);
+    }
+
+    return new Observable(observer => {
+      Swal.fire({
+        title: 'Fecha de publicación',
+        text: 'Por favor selecciona la fecha de publicación de la gaceta',
+        input: 'text',
+        inputLabel: 'Fecha de publicación',
+        inputAttributes: {
+          placeholder: 'YYYY-MM-DD'
+        },
+        inputValidator: (value) => {
+          if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+            return 'Ingresa una fecha válida en formato YYYY-MM-DD';
+          }
+          return null;
+        },
+        showCancelButton: true
+      }).then(result => {
+        if (!result.isConfirmed || !result.value) {
+          Swal.fire('Cancelado', 'No se seleccionó fecha de publicación.', 'info');
+          observer.complete();
+          return;
+        }
+
+        const fechaPublicacion = result.value;
+
+        this.nuevoArreglo = data.map((item: any) => ({
+          nro_publicacion: item.nro_publicacion || '',
+          paisrad: item.paisradicacion || '',
+          dominio: item.dominio || '',
+          anno: item['año'] || '',
+          expedi: item.expediente || '',
+          fechapb: this.excelDateToJSDate(item.fechasolicitud),
+          estado: item.estado || '',
+          ts: item.ts || '',
+          natural: item.natural || '',
+          denomi: this.safeText(item.denomi, 200),
+          civersion: item.civersion || '',
+          clase: item.clase || '',
+          apoderado: item.apoderado || '',
+          dirapo: item.dirapo || '',
+          emailapode: item.emailapode || '',
+          paisapod: item.paisapod || '',
+          solicitant: item.solicitante || '',
+          direcsol: item.direcsol || '',
+          emailsol: item.emailsol || '',
+          nomciu: item.nomciu || '',
+          depto: item.depto || '',
+          pais: item.pais || '',
+          codpais: item.codpais || '',
+          contacto: item.contacto || '',
+          dircont: item.dircont || '',
+          emailcont: item.emailcont || '',
+          ciudcont: item.ciudcont || '',
+          paiscont: item.paiscont || '',
+          tipomarc: item.tipo || '',
+          tipoproc: item.tipoproceso || '',
+          gaceta: +item.gaceta || 0,
+          expedinu: item.expedinu || '',
+          plazopo: this.excelDateToJSDate(item.fechalimite),
+          clases: item.clases || '',
+          fechapub: fechaPublicacion,
+          tiposol: item.tiposol || '',
+          expedio: item.expedio || '',
+          numpub: item.numpub || '',
+          prioridad: item.prioridad || '',
+          fechapri: item.fechapri || '',
+          regint: item.regint || '',
+          fregint: item.fregint || '',
+          codciud: item.codciud || '',
+          direccion: item.direccion || '',
+          clasesig: item.clasesig || '',
+        }));
+
+        console.log(this.nuevoArreglo);
+
+        this.http.post(`${base_url}/cargarSQL`, this.nuevoArreglo, this.headers).pipe(
+          catchError(err => {
+            console.error('Error al hacer el POST:', err);
+            Swal.fire('Error', 'Ocurrió un error al guardar los datos.', 'error');
+            observer.error(err);
+            return of(null);
+          })
+        ).subscribe(response => {
+          observer.next(response);
+          observer.complete();
+        });
+      });
+    });
   }
-
-
-/*
-  crear(item : String)
-  {
-      console.log('creando');
-      console.log(item);
-      
-      console.log(this.http.post(`${ base_url }/EmpresasSQL/`,item,this.headers));
-
-      return 0;
+  safeText(value: any, maxLength: number): string {
+    if (!value) return '';
+    const str = String(value);
+    return str.length > maxLength ? str.substring(0, maxLength) : str;
   }
-*/
 }

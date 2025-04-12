@@ -3,15 +3,21 @@
 
     <div class="tabla-container">
       <!-- Selector de País -->
-      <div class="form-group" *ngIf="!paisSeleccionado">
+      <div class="form-group" *ngIf="!paisSeleccionado  && !gacetaSeleccionada">
           <label for="paisSelect">Seleccionar País</label>
           <select class="form-control" id="paisSelect" [(ngModel)]="codigoPaisSeleccionado" (change)="seleccionarPais()">
               <option *ngFor="let pais of paises" [value]="pais.codigo">{{ pais.nombre }}</option>
           </select>
       </div>
   
+      <!-- Botón para cambiar país -->
+      <div *ngIf="paisSeleccionado && !gacetaSeleccionada" class="d-flex justify-content-end mb-3">
+        <button class="btn btn-outline-primary btn-sm" (click)="resetearPais()">
+          <i class="fas fa-arrow-left mr-2"></i> Cambiar País
+        </button>
+      </div>
       <!-- Tabla de Gacetas -->
-      <div class="card" *ngIf="paisSeleccionado && !gacetaSeleccionada">
+       <div class="card" *ngIf="paisSeleccionado && !gacetaSeleccionada">
           <table class="table table-hover   table-bordered">
             <thead  class="table-dark sticky-header" >
                   <tr>
@@ -40,6 +46,11 @@
   
       <!-- Detalle de Gaceta Seleccionada -->
       <div *ngIf="gacetaSeleccionada">
+            <div class="d-flex justify-content-end mb-3">
+                <button class="btn btn-outline-primary btn-sm" (click)="resetearPais()">
+                <i class="fas fa-arrow-left mr-2"></i> Cambiar País
+                </button>
+            </div>
           <h3>{{ gacetaSeleccionada }}</h3>
           <div class="row">
               <!-- Lista de Marcas de la Gaceta -->

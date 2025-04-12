@@ -41,4 +41,11 @@ export class GacetasService {
     const url = `${ base_url }/gacetasSQL?desde=${desde}&elementos=${cuantos}&nombre=${nombre}`;
     return this.http.get(url,this.headers);
   }
+
+
+  analizarGaceta(gaceta: number) {
+    const url = `${base_url}/gacetasSQL/lanzar-job`;
+    return this.http.post(url, { gaceta }, this.headers);
+  }
+
  }

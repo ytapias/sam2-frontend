@@ -102,141 +102,35 @@ export class GacetasComponent {
     
 
     }
-    analisisGaceta(item : gacetas)
-    {
-        console.log(item.gaceta);
-        
-        this.servicioAnalisis.analisis(item)
-        .subscribe ( (res1:any) => 
-        {
-            console.log(res1);
-           // this.ItemsAnalisis= res1['resultado'];
-
-                Swal.fire(
-                  'res!',
-                  `El RESULTADO ${ res1['resultado']} .`,
-                  'success'
-                );
-
-             
-
-            // this.labels1= res1['resultado'];
-            // this.labels1= res1['resultado'].cantidad;
-    
-        console.log(this.ItemsAnalisis);
-    
-      
-        });
-    
-
+    analisisGaceta(item: gacetas) {
+      Swal.fire({
+        title: `¿Ejecutar análisis de la Gaceta ${item.gaceta}?`,
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, ejecutar',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.servicio.analizarGaceta(item.gaceta).subscribe(
+            (resp: any) => {
+              if (resp.ok) {
+                Swal.fire('¡En cola!', resp.msg, 'success');
+                // Opcional: volver a cargar gacetas para ver estado actualizado
+                this.cargar();
+              } else {
+                Swal.fire('Atención', resp.msg, 'warning');
+              }
+            },
+            (error) => {
+              console.error(error);
+              Swal.fire('Error', 'No se pudo lanzar el proceso.', 'error');
+            }
+          );
+        }
+      });
     }
 
-
-
-//     generateWordDocument(item : Analisis): void {
-      
-//       let cadena  = 'Señores';
-//       let contenido  = `Por medio de la presente solicito se abra investigación en el caso de las marcas, ya que la marca ${item.Cadena1gaceta} de la gaceta ${item.Gaceta} 
-// se parece mucho a ${item.Cadena2marca} propiedad de mi cliente, constituyendo una infracción  a los derechos de marca de mi cliente.`;
-
-//       const doc = new Document({
-//         sections: [{
-//           properties: {},
-//           children: [
-//             // new Paragraph({
-              
-//             //   text: cadena,
-//             //   heading: HeadingLevel.HEADING_1
-//             // }),
-//             new Paragraph( {
-//               children: [
-//              new TextRun({
-//                text: 'Señores.',
-//                size: 24, // Tamaño de la fuente en puntos (12pt)
-//                bold: false, // Opcional: texto en negrita
-//                font: 'Arial' // Fuente Arial
-//              })
-//              ]
-//           }),
-
-//             new Paragraph({
-              
-//               children: [
-//                 new TextRun({
-//                   text: 'Super Intendencia',
-//                   size: 24, // Tamaño de la fuente en puntos (12pt)
-//                   bold: true, // Opcional: texto en negrita
-//                   font: 'Arial' // Fuente Arial
-//                 })
-//               ]
-//             }),
-//             new Paragraph( {
-//                children: [
-//               new TextRun({
-//                 text: 'Ciudad.',
-//                 size: 24, // Tamaño de la fuente en puntos (12pt)
-//                 bold: false, // Opcional: texto en negrita
-//                 font: 'Arial' // Fuente Arial
-//               })
-//               ]
-//            }),
-//             new Paragraph(''),
-//             new Paragraph(''),
-//             new Paragraph({
-              
-//               children: [
-//                 new TextRun({
-//                   text: contenido,
-//                   size: 24, // Tamaño de la fuente en puntos (12pt)
-//                   bold: false, // Opcional: texto en negrita
-//                   font: 'Arial' // Fuente Arial
-//                 })
-//               ]
-//             }),
-//             new Paragraph(''),
-//             new Paragraph(''),
-//             new Paragraph( {
-//               children: [
-//              new TextRun({
-//                text: 'Atentamente',
-//                size: 24, // Tamaño de la fuente en puntos (12pt)
-//                bold: false, // Opcional: texto en negrita
-//                font: 'Arial' // Fuente Arial
-//              })
-//              ]
-//           }),
-//             new Paragraph(''),
-//             new Paragraph({
-//               text: 'AAAAAAAAAA',
-//               heading: HeadingLevel.HEADING_2,
-            
-//             }),
-//             new Paragraph( {
-//               children: [
-//              new TextRun({
-//                text: 'Ciudad.',
-//                size: 24, // Tamaño de la fuente en puntos (12pt)
-//                bold: false, // Opcional: texto en negrita
-//                font: 'Arial' // Fuente Arial
-//              })
-//              ]
-//               }),
-
-//           ]
-//         }]
-//       });
-  
-//       Packer.toBlob(doc).then(blob => {
-//         // Descargar el archivo generado
-//         const url = window.URL.createObjectURL(blob);
-//         const a = document.createElement('a');
-//         a.href = url;
-//         a.download = 'generated-document.docx';
-//         a.click();
-//         window.URL.revokeObjectURL(url);
-//         a.remove();
-//       });
-//     }
+ 
 generateWordDocument(item: Analisis): void {
   const doc = new Document({
     sections: [

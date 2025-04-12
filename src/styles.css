@@ -81,6 +81,11 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+.text-muted { color: #6c757d; }
+.text-warning { color: #ffc107; }
+.text-success { color: #28a745; }
+
+
 .centerModal {
     position: absolute;
     left: 50%;

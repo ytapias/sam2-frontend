@@ -1,249 +1,52 @@
 <div class="row">
-    <!-- <div class="col-12">
+  <div class="tabla-container">
+    <h4 class="mb-3">📄 Gacetas disponibles</h4>
+  
     <div class="card">
-            <div class="card-body">
-            
-                <input type="text" 
-                        class ="form-control"
-                        placeholder="Pegar Portapapeles"
-
-                        />
-
-                        <button class="btn btn-secondary" (click)="copiarAlPortapapeles()">Copiar</button>
-
-            </div>
+      <table class="table table-bordered table-hover">
+        <thead class="table-dark sticky-header">
+          <tr>
+            <th>Gaceta</th>
+            <th>País</th>
+            <th>Fecha Publicación</th>
+            <th>Registros</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of Items">
+            <td>{{ item.gaceta }}</td>
+            <td>{{ item.paisrad }}</td>
+            <td>{{ item.fechapub | date: 'yyyy-MM-dd' }}</td>
+            <td>{{ item.registros }}</td>
+            <td>
+              <span class="badge"
+                [ngClass]="{
+                  'bg-secondary': item.estado === 'Pendiente',
+                  'bg-warning': item.estado === 'Procesando',
+                  'bg-success': item.estado === 'Procesado'
+                }"
+              >
+                {{ item.estado }}
+              </span>
+            </td>
+            <td>
+              <button class="btn btn-sm btn-info me-2" (click)="abrirDetalle(item)">
+                <i class="fas fa-eye"></i>
+              </button>
+              <button class="btn btn-sm btn-primary" (click)="analisisGaceta(item)">
+                <i class="fas fa-play"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    </div> -->
+  </div>
+  
 
-
-    <div class="tabla-container">
-
-        <b>G A C E T A S</b>
-        <div class="card">
-            <!-- <table  #tabla class="tablesaw table-bordered table-hover table tablesaw-swipe tablesaw-sortable" data-tablesaw-mode="swipe" data-tablesaw-sortable="" data-tablesaw-sortable-switch="" data-tablesaw-minimap="" data-tablesaw-mode-switch="" id="table-8849" style=""> -->
-           
-                <table class="table color-bordered-table inverse-bordered-table table-hover">
-    
-        
-                <thead>
-                    <tr style="color:aliceblue">
-                        <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="persist" class="tablesaw-cell-persist tablesaw-sortable-head" data-sortable-numeric="false">
-                             Gaceta 
-                        </th>
-                      
-                 
-                        <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-sortable-default-col="" data-tablesaw-priority="3" class="tablesaw-sortable-head tablesaw-sortable-ascending" data-sortable-numeric="">
-                             Pais Rad 
-                        </th>
-                        <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-sortable-default-col="" data-tablesaw-priority="3" class="tablesaw-sortable-head tablesaw-sortable-ascending" data-sortable-numeric="">
-                             Fecha Publicacion 
-                        </th>
-                        <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="2" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="">
-                             Registros 
-                        </th>
-                        <th scope="col" data-tablesaw-sortable-col="" data-tablesaw-priority="2" class="tablesaw-sortable-head tablesaw-cell-hidden" data-sortable-numeric="">
-                            Acciones 
-                       </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                        <tr *ngFor="let item of Items" >
-                            
-                         <td class="title tablesaw-cell-persist">  {{ item.gaceta}}</td>
-                        <td>  {{ item.paisrad}}</td>
-                        <td>  {{ item.fechapub}}</td>
-                        <td >  {{ item.registros}}</td>
-                        <td > 
-                            <a (click)="abrirDetalle(item)"
-                            class="cursor"
-                             data-toggle="tooltip" data-original-title="Detalle"> 
-                            <i class="fas fa-eye text-inverse m-r-10">
-                            </i> </a>  
-                            
-                            <a (click)="analisisGaceta(item)"
-                            class="cursor"
-                             data-toggle="tooltip" data-original-title="Analizar"> 
-                            <i class="fas fa-play text-inverse m-r-10">
-                            </i> </a>  
-
-                        </td>
-
-                    </tr>
-                    
-                 
-                </tbody>
-            </table>
-        </div>
-
-
-    </div>
-</div> 
-
-
-<div class="col-12">
-    <div class="card">
-        <div class="card-body">
-            <h4 class="card-title">Total registros (
-                <!-- {{ totalTipos }} -->
-            )
-                
-            </h4>
-            <div class="row">
-
-                <div class="col-6">
-                    <h6 class="card-subtitle">Detalle en la DB  -- Pagina
-                         <!-- {{paginaActual}} de {{paginasTotales}} -->
-                        
-                        </h6>
-
-                </div>
-                <div class="col-md-6 d-flex justify-content-end">
-                    <div  >
-                        <!-- <button class="btn btn-warning" (click)="abrirCrear()"> + </button> -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <!-- <table class="table color-bordered-table inverse-bordered-table table-hover ">
-
-
-                    <thead>
-                        <tr>
-                          <th></th>
-                          <th class="w80">Gaceta</th>
-                          <th class="w120">Resultado</th>
-                          <th class="w80">idresultado</th>
-                            <th class="w80">Cadena Marca</th>
-                            <th class="w80">Cadena Gaceta</th>
-                          
-                            <th class="w60">idempresa</th>                       
-                            <th class="w60">idmarca</th>
-                            <th class="w60">idgaceta</th>                           
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let nitem of ItemsAnalisis">
-                            <td >
-
-                                <a  (click)="generateWordDocument(nitem)"
-                                class="cursor"   
-                                 data-toggle="tooltip" data-original-title="Editar"> 
-                                <i class="fas fa-file-word-o text-inverse m-r-10">
-                                </i> </a>
-
-                            </td>
-                             
-                             
-                         
-
-
-                              
-                             
-                             <td>{{ nitem.Gaceta }}</td>                            
-                             <td>{{ nitem.Resultadoglobal }}</td>
-                             <td>{{ nitem.resultado }}</td>       
-                             
-                           
-                            <td>{{ nitem.Cadena2marca}}</td>
-                            <td>{{ nitem.Cadena1gaceta }}</td>
-
-                         
-                            <td>
-                                {{ nitem.idempresa }} 
-                            </td>
-                            <td>{{ nitem.idmarca }}</td>
-                            <td>{{ nitem.idgaceta }}</td>
-                     
-                        </tr>
-                     
-                    </tbody>
-                </table> -->
-
-
-                <table class="table color-bordered-table inverse-bordered-table table-hover">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th class="w80">
-                          Gaceta
-                          <input type="text" class="form-control" [(ngModel)]="filters.Gaceta" placeholder="Filtrar Gaceta">
-                        </th>
-                        <th class="w120">
-                          Resultado
-                          <input type="text" class="form-control" [(ngModel)]="filters.Resultadoglobal" placeholder="Filtrar Resultado">
-                        </th>
-                        <th class="w80">
-                          idresultado
-                          <input type="text" class="form-control" [(ngModel)]="filters.resultado" placeholder="Filtrar idresultado">
-                        </th>
-                        <th class="w80">
-                          Cadena Marca
-                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena2marca" placeholder="Filtrar Cadena Marca">
-                        </th>
-                        <th class="w80">
-                          Cadena Gaceta
-                          <input type="text" class="form-control" [(ngModel)]="filters.Cadena1gaceta" placeholder="Filtrar Cadena Gaceta">
-                        </th>
-                        <th class="w60">
-                          idempresa
-                          <input type="text" class="form-control" [(ngModel)]="filters.idempresa" placeholder="Filtrar idempresa">
-                        </th>
-                        <th class="w60">
-                          idmarca
-                          <input type="text" class="form-control" [(ngModel)]="filters.idmarca" placeholder="Filtrar idmarca">
-                        </th>
-                        <th class="w60">
-                          idgaceta
-                          <input type="text" class="form-control" [(ngModel)]="filters.idgaceta" placeholder="Filtrar idgaceta">
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let nitem of filteredItems()">
-                        <td>
-                          <a (click)="generateWordDocument(nitem)" class="cursor" data-toggle="tooltip" data-original-title="Editar">
-                            <i class="fas fa-file-word-o text-inverse m-r-10"></i>
-                          </a>
-                        </td>
-                        <td>{{ nitem.Gaceta }}</td>
-                        <td>{{ nitem.Resultadoglobal }}</td>
-                        <td>{{ nitem.resultado }}</td>
-                        <td>{{ nitem.Cadena2marca }}</td>
-                        <td>{{ nitem.Cadena1gaceta }}</td>
-                        <td>{{ nitem.idempresa }}</td>
-                        <td>{{ nitem.idmarca }}</td>
-                        <td>{{ nitem.idgaceta }}</td>
-                      </tr>
-                    </tbody>
-                  </table>  
-                
-                    <div>
-                        <!-- <button  (click)="cambiarPagina(-1)" class="btn btn-secondary">Anterior</button>
-                        &nbsp;
-                        <button  (click)="cambiarPagina(1)" class="btn btn-secondary">Siguiente</button> -->
-                        &nbsp;
-                        VER :
-                       <!-- <input type="text" [(ngModel)]="limite" 
-                        placeholder="Limite"
-                        max="200"
-                        style="width: 40px;" 
-                            />
-                    -->        
-                            <!-- <select [(ngModel)]="limite"  (ngModelChange)="cambiarLimite()">
-                                <option *ngFor="let i of range(10, 100, 10)" [value]="i">{{ i }}</option>
-                              </select> -->
-
-                    </div>
-                
-    
-            </div>
-            <div>
-              <!-- LOG:{{ Logs }} -->
-            </div>
-        </div>
-    </div>
+   
 </div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

@@ -95,34 +95,11 @@ export class CargarComponent {
 
     reader.readAsBinaryString(file);
 
-    // Swal.fire(
-    //   'Cargar GAceta!',
-    //   `La gaceta fue cargada con exito.`,
-    //   'success'
-    // );
+ 
 
   }
 
-//   uploadData(data: string) 
-//   {
-//     // Servicio HTTP para enviar los datos al backend
-//   //  console.log (data);
-//   this.servicio.cargar("gacetas",data )
-//   .subscribe(resp =>
-//     {
-//       this.Logs = JSON.stringify(resp);
-// //this.cargar();
-//       Swal.fire(
-//         'Cargado!',
-//         `El cargue   fue Exitoso .`,
-//         'success'
-//       );
 
-//     });
-
-
-    
-//   }
 
 uploadData(data: string): void {
   // Llamas a la función del servicio, la cual devuelve un Observable

@@ -23,7 +23,7 @@ export class SidebarService {
         { titulo:'Registro',url:'registro', roles: [222, 223]},
         // { titulo:'Consultas',url:'consultas'},    
         { titulo:'Gestiones',url:'gestiones', roles: [222, 223]},
-        { titulo:'Opocisiones',url:'demandas', roles: [222, 223]},
+        { titulo:'Oposiciones',url:'demandas', roles: [222, 223]},
         
         { titulo:'Marcas',url:'marcas', roles: [222, 223]},
         { titulo:'Personas',url:'personas', roles: [222, 223]},

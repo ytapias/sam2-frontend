@@ -122,6 +122,16 @@ export class AnalisisComponent {
     console.log("Seleccionados:", this.seleccionados); // Para verificar en consola
 }
 
+resetearPais() {
+  this.paisSeleccionado = false;
+  this.codigoPaisSeleccionado = '';
+  this.gacetaSeleccionada = null;
+  this.marcasEnGaceta = [];
+  this.marcaSeleccionada = null;
+  this.marcasSimilares = [];
+}
+
+
 // ✅ Función que se ejecuta al hacer clic en el botón
 procesarSeleccionados() {
     console.log("Marcas seleccionadas:", this.seleccionados);
